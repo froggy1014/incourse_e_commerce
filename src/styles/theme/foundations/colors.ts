@@ -92,14 +92,38 @@ const mode = {
   dark: Dark,
 };
 
+const Point = {
+  primary: '#FFAB2E',
+  secondary: '#FFFCEF',
+};
+
+const Alert = {
+  warning: '#FF6060',
+  sub_warning: '#FFE3E6',
+  success: '#FF710B',
+  sub_success: '#CFE8FF',
+};
+
+const Commerse = {
+  commerse: {
+    500: '#FF710B',
+    400: '#FFAB2E',
+    300: '#ffe8d7',
+    200: '#FFF3E0',
+  },
+};
+
 const colors = {
   ...Light,
   ...Brand,
+  ...Commerse,
+  ...Alert,
+  ...Point,
   dim: {
     ...Dim,
   },
 };
 
-export { mode, Brand, Light, Dark, Dim };
+export { mode, Brand, Light, Dark, Dim, Commerse, Point, Alert };
 
 export default colors;
