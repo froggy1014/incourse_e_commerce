@@ -39,7 +39,7 @@ const LoginPage = () => {
         position="absolute"
         bottom="0"
       >
-        <Logo />
+        <Logo size="lg" />
         <SocialButton key={social.social} data={social} size={'md'} />
       </Flex>
     </Container>
