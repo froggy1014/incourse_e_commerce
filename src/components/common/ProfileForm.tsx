@@ -6,6 +6,7 @@ import { Box, Heading, Input, Select, Stack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import AgreementCheck from './AgreementCheck';
 import FormHelper from './FormHelper';
 
 const ProfileSchema = yup.object().shape({
@@ -139,6 +140,13 @@ const ProfileForm = () => {
               <option value="50">50대 이상</option>
             </Select>
           </FormHelper>
+        </Stack>
+
+        <Stack spacing="9" mt="80px">
+          <Heading as="h4" fontSize="md">
+            추가정보입력(선택)
+          </Heading>
+          <AgreementCheck />
         </Stack>
         <Input type="submit" mt="50px" />
       </Box>
