@@ -4,6 +4,7 @@ const Light = {
   primary: getColorSchema('#4850FF'),
   secondary: getColorSchema('#7B61FF'),
   warning: getColorSchema('#FF6060'),
+  sub_warning: getColorSchema('#FFE3E6'),
   success: getColorSchema('#4850FF'),
   gray: {
     50: '#FAFAFA',
@@ -31,6 +32,7 @@ const Dark = {
   primary: getColorSchema('#485BFF'),
   secondary: getColorSchema('#755AFF'),
   warning: getColorSchema('#FF6060'),
+  sub_warning: getColorSchema('#FFE3E6'),
   success: getColorSchema('#4850FF'),
   gray: {
     50: '#292A2E',
@@ -97,13 +99,6 @@ const Point = {
   secondary: '#FFFCEF',
 };
 
-const Alert = {
-  warning: '#FF6060',
-  sub_warning: '#FFE3E6',
-  success: '#FF710B',
-  sub_success: '#CFE8FF',
-};
-
 const Commerse = {
   commerse: {
     500: '#FF710B',
@@ -117,13 +112,12 @@ const colors = {
   ...Light,
   ...Brand,
   ...Commerse,
-  ...Alert,
   ...Point,
   dim: {
     ...Dim,
   },
 };
 
-export { mode, Brand, Light, Dark, Dim, Commerse, Point, Alert };
+export { mode, Brand, Light, Dark, Dim, Commerse, Point };
 
 export default colors;
