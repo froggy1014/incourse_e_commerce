@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 
 import * as yup from 'yup';
 
-import { Box, Input, Stack } from '@chakra-ui/react';
+import { Box, Heading, Input, Select, Stack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -35,6 +35,8 @@ const ProfileSchema = yup.object().shape({
     .string()
     .required('이메일을 넣어주세요')
     .email('잘못된 이메일주소 형식입니다. 이메일주소를 정확하게 입력해주세요.'),
+  gender: yup.string().required('성별을 꼭 선택해주세요.'),
+  ages: yup.string().required('연령대를 꼭 선택해주세요'),
 });
 
 const ProfileForm = () => {
@@ -104,6 +106,40 @@ const ProfileForm = () => {
           </FormHelper>
         </Stack>
 
+        <Stack spacing="9" mt="80px">
+          <Heading as="h4" fontSize="md">
+            추가정보입력(선택)
+          </Heading>
+          <FormHelper mb="40px" label="성별" errorText={errors.gender?.message}>
+            <Select
+              {...register('gender')}
+              focusBorderColor="gray.500"
+              placeholder="성별을 선택하세요."
+              errorBorderColor="warning.500"
+              variant="flushed"
+            >
+              <option value="male" color="black">
+                남자
+              </option>
+              <option value="female">여자</option>
+            </Select>
+          </FormHelper>
+          <FormHelper mb="40px" label="연령대" errorText={errors.ages?.message}>
+            <Select
+              {...register('ages')}
+              focusBorderColor="gray.500"
+              placeholder="연령대를 선택하세요."
+              errorBorderColor="warning.500"
+              variant="flushed"
+            >
+              <option value="10">10대</option>
+              <option value="20">20대</option>
+              <option value="30">30대</option>
+              <option value="40">40대</option>
+              <option value="50">50대 이상</option>
+            </Select>
+          </FormHelper>
+        </Stack>
         <Input type="submit" mt="50px" />
       </Box>
     </>
