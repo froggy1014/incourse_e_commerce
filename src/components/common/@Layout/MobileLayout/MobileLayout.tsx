@@ -21,7 +21,7 @@ const MobileLayout = ({
   content,
 }: MobileLayoutProps) => {
   return (
-    <Container w="375px" h="100vh" border="1px black solid">
+    <Container w="375px" h="auto" border="1px black solid">
       {header ? <SignupHeader /> : <h1>Header</h1>}
       {/* <Container pt={LAYOUT.HEADER.HEIGHT} {...containerProps}> */}
       {content}
