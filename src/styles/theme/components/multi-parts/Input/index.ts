@@ -25,5 +25,7 @@ export const Input: InputThemeType = {
   defaultProps: {
     size: 'md',
     variant: 'outline',
+    focusBorderColor: 'Black',
+    errorBorderColor: 'warning.500',
   },
 };

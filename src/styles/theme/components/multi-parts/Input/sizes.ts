@@ -6,22 +6,22 @@ const size: Record<string, CSSObject> = {
   lg: {
     fontSize: 'lg',
     px: 4,
-    h: '54px',
+    h: '40px',
   },
   md: {
     fontSize: 'md',
     px: 4,
-    h: '54px',
+    h: '40px',
   },
   sm: {
     fontSize: 'sm',
     px: 3,
-    h: '54px',
+    h: '40px',
   },
   xs: {
     fontSize: 'xs',
     px: 2,
-    h: '54px',
+    h: '40px',
   },
 };
 
