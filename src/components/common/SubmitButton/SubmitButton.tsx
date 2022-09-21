@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button } from '@chakra-ui/react';
 
 interface SubmitButtonType {
@@ -23,6 +21,7 @@ const SubmitButton = (props: SubmitButtonType) => {
   return (
     <>
       <Button
+        type="submit"
         mb={mb}
         mt={mt}
         w={w}

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import * as yup from 'yup';
@@ -42,7 +43,7 @@ const ProfileSchema = yup.object().shape({
 });
 
 const ProfileForm = () => {
-  const test = true;
+  const [check, setCheck] = useState<string[]>([]);
 
   const {
     register,
@@ -149,10 +150,13 @@ const ProfileForm = () => {
           <Heading as="h4" fontSize="md">
             이용약관동의
           </Heading>
-          <AgreementCheck />
+          <AgreementCheck setCheck={setCheck} check={check} />
         </Stack>
 
-        <SubmitButton title="회원가입 완료" />
+        <SubmitButton
+          title="회원가입 완료"
+          isDisabled={check.length !== 3 ? true : false}
+        />
       </Box>
     </>
   );
