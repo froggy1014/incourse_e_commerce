@@ -5,7 +5,6 @@ export const PassIcon = (props: IconProps) => (
     <path
       fill="white"
       d="M5.84302 11.3302L10.532 17.2472L17.465 7.51025"
-      stroke="#CBCED6"
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
