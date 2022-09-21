@@ -6,8 +6,8 @@ import { Box, Heading, Input, Select, Stack } from '@chakra-ui/react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import FormHelper from '../FormHelper';
 import AgreementCheck from './AgreementCheck';
-import FormHelper from './FormHelper';
 
 const ProfileSchema = yup.object().shape({
   name: yup

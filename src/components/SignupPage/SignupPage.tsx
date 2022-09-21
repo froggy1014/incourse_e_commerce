@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Flex, Heading } from '@chakra-ui/react';
 
-import ProfileForm from '../common/ProfileForm';
+import ProfileForm from '../common/ProfileForm/ProfileForm';
 
 import { ProfileIcon } from 'generated/icons/ProfileIcon';
 

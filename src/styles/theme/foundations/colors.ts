@@ -4,7 +4,7 @@ const Light = {
   primary: getColorSchema('#4850FF'),
   secondary: getColorSchema('#7B61FF'),
   warning: getColorSchema('#FF6060'),
-  sub_warning: getColorSchema('#FFE3E6'),
+  sub_warning: '#FFE3E6',
   success: getColorSchema('#4850FF'),
   gray: {
     50: '#FAFAFA',
@@ -32,7 +32,7 @@ const Dark = {
   primary: getColorSchema('#485BFF'),
   secondary: getColorSchema('#755AFF'),
   warning: getColorSchema('#FF6060'),
-  sub_warning: getColorSchema('#FFE3E6'),
+  sub_warning: '#FFE3E6',
   success: getColorSchema('#4850FF'),
   gray: {
     50: '#292A2E',
