@@ -101,6 +101,7 @@ const Point = {
 
 const Commerse = {
   commerse: {
+    600: '#d55900',
     500: '#FF710B',
     400: '#FFAB2E',
     300: '#ffe8d7',

@@ -7,6 +7,7 @@ import { Box, Heading, Input, Select, Stack } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import FormHelper from '../FormHelper';
+import SubmitButton from '../SubmitButton/SubmitButton';
 import AgreementCheck from './AgreementCheck';
 
 const ProfileSchema = yup.object().shape({
@@ -41,6 +42,8 @@ const ProfileSchema = yup.object().shape({
 });
 
 const ProfileForm = () => {
+  const test = true;
+
   const {
     register,
     handleSubmit,
@@ -149,7 +152,7 @@ const ProfileForm = () => {
           <AgreementCheck />
         </Stack>
 
-        <Input type="submit" mt="50px" />
+        <SubmitButton title="회원가입 완료" />
       </Box>
     </>
   );
