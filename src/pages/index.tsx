@@ -12,7 +12,7 @@ function Home() {
 
   // For: Redirect To Starter Docs Page (나중에 꼭 지워주세요)
   React.useEffect(() => {
-    router.push(ROUTES.LOGIN);
+    router.push(ROUTES.MAIN);
   }, [router]);
 
   return (
