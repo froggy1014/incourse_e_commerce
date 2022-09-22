@@ -2,7 +2,7 @@ import { Icon, IconProps } from '@chakra-ui/react';
 
 const ExitIcon = ({ ...props }: IconProps) => {
   return (
-    <Icon viewBox="0 0 24 24" fill="none" {...props}>
+    <Icon w="6" h="6" viewBox="0 0 24 24" fill="none" {...props}>
       <path
         d="M16.3136 8.0625L20.2501 12L16.3136 15.9375"
         stroke="currentColor"

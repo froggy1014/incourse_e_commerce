@@ -15,13 +15,7 @@ const MobileLayout = ({
   content,
 }: MobileLayoutProps) => {
   return (
-    <Container
-      w="375px"
-      h="auto"
-      centerContent
-      border="1px black solid"
-      bg="beige"
-    >
+    <Container w="375px" h="auto" centerContent>
       {header ? header : null}
       {/* <Container pt={LAYOUT.HEADER.HEIGHT} {...containerProps}> */}
       {content}

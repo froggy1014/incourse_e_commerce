@@ -1,19 +1,21 @@
 import {
   Button,
+  Divider,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
   DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
   Flex,
   IconButton,
-  Input,
+  Text,
+  VStack,
   useDisclosure,
 } from '@chakra-ui/react';
 
 import CartIcon from '@components/common/@Icons/System/Cart';
+import ExitIcon from '@components/common/@Icons/System/Exit';
 import MenuIcon from '@components/common/@Icons/System/Menu';
 
 import Logo from 'generated/icons/Logo';
@@ -40,19 +42,28 @@ const MainHeader = () => {
       </Flex>
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent w="313px" maxW="313px">
-          <DrawerCloseButton />
-          <DrawerHeader>카테고리</DrawerHeader>
-
-          <DrawerBody>
-            <Input placeholder="Type here..." />
+        <DrawerContent w="313px" maxW="313px" fontSize="20px">
+          <DrawerCloseButton mt="2" />
+          <DrawerBody py="0">
+            <VStack
+              mt="80px"
+              divider={<Divider />}
+              spacing="4"
+              align="start"
+              fontWeight="bold"
+            >
+              <Text>카테고리</Text>
+              <Text fontSize="16px">홈</Text>
+              <Text fontSize="16px">상품보기</Text>
+              <Text fontSize="16px">마이페이지</Text>
+            </VStack>
+            <Divider mt="4" />
           </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
+          <DrawerFooter display="block" px="0">
+            <Button bg="transparent" fontSize="20">
+              <ExitIcon />
+              <Text ml="5px">로그아웃</Text>
             </Button>
-            <Button colorScheme="blue">Save</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
