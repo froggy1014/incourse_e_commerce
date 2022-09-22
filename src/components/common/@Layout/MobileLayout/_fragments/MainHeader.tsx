@@ -39,6 +39,7 @@ const MainHeader = ({ px = '0px' }: MainHeaderType) => {
         boxSizing="border-box"
         maxW="375px"
         px={`${px}`}
+        zIndex="2"
       >
         <IconButton
           onClick={onOpen}
