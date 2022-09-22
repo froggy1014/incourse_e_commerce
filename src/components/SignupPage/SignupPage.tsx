@@ -9,7 +9,7 @@ import { ProfileIcon } from 'generated/icons/ProfileIcon';
 const SignupPage = () => {
   return (
     <>
-      <Heading as="h3" fontSize="26px">
+      <Heading as="h3" fontSize="26px" width="100%">
         회원가입
       </Heading>
       <Box w="343px" h="auto" mt="60px">

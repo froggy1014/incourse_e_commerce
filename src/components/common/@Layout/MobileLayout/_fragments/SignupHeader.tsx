@@ -6,7 +6,7 @@ import Logo from 'generated/icons/Logo';
 
 const SignupHeader = () => {
   return (
-    <Flex w="215px" h="80px" justify="left" align="center">
+    <Flex w="100%" h="80px" justify="left" align="center">
       <Logo size="sm" />
     </Flex>
   );
