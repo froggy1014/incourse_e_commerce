@@ -20,12 +20,26 @@ import MenuIcon from '@components/common/@Icons/System/Menu';
 
 import Logo from 'generated/icons/Logo';
 
-const MainHeader = () => {
+type MainHeaderType = { px: string };
+
+const MainHeader = ({ px = '0px' }: MainHeaderType) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <>
-      <Flex w="100%" h="80px" justify="space-between" align="center">
+      <Flex
+        w="100%"
+        h="80px"
+        justify="space-between"
+        align="center"
+        position="fixed"
+        top="0"
+        left="50%"
+        transform="translateX(-50%)"
+        boxSizing="border-box"
+        maxW="375px"
+        px={`${px}`}
+      >
         <IconButton
           onClick={onOpen}
           aria-label="MenuIcon"

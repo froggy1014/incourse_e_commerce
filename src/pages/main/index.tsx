@@ -12,11 +12,7 @@ function Main() {
         {/* ex) Your App Name | Page Name */}
         <title>똑똑한 개발자 | main</title>
       </Head>
-      <MobileLayout
-        header={<MainHeader />}
-        content={<MainPage />}
-        footer={<Footer />}
-      />
+      <MobileLayout content={<MainPage />} footer={<Footer />} />
     </>
   );
 }

@@ -1,5 +1,7 @@
 import { Box, Container, ContainerProps } from '@chakra-ui/react';
 
+import { LAYOUT } from '@constants/layout';
+
 interface MobileLayoutProps {
   header?: JSX.Element;
   footer?: JSX.Element;
@@ -16,7 +18,12 @@ const MobileLayout = ({
   return (
     <Container w="375px" h="auto" centerContent>
       {header}
-      <Box as="section" pb="290px" minH="100%" position="relative">
+      <Box
+        as="section"
+        minH="100%"
+        position="relative"
+        pb={footer ? `280px` : '0px'}
+      >
         {content}
       </Box>
       {footer}
