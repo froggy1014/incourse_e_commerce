@@ -1,6 +1,4 @@
-import { Container, ContainerProps } from '@chakra-ui/react';
-
-import SignupHeader from './_fragments/SignupHeader';
+import { Box, Container, ContainerProps } from '@chakra-ui/react';
 
 interface MobileLayoutProps {
   header?: JSX.Element;
@@ -13,14 +11,15 @@ const MobileLayout = ({
   //
   header,
   content,
+  footer,
 }: MobileLayoutProps) => {
   return (
     <Container w="375px" h="auto" centerContent>
-      {header ? header : null}
-      {/* <Container pt={LAYOUT.HEADER.HEIGHT} {...containerProps}> */}
-      {content}
-      {/* </Container> */}
-      {/* {footer} */}
+      {header}
+      <Box as="section" pb="290px" minH="100%" position="relative">
+        {content}
+      </Box>
+      {footer}
     </Container>
   );
 };
