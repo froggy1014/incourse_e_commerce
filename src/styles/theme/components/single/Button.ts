@@ -99,6 +99,7 @@ export const Button: ComponentSingleStyleConfig = {
       borderRadius: '100px',
       bg: 'gray.200',
       mr: '10px',
+      my: '50px',
       px: '15px',
       py: '6px',
       fontWeight: '400',

@@ -7,19 +7,26 @@ import 'slick-carousel/slick/slick.css';
 
 function ButtonCarousel() {
   const settings = {
+    className: 'center',
+    centerPadding: '20px',
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+    slidesToShow: 4,
     variableWidth: true,
     arrows: false,
+    swipeToSlide: true,
+    afterChange: function (index: number) {
+      console.log(
+        `Slider Changed to: ${index + 1}, background: #222; color: #bada55`,
+      );
+    },
   };
   return (
     <>
-      <Box mt="50px">
+      <Box>
         <Slider {...settings}>
-          <Box>
+          <Box mb="26px">
             <Button variant="review">전체</Button>
           </Box>
           <Box>
