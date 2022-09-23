@@ -17,7 +17,7 @@ function SingleCarousel() {
   };
   return (
     <>
-      <Box overflowX="hidden" maxW="375px" h="auto" mt="76px" mb="100px">
+      <Box overflowX="hidden" maxW="375px" h="auto" mb="100px">
         <Slider {...settings}>
           <TestBox title="1"></TestBox>
           <TestBox title="2"></TestBox>

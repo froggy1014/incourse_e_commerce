@@ -9,7 +9,7 @@ const TestBox = (props: TestBoxType) => {
   const title = props.title;
   return (
     <>
-      <Box w="100%" h="300px" bg="beige">
+      <Box w="100%" h="464px" bg="beige">
         {title}
       </Box>
     </>
