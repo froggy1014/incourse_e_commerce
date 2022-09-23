@@ -9,7 +9,7 @@ interface SubmitButtonType {
   isDisabled?: boolean;
 }
 
-const SubmitButton = (props: SubmitButtonType) => {
+export const SubmitButton = (props: SubmitButtonType) => {
   const {
     title,
     bg = 'commerse',
@@ -42,7 +42,3 @@ const SubmitButton = (props: SubmitButtonType) => {
     </>
   );
 };
-
-export default SubmitButton;
-
-// button size 100%

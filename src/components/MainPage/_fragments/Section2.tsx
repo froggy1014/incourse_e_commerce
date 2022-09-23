@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Container, Image } from '@chakra-ui/react';
 
-import SubmitButton from '@components/common/SubmitButton/SubmitButton';
+import { SubmitButton } from '@components/common/index';
 
 const Section2 = () => {
   const handleClick = () => {

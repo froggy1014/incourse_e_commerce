@@ -33,7 +33,7 @@ interface FormHelperProps extends FormControlProps {
  *
  * @see https://chakra-ui.com/docs/components/form/form-control
  * */
-const FormHelper = ({
+export const FormHelper = ({
   //
   helperText,
   errorText,
@@ -80,5 +80,3 @@ const FormHelper = ({
     </FormControl>
   );
 };
-
-export default FormHelper;

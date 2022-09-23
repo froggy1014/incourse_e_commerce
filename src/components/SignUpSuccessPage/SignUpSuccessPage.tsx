@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, ChakraProps, Flex, Heading, Text } from '@chakra-ui/react';
 
-import SubmitButton from '@components/common/SubmitButton/SubmitButton';
+import { SubmitButton } from '@components/common/index';
 
 import { ClapIcon } from '../../generated/icons/ClapIcon';
 
