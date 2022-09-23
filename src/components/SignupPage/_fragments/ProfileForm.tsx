@@ -5,10 +5,10 @@ import * as yup from 'yup';
 
 import { Box, Heading, Input, Select, Stack } from '@chakra-ui/react';
 
+import { FormHelper, SubmitButton } from '@components/common/index';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import FormHelper from '../FormHelper';
-import SubmitButton from '../SubmitButton/SubmitButton';
 import AgreementCheck from './AgreementCheck';
 
 const ProfileSchema = yup.object().shape({
