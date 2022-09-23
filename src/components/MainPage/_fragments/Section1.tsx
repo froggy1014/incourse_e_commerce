@@ -1,4 +1,4 @@
-import { Box, Flex, Image } from '@chakra-ui/react';
+import { Box, Container, Flex, Image } from '@chakra-ui/react';
 
 import ArrowRightIcon from '@components/common/@Icons/System/ArrowRight';
 
@@ -8,7 +8,7 @@ const Section1 = () => {
   };
 
   return (
-    <Box position="relative">
+    <Container centerContent>
       <Image
         objectFit="cover"
         src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcHIirp%2FbtrMORa18KH%2FirkKcoyk9vqK4OdCstIjH0%2Fimg.png"
@@ -29,7 +29,7 @@ const Section1 = () => {
       >
         이벤트상세보기 <ArrowRightIcon />
       </Flex>
-    </Box>
+    </Container>
   );
 };
 
