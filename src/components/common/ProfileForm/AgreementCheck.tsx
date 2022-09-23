@@ -58,7 +58,7 @@ const AgreementCheck = ({ setCheck, check }: AgreementType) => {
         >
           <a
             target="_blank"
-            href="https://toktokhan.notion.site/FE-7cef12733dc44a62aa2e036362eed4d6"
+            href="https://toktokhan.notion.site/6e7a309e8d14464cad38fc86656d564a"
             rel="noopener noreferrer"
           >
             <Text as="u" color="gray.600" fontWeight="400" fontSize="12px">
@@ -79,7 +79,7 @@ const AgreementCheck = ({ setCheck, check }: AgreementType) => {
         >
           <a
             target="_blank"
-            href="https://toktokhan.notion.site/FE-7cef12733dc44a62aa2e036362eed4d6"
+            href="https://toktokhan.notion.site/3-2261ee2f25024c0a9b6a82a6f43fd0dc"
             rel="noopener noreferrer"
           >
             <Text as="u" color="gray.600" fontWeight="400" fontSize="12px">
@@ -100,7 +100,7 @@ const AgreementCheck = ({ setCheck, check }: AgreementType) => {
         >
           <a
             target="_blank"
-            href="https://toktokhan.notion.site/FE-7cef12733dc44a62aa2e036362eed4d6"
+            href="https://toktokhan.notion.site/24f69842ebec48df89a3656bac7cf4c9"
             rel="noopener noreferrer"
           >
             <Text as="u" color="gray.600" fontWeight="400" fontSize="12px">
