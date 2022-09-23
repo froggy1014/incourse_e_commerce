@@ -17,30 +17,32 @@ function ButtonCarousel() {
   };
   return (
     <>
-      <Slider {...settings}>
-        <Box>
-          <Button variant="review">전체</Button>
-        </Box>
-        <Box>
-          <Button variant="review" w="63px">
-            바스&샴푸
-          </Button>
-        </Box>
-        <Box>
-          <Button variant="review">오일</Button>
-        </Box>
-        <Box>
-          <Button variant="review">로션</Button>
-        </Box>
-        <Box>
-          <Button variant="review">크림</Button>
-        </Box>
-        <Box>
-          <Button variant="review" w="83px">
-            파우더 로션
-          </Button>
-        </Box>
-      </Slider>
+      <Box mt="50px">
+        <Slider {...settings}>
+          <Box>
+            <Button variant="review">전체</Button>
+          </Box>
+          <Box>
+            <Button variant="review" w="63px">
+              바스&샴푸
+            </Button>
+          </Box>
+          <Box>
+            <Button variant="review">오일</Button>
+          </Box>
+          <Box>
+            <Button variant="review">로션</Button>
+          </Box>
+          <Box>
+            <Button variant="review">크림</Button>
+          </Box>
+          <Box>
+            <Button variant="review" w="83px">
+              파우더 로션
+            </Button>
+          </Box>
+        </Slider>
+      </Box>
     </>
   );
 }
