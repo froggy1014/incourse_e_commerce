@@ -95,6 +95,15 @@ export const Button: ComponentSingleStyleConfig = {
   },
   variants: {
     solid: variantSolid,
+    review: {
+      borderRadius: '100px',
+      bg: 'gray.200',
+      mr: '10px',
+      px: '15px',
+      py: '6px',
+      fontWeight: '400',
+      boxSize: 'border-box',
+    },
   },
   sizes: {
     lg: {
