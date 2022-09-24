@@ -20,9 +20,9 @@ import MenuIcon from '@components/common/@Icons/System/Menu';
 
 import Logo from 'generated/icons/Logo';
 
-type MainHeaderType = { px: string };
+type MainHeaderType = { px?: string };
 
-const MainHeader = ({ px = '0px' }: MainHeaderType) => {
+const MainHeader = ({ px }: MainHeaderType) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
@@ -38,7 +38,7 @@ const MainHeader = ({ px = '0px' }: MainHeaderType) => {
         transform="translateX(-50%)"
         boxSizing="border-box"
         maxW="375px"
-        px={`${px}`}
+        px={`${px} | '0px' `}
         zIndex="99"
       >
         <IconButton
