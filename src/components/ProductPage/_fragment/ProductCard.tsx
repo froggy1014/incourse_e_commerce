@@ -14,43 +14,58 @@ import { SubmitButton } from '@components/common';
 
 import { RatingIcon } from 'generated/icons/RatingIcon';
 
-const ProductCard = () => {
+interface productInfo {
+  product: {
+    id: number;
+    imgurl: string;
+    name: string;
+    volume: number;
+    price: number;
+    rating: number;
+    review: number;
+    hash_tag: string[];
+  };
+}
+
+const ProductCard = (props: productInfo) => {
+  const { id, imgurl, name, volume, price, rating, review, hash_tag } =
+    props.product;
   return (
     <Box
       w="100%"
       h="528px"
+      mt="30px"
       rounded="20px"
       boxShadow="0px 0px 10px 0px #1A1A1A1A"
     >
-      <Image
-        objectFit="cover"
-        src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdNvtmQ%2FbtrMVG0Mmfq%2FFt80eqvk8rOyqvlFmacn00%2Fimg.png"
-        alt="product1"
-      />
+      <Image objectFit="cover" src={imgurl} alt="product1" />
       <Box w="310px" h="278px" mx="16px">
         <Flex direction="column" w="100%" h="100%" justify="space-between">
           <HStack mt="30px" spacing="1" ml="15px">
-            <Text variant="bold16">바스&샴푸</Text>
-            <Text variant="normal16gray">300ml</Text>
+            <Text variant="bold16">{name}</Text>
+            <Text variant="normal16gray">{volume}ml</Text>
           </HStack>
           <VStack spacing="1" align="start" mb="10px" ml="15px">
             <HStack spacing="0">
               <Text variant="bold16" color="commerse.500">
-                27,000
+                {price}
               </Text>
               <Text variant="normal16">원</Text>
             </HStack>
             <HStack spacing="1">
               <RatingIcon />
-              <Text variant="bold16">4.3</Text>
-              <Text variant="normal16gray">(리뷰 125개)</Text>
+              <Text variant="bold16">{rating}</Text>
+              <Text variant="normal16gray">(리뷰 {review}개)</Text>
             </HStack>
           </VStack>
-          <HStack justify="center" spacing="3">
-            <Text variant="normal16gray"># 올인원</Text>
-            <Text variant="normal16gray"># 클렌져</Text>
-            <Text variant="normal16gray"># 마일드</Text>
-            <Text variant="normal16gray"># 바스앤샴푸</Text>
+          <HStack justify="center" spacing="2">
+            {hash_tag.map((tag, i) => {
+              return (
+                <Text key={i} variant="normal16gray">
+                  # {tag}
+                </Text>
+              );
+            })}
           </HStack>
           <Flex justify="space-between">
             <SubmitButton
