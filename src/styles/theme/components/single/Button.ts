@@ -105,6 +105,26 @@ export const Button: ComponentSingleStyleConfig = {
       fontWeight: '400',
       boxSize: 'border-box',
     },
+    smbtncommerse: {
+      w: '150px',
+      h: '50px',
+      bg: 'commerse.500',
+      mb: '30px',
+      color: 'white',
+      _hover: {
+        bg: 'commerse.600',
+      },
+    },
+    smbtnwhite: {
+      w: '150px',
+      h: '50px',
+      bg: 'white',
+      mb: '30px',
+      color: 'commerse.500',
+      _hover: {
+        bg: 'gray.100',
+      },
+    },
   },
   sizes: {
     lg: {
