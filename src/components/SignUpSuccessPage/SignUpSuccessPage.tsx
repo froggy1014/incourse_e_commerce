@@ -20,12 +20,11 @@ function SignUpSuccessPage({ ...basisProps }: SignUpSuccessPageProps) {
         as="form"
         direction="column"
         align="center"
-        mt="height"
         h="100vh"
-        justify="space-between"
+        justify="space-evenly"
         onSubmit={handleSubit}
       >
-        <Box w="100%" mt="80px">
+        <Box w="100%">
           <Heading fontSize="26px">회원가입이</Heading>
           <Heading fontSize="26px">완료되었습니다.</Heading>
           <Text fontSize="14px" color="gray.600">
@@ -33,7 +32,12 @@ function SignUpSuccessPage({ ...basisProps }: SignUpSuccessPageProps) {
           </Text>
         </Box>
         <ClapIcon w="216px" h="216px" fill="white" mt="100px" />
-        <SubmitButton title="시작하기" variant="btncommerse" sizes="btnlg" />
+        <SubmitButton
+          title="시작하기"
+          variant="btncommerse"
+          sizes="btnlg"
+          mb="0"
+        />
       </Flex>
     </>
   );
