@@ -6,11 +6,12 @@ import { SubmitButton } from '@components/common';
 
 import { RatingIcon } from 'generated/icons/RatingIcon';
 
+type Purchase = [string, number, string];
 interface productInfo {
-  setPrice: Dispatch<SetStateAction<number>>;
+  setPurchase: Dispatch<SetStateAction<Purchase>>;
   onOpen: () => void;
   product: {
-    id: number;
+    id: string;
     imgurl: string;
     name: string;
     volume: number;
@@ -21,12 +22,12 @@ interface productInfo {
   };
 }
 
-const ProductCard = ({ onOpen, setPrice, ...props }: productInfo) => {
+const ProductCard = ({ onOpen, setPurchase, ...props }: productInfo) => {
   const { id, imgurl, name, volume, price, rating, review, hash_tag } =
     props.product;
 
   const handleClick = () => {
-    setPrice(price);
+    setPurchase([name, price, id]);
     onOpen();
   };
 

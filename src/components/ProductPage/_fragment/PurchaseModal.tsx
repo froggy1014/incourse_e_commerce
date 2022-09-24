@@ -1,69 +1,133 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-  Button,
+  Box,
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerFooter,
   DrawerOverlay,
   DrawerProps,
+  Flex,
   HStack,
   Text,
   VStack,
 } from '@chakra-ui/react';
 
+import { SubmitButton } from '@components/common';
+
+import { SplitNum } from '@utils/calculate/splitNum';
+
+import { QtyMinusIcon } from 'generated/icons/QtyMinusIcon';
+import { QtyPlusIcon } from 'generated/icons/QtyPlusIcon';
+
 interface PurchaseInfo {
-  price: number;
+  purchase: [name: string, price: number, id: string];
 }
 
 interface DrawerExampleProps extends DrawerProps {}
 interface DrawerExampleProps extends PurchaseInfo {}
 
 function PurchaseModal(props: Omit<DrawerExampleProps, 'children'>) {
+  const [name, productPrice, id] = props.purchase;
+
   const [state, setState] = useState({
     count: 1,
     price: 0,
   });
 
+  const minusFunc = () => {
+    if (state.count !== 1) {
+      setState((state) => {
+        return { count: state.count - 1, price: state.price - productPrice };
+      });
+    }
+  };
+
+  const handleCart = () => {
+    console.log(state, id);
+  };
+
   useEffect(() => {
-    setState((state) => {
-      return { ...state, price: props.price };
+    setState(() => {
+      return { count: 1, price: productPrice };
     });
-  }, [props.price]);
+  }, [productPrice]);
 
   return (
-    <Drawer placement="bottom" {...props}>
-      <DrawerOverlay />
-      <DrawerContent roundedTop="10px">
-        <DrawerBody px="16px" py="20px">
-          <VStack w="100%" h="80px" bg="gray.200">
-            <HStack>바스 & 샴푸</HStack>
-            <HStack>
-              <HStack></HStack>
+    <Box position="relative">
+      <Drawer placement="bottom" {...props}>
+        <DrawerOverlay />
+        <DrawerContent roundedTop="10px">
+          <DrawerBody px="16px" py="20px">
+            <VStack w="100%" h="80px" bg="gray.200" p="10px">
+              <Text w="100%" text-align="left" variant="normal16gray">
+                {name}
+              </Text>
+              <HStack w="100%" justify="space-between">
+                <HStack rounded="5px" spacing="1px">
+                  <Box onClick={() => minusFunc()}>
+                    <QtyMinusIcon />
+                  </Box>
+                  <Text
+                    w="25px"
+                    h="25px"
+                    textAlign="center"
+                    bg="white"
+                    color="gray.800"
+                  >
+                    {state.count}
+                  </Text>
+                  <Box
+                    onClick={() =>
+                      setState((state) => {
+                        return {
+                          count: state.count + 1,
+                          price: state.price + productPrice,
+                        };
+                      })
+                    }
+                  >
+                    <QtyPlusIcon />
+                  </Box>
+                </HStack>
+                <Text variant="bold16gray" color="gray.600">
+                  {SplitNum(state.price)}원
+                </Text>
+              </HStack>
+            </VStack>
+            <HStack justify="space-between">
+              <HStack>
+                <Text variant="normal16">총 수량</Text>
+                <Text variant="bold20commerse">{state.count}</Text>
+                <Text variant="normal16">개</Text>
+              </HStack>
+              <HStack>
+                <Text variant="normal16">합계</Text>
+                <Text variant="bold16">{SplitNum(state.price)}원</Text>
+              </HStack>
             </HStack>
-          </VStack>
-          <HStack justify="space-between">
-            <HStack>
-              <Text variant="normal16">총 수량</Text>
-              <Text variant="bold20commerse">{state.count}</Text>
-              <Text variant="normal16">개</Text>
-            </HStack>
-            <HStack>
-              <Text variant="normal16">합계</Text>
-              <Text variant="bold16">{state.price}원</Text>
-            </HStack>
-          </HStack>
-          <HStack></HStack>
-        </DrawerBody>
-        <DrawerFooter>
-          <Button variant="outline" mr={3} onClick={props.onClose}>
-            Cancel
-          </Button>
-          <Button colorScheme="blue">Save</Button>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+            <Flex justify="space-between">
+              <SubmitButton
+                title="장바구니"
+                variant="btnwhite"
+                sizes="btnsm"
+                w="165px"
+                mb="10px"
+                onClick={() => handleCart()}
+              ></SubmitButton>
+              <SubmitButton
+                title="바로구매"
+                variant="btncommerse"
+                sizes="btnsm"
+                w="165px"
+                mb="10px"
+                onClick={() => handleCart()}
+              ></SubmitButton>
+            </Flex>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </Box>
   );
 }
 
