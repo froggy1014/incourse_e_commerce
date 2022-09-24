@@ -3,7 +3,7 @@ import { Button } from '@chakra-ui/react';
 interface SubmitButtonType {
   variant: string;
   title: string;
-  bg?: string;
+  sizes?: string;
   w?: string;
   mt?: string;
   mb?: string;
@@ -11,20 +11,20 @@ interface SubmitButtonType {
 }
 
 export const SubmitButton = (props: SubmitButtonType) => {
-  const { title, variant, bg, w, isDisabled = false, mt, mb } = props;
+  const { title, variant, isDisabled = false, sizes, mb, w } = props;
   return (
     <>
       <Button
+        w={w}
+        mb={mb}
         type="submit"
         borderRadius="100px"
         border="1px"
-        borderColor="commerse.500"
-        _hover={{
-          borderColor: 'commerse.600',
-          bg: `${bg}.600`,
-        }}
-        isDisabled={isDisabled}
+        fontSize="16px"
+        fontWeight="bold"
         variant={`${variant}`}
+        size={sizes}
+        isDisabled={isDisabled}
       >
         {title}
       </Button>

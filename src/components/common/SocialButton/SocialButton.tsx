@@ -34,7 +34,7 @@ const SocialButton = ({ data, size }: SocialButtonProps) => {
           loading="lazy"
         />
         {size !== 'sm' && (
-          <Text fontSize={['16px', '14px', '15px']}>
+          <Text fontSize={['16px', '14px', '15px']} fontWeight="400">
             {SOCIALS[data.social].text}
           </Text>
         )}

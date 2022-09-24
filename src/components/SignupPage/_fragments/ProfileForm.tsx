@@ -146,7 +146,7 @@ const ProfileForm = () => {
           </FormHelper>
         </Stack>
 
-        <Stack spacing="9" mt="80px">
+        <Stack spacing="9" mt="80px" mb="95px">
           <Heading as="h4" fontSize="md">
             이용약관동의
           </Heading>
@@ -156,7 +156,8 @@ const ProfileForm = () => {
         <SubmitButton
           title="회원가입 완료"
           isDisabled={check.length !== 3 ? true : false}
-          variant="smbtncommerse"
+          variant="btncommerse"
+          sizes="btnlg"
         />
       </Box>
     </>

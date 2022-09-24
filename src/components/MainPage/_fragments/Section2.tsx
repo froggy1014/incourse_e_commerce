@@ -21,11 +21,15 @@ const Section2 = () => {
       <Box
         onClick={handleClick}
         position="absolute"
-        top="170px"
+        top="263px"
         left="50%"
         transform="translateX(-50%)"
       >
-        <SubmitButton title="상품전체보기" variant="smbtncommerse" />
+        <SubmitButton
+          title="상품전체보기"
+          variant="btncommerse"
+          sizes="btnmd"
+        />
       </Box>
     </Container>
   );

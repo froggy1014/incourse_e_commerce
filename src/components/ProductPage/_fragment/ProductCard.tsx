@@ -55,9 +55,14 @@ const ProductCard = () => {
           <Flex justify="space-between">
             <SubmitButton
               title="바로구매"
-              variant="smbtncommerse"
+              variant="btncommerse"
+              sizes="btnsm"
             ></SubmitButton>
-            <SubmitButton title="장바구니" variant="smbtnwhite"></SubmitButton>
+            <SubmitButton
+              title="장바구니"
+              variant="btnwhite"
+              sizes="btnsm"
+            ></SubmitButton>
           </Flex>
         </Flex>
       </Box>

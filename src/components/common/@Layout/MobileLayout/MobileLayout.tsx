@@ -19,6 +19,7 @@ const MobileLayout = ({
     <Container w="375px" h="auto" centerContent>
       {header}
       <Box
+        w="100%"
         minH="100%"
         position="relative"
         pt={header ? `${LAYOUT.HEADER.HEIGHT}` : '0px'}

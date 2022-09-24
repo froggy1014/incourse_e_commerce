@@ -33,7 +33,7 @@ function SignUpSuccessPage({ ...basisProps }: SignUpSuccessPageProps) {
           </Text>
         </Box>
         <ClapIcon w="216px" h="216px" fill="white" mt="100px" />
-        <SubmitButton title="시작하기" variant="smbtncommerse" />
+        <SubmitButton title="시작하기" variant="btncommerse" sizes="btnlg" />
       </Flex>
     </>
   );
