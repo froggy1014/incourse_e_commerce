@@ -105,28 +105,51 @@ export const Button: ComponentSingleStyleConfig = {
       fontWeight: '400',
       boxSize: 'border-box',
     },
-    smbtncommerse: {
-      w: '150px',
-      h: '50px',
+    btncommerse: {
       bg: 'commerse.500',
-      mb: '30px',
       color: 'white',
       _hover: {
-        bg: 'commerse.600',
+        transform: 'scale(1.02)',
+        _disabled: {
+          transform: 'scale(1.00)',
+          bg: 'commerse.500',
+        },
       },
     },
-    smbtnwhite: {
-      w: '150px',
-      h: '50px',
+    btnwhite: {
       bg: 'white',
-      mb: '30px',
       color: 'commerse.500',
       _hover: {
-        bg: 'gray.100',
+        transform: 'scale(1.02)',
+        _disabled: {
+          transform: 'scale(1.00)',
+          bg: 'white',
+        },
       },
     },
   },
   sizes: {
+    btnsm: {
+      w: '150px',
+      h: '50px',
+      fontSize: '16px',
+      fontWeight: 'bold',
+      mb: '30px',
+    },
+    btnmd: {
+      w: '190px',
+      h: '50px',
+      fontSize: '16px',
+      fontWeight: 'bold',
+      mb: '30px',
+    },
+    btnlg: {
+      w: '100%',
+      h: '50px',
+      fontSize: '16px',
+      fontWeight: 'bold',
+      mb: '50px',
+    },
     lg: {
       h: '50px',
       fontSize: ['16px', '14px', '15px'],
