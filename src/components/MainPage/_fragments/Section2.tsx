@@ -25,7 +25,7 @@ const Section2 = () => {
         left="50%"
         transform="translateX(-50%)"
       >
-        <SubmitButton title="상품전체보기" w="190px" />
+        <SubmitButton title="상품전체보기" variant="smbtncommerse" />
       </Box>
     </Container>
   );

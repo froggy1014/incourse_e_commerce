@@ -156,6 +156,7 @@ const ProfileForm = () => {
         <SubmitButton
           title="회원가입 완료"
           isDisabled={check.length !== 3 ? true : false}
+          variant="smbtncommerse"
         />
       </Box>
     </>
