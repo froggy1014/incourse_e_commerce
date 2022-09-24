@@ -8,10 +8,11 @@ interface SubmitButtonType {
   mt?: string;
   mb?: string;
   isDisabled?: boolean;
+  onClick?: () => void;
 }
 
 export const SubmitButton = (props: SubmitButtonType) => {
-  const { title, variant, isDisabled = false, sizes, mb, w } = props;
+  const { title, variant, isDisabled = false, sizes, mb, w, onClick } = props;
   return (
     <>
       <Button
@@ -25,6 +26,7 @@ export const SubmitButton = (props: SubmitButtonType) => {
         variant={`${variant}`}
         size={sizes}
         isDisabled={isDisabled}
+        onClick={onClick}
       >
         {title}
       </Button>

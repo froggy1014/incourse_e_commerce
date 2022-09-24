@@ -1,20 +1,14 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Image,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Flex, HStack, Image, Text, VStack } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common';
 
 import { RatingIcon } from 'generated/icons/RatingIcon';
 
 interface productInfo {
+  setPrice: Dispatch<SetStateAction<number>>;
+  onOpen: () => void;
   product: {
     id: number;
     imgurl: string;
@@ -27,9 +21,15 @@ interface productInfo {
   };
 }
 
-const ProductCard = (props: productInfo) => {
+const ProductCard = ({ onOpen, setPrice, ...props }: productInfo) => {
   const { id, imgurl, name, volume, price, rating, review, hash_tag } =
     props.product;
+
+  const handleClick = () => {
+    setPrice(price);
+    onOpen();
+  };
+
   return (
     <Box
       w="100%"
@@ -72,6 +72,7 @@ const ProductCard = (props: productInfo) => {
               title="바로구매"
               variant="btncommerse"
               sizes="btnsm"
+              onClick={handleClick}
             ></SubmitButton>
             <SubmitButton
               title="장바구니"

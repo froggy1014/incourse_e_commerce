@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Box, ChakraProps } from '@chakra-ui/react';
+import { Box, ChakraProps, useDisclosure } from '@chakra-ui/react';
 
 import ProductCard from './_fragment/ProductCard';
+import PurchaseModal from './_fragment/PurchaseModal';
 
 interface ProductPageProps extends ChakraProps {}
 
@@ -65,12 +66,25 @@ const productInfo = [
 ];
 
 function ProductPage({ ...basisProps }: ProductPageProps) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [price, setPrice] = useState(0);
+
   return (
-    <Box {...basisProps}>
-      {productInfo.map((product) => {
-        return <ProductCard key={product.id} product={product} />;
-      })}
-    </Box>
+    <>
+      <Box {...basisProps}>
+        {productInfo.map((product) => {
+          return (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onOpen={onOpen}
+              setPrice={setPrice}
+            />
+          );
+        })}
+      </Box>
+      <PurchaseModal isOpen={isOpen} onClose={onClose} price={price} />
+    </>
   );
 }
 
