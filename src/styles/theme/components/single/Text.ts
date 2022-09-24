@@ -17,6 +17,11 @@ export const Text: ComponentSingleStyleConfig = {
       fontSize: '20px',
       color: 'black',
     },
+    bold20commerse: {
+      fontWeight: 'bold',
+      fontSize: '20px',
+      color: 'commerse.500',
+    },
     normal12gray: {
       fontWeight: 'normal',
       fontSize: '12px',
