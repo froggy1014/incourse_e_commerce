@@ -76,7 +76,7 @@ function ProductPage({ ...basisProps }: ProductPageProps) {
   console.log(purchase);
   return (
     <>
-      <Box {...basisProps}>
+      <Box mb="80px" {...basisProps}>
         {productInfo.map((product) => {
           return (
             <ProductCard
