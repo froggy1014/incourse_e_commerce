@@ -73,7 +73,6 @@ function ProductPage({ ...basisProps }: ProductPageProps) {
     '',
   ]);
 
-  console.log(purchase);
   return (
     <>
       <Box mb="80px" {...basisProps}>

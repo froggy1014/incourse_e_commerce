@@ -29,7 +29,6 @@ interface DrawerExampleProps extends PurchaseInfo {}
 
 function PurchaseModal(props: Omit<DrawerExampleProps, 'children'>) {
   const [name, productPrice, id] = props.purchase;
-
   const [state, setState] = useState({
     count: 1,
     price: 0,
@@ -48,10 +47,11 @@ function PurchaseModal(props: Omit<DrawerExampleProps, 'children'>) {
   };
 
   useEffect(() => {
+    console.log('reset');
     setState(() => {
       return { count: 1, price: productPrice };
     });
-  }, [productPrice]);
+  }, [props.isOpen]);
 
   return (
     <Box position="relative">
