@@ -32,9 +32,19 @@ export const Text: ComponentSingleStyleConfig = {
       fontSize: '16px',
       color: 'gray.700',
     },
+    normal20gray: {
+      fontWeight: 'normal',
+      fontSize: '20px',
+      color: 'gray.700',
+    },
     normal16: {
       fontWeight: 'normal',
       fontSize: '16px',
+      color: 'black',
+    },
+    normal20: {
+      fontWeight: 'normal',
+      fontSize: '20px',
       color: 'black',
     },
   },
