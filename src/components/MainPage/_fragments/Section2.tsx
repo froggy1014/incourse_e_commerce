@@ -13,7 +13,7 @@ const Section2 = () => {
     <Container position="relative" centerContent>
       <Image
         objectFit="cover"
-        src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F7lF2s%2FbtrMOplutpC%2FWeoKXTipKiRvhNfu30SiK0%2Fimg.png"
+        src="/images/Section2.png"
         alt="page1"
         minW="375px"
         h="auto"

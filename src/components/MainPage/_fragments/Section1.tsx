@@ -11,7 +11,7 @@ const Section1 = () => {
     <Container centerContent position="relative">
       <Image
         objectFit="cover"
-        src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcHIirp%2FbtrMORa18KH%2FirkKcoyk9vqK4OdCstIjH0%2Fimg.png"
+        src="/images/Section1.png"
         alt="page1"
         minW="375px"
         h="auto"
