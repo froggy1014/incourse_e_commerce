@@ -1,3 +1,5 @@
+import { useRouter } from 'next/dist/client/router';
+
 import {
   Button,
   Divider,
@@ -18,13 +20,15 @@ import CartIcon from '@components/common/@Icons/System/Cart';
 import ExitIcon from '@components/common/@Icons/System/Exit';
 import MenuIcon from '@components/common/@Icons/System/Menu';
 
+import { ROUTES } from '@constants/routes';
+
 import Logo from 'generated/icons/Logo';
 
 type MainHeaderType = { px?: string };
 
 const MainHeader = ({ px }: MainHeaderType) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-
+  const router = useRouter();
   return (
     <>
       <Flex
@@ -68,8 +72,12 @@ const MainHeader = ({ px }: MainHeaderType) => {
               fontWeight="bold"
             >
               <Text>카테고리</Text>
-              <Text fontSize="16px">홈</Text>
-              <Text fontSize="16px">상품보기</Text>
+              <Text fontSize="16px" onClick={() => router.push(ROUTES.MAIN)}>
+                홈
+              </Text>
+              <Text fontSize="16px" onClick={() => router.push(ROUTES.PRODUCT)}>
+                상품보기
+              </Text>
               <Text fontSize="16px">마이페이지</Text>
             </VStack>
             <Divider mt="4" />
