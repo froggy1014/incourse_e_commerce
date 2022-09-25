@@ -15,7 +15,7 @@ import {
 
 import { SubmitButton } from '@components/common';
 
-import { SplitNum } from '@utils/calculate/splitNum';
+import { intComma } from '@utils/format';
 
 import { QtyMinusIcon } from 'generated/icons/QtyMinusIcon';
 import { QtyPlusIcon } from 'generated/icons/QtyPlusIcon';
@@ -91,7 +91,7 @@ function PurchaseModal(props: Omit<DrawerExampleProps, 'children'>) {
                   </Box>
                 </HStack>
                 <Text variant="bold16gray" color="gray.600">
-                  {SplitNum(state.price)}원
+                  {intComma(state.price)}원
                 </Text>
               </HStack>
             </VStack>
@@ -103,7 +103,7 @@ function PurchaseModal(props: Omit<DrawerExampleProps, 'children'>) {
               </HStack>
               <HStack>
                 <Text variant="normal16">합계</Text>
-                <Text variant="bold16">{SplitNum(state.price)}원</Text>
+                <Text variant="bold16">{intComma(state.price)}원</Text>
               </HStack>
             </HStack>
             <Flex justify="space-between">
