@@ -127,6 +127,17 @@ export const Button: ComponentSingleStyleConfig = {
         },
       },
     },
+    btntoggle: {
+      bg: 'white',
+      color: 'gray.600',
+      fontWeight: '400',
+      fontSize: '16px',
+      h: 'auto',
+      _checked: {
+        fontWeight: 'bold',
+        color: 'commerse.500',
+      },
+    },
   },
   sizes: {
     btnsm: {
