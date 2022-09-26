@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import {
   Box,
+  Button,
   ChakraProps,
   Flex,
   HStack,
-  Image,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
   Text,
   VStack,
+  useDisclosure,
 } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common';
+
+import DetailSection1 from './_fragment/DetailSection1';
+import DetailSection2 from './_fragment/DetailSection2';
+import DetailSection3 from './_fragment/DetailSection3';
 
 import { RatingIcon } from 'generated/icons/RatingIcon';
 
@@ -27,7 +27,9 @@ function ProductDetailByIdPage({
   id,
   ...basisProps
 }: ProductDetailByIdPageProps) {
-  console.log(id);
+  const { getDisclosureProps, getButtonProps } = useDisclosure();
+  const buttonProps = getButtonProps();
+
   return (
     <Box {...basisProps}>
       <Box boxSize="343px" h="300px" bgImage="/images/ProductDetail.png"></Box>
@@ -79,31 +81,20 @@ function ProductDetailByIdPage({
           ></SubmitButton>
         </VStack>
       </Flex>
-      <Tabs variant="unstyled" align="center">
-        <TabList>
-          <Tab>
-            <Text variant="normal16gray">상세정보</Text>
-          </Tab>
-          <Tab>
-            <Text variant="normal16gray">구매정보</Text>
-          </Tab>
-          <Tab>
-            <Text variant="normal16gray">리뷰 (78)</Text>
-          </Tab>
-        </TabList>
-
-        <TabPanels>
-          <TabPanel>
-            <p>one!</p>
-          </TabPanel>
-          <TabPanel>
-            <p>two!</p>
-          </TabPanel>
-          <TabPanel>
-            <p>three!</p>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      <HStack w="100%" justify="space-evenly" pb="30">
+        <Button {...buttonProps} variant="btntoggle">
+          상세정보
+        </Button>
+        <Button {...buttonProps} variant="btntoggle">
+          구매정보
+        </Button>
+        <Button {...buttonProps} variant="btntoggle">
+          리뷰 (78)
+        </Button>
+      </HStack>
+      <DetailSection1 />
+      <DetailSection2 />
+      <DetailSection3 />
     </Box>
   );
 }
