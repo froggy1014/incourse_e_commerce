@@ -133,7 +133,7 @@ export const Button: ComponentSingleStyleConfig = {
       fontWeight: '400',
       fontSize: '16px',
       h: 'auto',
-      _checked: {
+      _hover: {
         fontWeight: 'bold',
         color: 'commerse.500',
       },
