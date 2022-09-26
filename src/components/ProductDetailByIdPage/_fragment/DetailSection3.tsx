@@ -81,7 +81,7 @@ const reviews = {
 const DetailSection3 = () => {
   return (
     <>
-      <Flex direction="column" w="100%" my="23px">
+      <Flex direction="column" w="100%" my="23px" id="ReviewInfo">
         <Box w="100%" fontSize="12px" pt="10px">
           <Flex w="100%" justify="space-between">
             <Text fontWeight="bold">incourse.run</Text>

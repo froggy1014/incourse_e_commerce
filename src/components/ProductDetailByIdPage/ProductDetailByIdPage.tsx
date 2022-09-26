@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-scroll';
 
 import {
@@ -9,7 +9,6 @@ import {
   HStack,
   Text,
   VStack,
-  useDisclosure,
 } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common';
@@ -28,9 +27,6 @@ function ProductDetailByIdPage({
   id,
   ...basisProps
 }: ProductDetailByIdPageProps) {
-  const { getDisclosureProps, getButtonProps } = useDisclosure();
-  const buttonProps = getButtonProps();
-
   return (
     <Box {...basisProps}>
       <Box boxSize="343px" h="300px" bgImage="/images/ProductDetail.png"></Box>
@@ -84,30 +80,13 @@ function ProductDetailByIdPage({
       </Flex>
       <HStack w="100%" justify="space-evenly" pb="30">
         <Link to="DetailInfo" spy={true} smooth={true}>
-          <Button
-            {...buttonProps}
-            variant="btntoggle"
-            color={'commerse.500'}
-            fontWeight={'bold'}
-          >
-            상세정보
-          </Button>
+          <Button variant="btntoggle">상세정보</Button>
         </Link>
-        <Link
-          activeClass={'active'}
-          to="PurchaseInfo"
-          spy={true}
-          offset={-300}
-          smooth={true}
-        >
-          <Button {...buttonProps} variant="btntoggle">
-            구매정보
-          </Button>
+        <Link to="PurchaseInfo" spy={true} smooth={true} offset={-200}>
+          <Button variant="btntoggle">구매정보</Button>
         </Link>
-        <Link to="ReviewsInfo" spy={true} smooth={true}>
-          <Button {...buttonProps} variant="btntoggle">
-            리뷰 (78)
-          </Button>
+        <Link to="ReviewInfo" spy={true} smooth={true}>
+          <Button variant="btntoggle">리뷰 (78)</Button>
         </Link>
       </HStack>
       <DetailSection1 />
