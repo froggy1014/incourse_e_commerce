@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-scroll';
 
 import {
   Box,
@@ -82,15 +83,32 @@ function ProductDetailByIdPage({
         </VStack>
       </Flex>
       <HStack w="100%" justify="space-evenly" pb="30">
-        <Button {...buttonProps} variant="btntoggle">
-          상세정보
-        </Button>
-        <Button {...buttonProps} variant="btntoggle">
-          구매정보
-        </Button>
-        <Button {...buttonProps} variant="btntoggle">
-          리뷰 (78)
-        </Button>
+        <Link to="DetailInfo" spy={true} smooth={true}>
+          <Button
+            {...buttonProps}
+            variant="btntoggle"
+            color={'commerse.500'}
+            fontWeight={'bold'}
+          >
+            상세정보
+          </Button>
+        </Link>
+        <Link
+          activeClass={'active'}
+          to="PurchaseInfo"
+          spy={true}
+          offset={-300}
+          smooth={true}
+        >
+          <Button {...buttonProps} variant="btntoggle">
+            구매정보
+          </Button>
+        </Link>
+        <Link to="ReviewsInfo" spy={true} smooth={true}>
+          <Button {...buttonProps} variant="btntoggle">
+            리뷰 (78)
+          </Button>
+        </Link>
       </HStack>
       <DetailSection1 />
       <DetailSection2 />
