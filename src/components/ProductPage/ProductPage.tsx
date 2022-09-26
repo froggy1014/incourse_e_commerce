@@ -9,59 +9,69 @@ interface ProductPageProps extends ChakraProps {}
 
 const productInfo = [
   {
-    id: '1',
-    imgurl:
-      'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdNvtmQ%2FbtrMVG0Mmfq%2FFt80eqvk8rOyqvlFmacn00%2Fimg.png',
+    id: '0',
     name: '바스 & 샴푸',
-    volume: 300,
+    description:
+      '머리부터 발끝까지 한번에! 마일드한 세정을 도와주는 올인원 클렌저',
     price: 27000,
-    rating: 4.3,
-    review: 125,
-    hash_tag: ['올인원', '클렌저', '마일드', '바스앤샴푸'],
+    capacity: 300,
+    tags: ['올인원', '클렌저', '마일드', '바스 & 샴푸'],
+    avgRate: '4.3',
+    reviewCount: '125',
+    created: '2022-09-26T08:10:13.948Z',
+    imgurl: '/images/ProductProfile.png',
   },
   {
-    id: '12',
-    imgurl:
-      'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdNvtmQ%2FbtrMVG0Mmfq%2FFt80eqvk8rOyqvlFmacn00%2Fimg.png',
+    id: '1',
     name: '오일',
-    volume: 150,
-    price: 35000,
-    rating: 4.3,
-    review: 125,
-    hash_tag: ['올인원', '클렌저', '마일드', '오일'],
+    description:
+      '머리부터 발끝까지 한번에! 마일드한 세정을 도와주는 올인원 오일',
+    price: 25000,
+    capacity: 50,
+    tags: ['올인원', '클렌저', '마일드', '오일'],
+    avgRate: '4.3',
+    reviewCount: '125',
+    created: '2022-09-26T08:10:13.948Z',
+    imgurl: '/images/ProductProfile.png',
   },
   {
-    id: '13',
-    imgurl:
-      'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdNvtmQ%2FbtrMVG0Mmfq%2FFt80eqvk8rOyqvlFmacn00%2Fimg.png',
+    id: '2',
     name: '로션',
-    volume: 250,
-    price: 18000,
-    rating: 4.3,
-    review: 125,
-    hash_tag: ['올인원', '클렌저', '마일드', '로션'],
-  },
-  {
-    id: '14',
-    imgurl:
-      'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdNvtmQ%2FbtrMVG0Mmfq%2FFt80eqvk8rOyqvlFmacn00%2Fimg.png',
-    name: '크림',
-    volume: 250,
-    price: 23000,
-    rating: 4.3,
-    review: 125,
-    hash_tag: ['올인원', '클렌저', '마일드', '크림'],
-  },
-  {
-    id: '15',
-    imgurl:
-      'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdNvtmQ%2FbtrMVG0Mmfq%2FFt80eqvk8rOyqvlFmacn00%2Fimg.png',
-    name: '파우더로션',
-    volume: 100,
+    description:
+      '머리부터 발끝까지 한번에! 마일드한 세정을 도와주는 올인원 로션',
     price: 20000,
-    rating: 4.3,
-    review: 125,
-    hash_tag: ['올인원', '클렌저', '마일드', '파우더로션'],
+    capacity: 100,
+    tags: ['올인원', '클렌저', '마일드', '로션'],
+    avgRate: '4.3',
+    reviewCount: '125',
+    created: '2022-09-26T08:10:13.948Z',
+    imgurl: '/images/ProductProfile.png',
+  },
+  {
+    id: '3',
+    name: '크림',
+    description:
+      '머리부터 발끝까지 한번에! 마일드한 세정을 도와주는 올인원 크림',
+    price: 18000,
+    capacity: 310,
+    tags: ['올인원', '클렌저', '마일드', '크림'],
+    avgRate: '4.3',
+    reviewCount: '125',
+    created: '2022-09-26T08:10:13.948Z',
+    imgurl: '/images/ProductProfile.png',
+  },
+  {
+    id: '4',
+    name: '파우더로션',
+    description:
+      '머리부터 발끝까지 한번에! 마일드한 세정을 도와주는 올인원 파우더로션',
+    price: 30000,
+    capacity: 200,
+    tags: ['올인원', '클렌저', '마일드', '파우더로션'],
+    avgRate: '4.3',
+    reviewCount: '125',
+    created: '2022-09-26T08:10:13.948Z',
+    imgurl: '/images/ProductProfile.png',
   },
 ];
 

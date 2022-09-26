@@ -12,25 +12,26 @@ interface productInfo {
   onOpen: () => void;
   product: {
     id: string;
-    imgurl: string;
     name: string;
-    volume: number;
+    description: string;
     price: number;
-    rating: number;
-    review: number;
-    hash_tag: string[];
+    capacity: number;
+    tags: string[];
+    avgRate: string;
+    reviewCount: string;
+    created: string;
+    imgurl: string;
   };
 }
 
 const ProductCard = ({ onOpen, setPurchase, ...props }: productInfo) => {
-  const { id, imgurl, name, volume, price, rating, review, hash_tag } =
+  const { id, imgurl, name, capacity, price, avgRate, reviewCount, tags } =
     props.product;
 
   const handleClick = () => {
     setPurchase([name, price, id]);
     onOpen();
   };
-
   return (
     <Box
       w="100%"
@@ -44,7 +45,7 @@ const ProductCard = ({ onOpen, setPurchase, ...props }: productInfo) => {
         <Flex direction="column" w="100%" h="100%" justify="space-between">
           <HStack mt="30px" spacing="1" ml="15px">
             <Text variant="bold16">{name}</Text>
-            <Text variant="normal16gray">{volume}ml</Text>
+            <Text variant="normal16gray">{capacity}ml</Text>
           </HStack>
           <VStack spacing="1" align="start" mb="10px" ml="15px">
             <HStack spacing="0">
@@ -55,12 +56,12 @@ const ProductCard = ({ onOpen, setPurchase, ...props }: productInfo) => {
             </HStack>
             <HStack spacing="1">
               <RatingIcon />
-              <Text variant="bold16">{rating}</Text>
-              <Text variant="normal16gray">(리뷰 {review}개)</Text>
+              <Text variant="bold16">{avgRate}</Text>
+              <Text variant="normal16gray">(리뷰 {reviewCount}개)</Text>
             </HStack>
           </VStack>
           <HStack justify="center" spacing="2">
-            {hash_tag.map((tag, i) => {
+            {tags.map((tag, i) => {
               return (
                 <Text key={i} variant="normal16gray">
                   # {tag}
