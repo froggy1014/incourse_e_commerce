@@ -26,7 +26,7 @@ const DetailSection2 = () => {
       >
         <HStack justify="space-between" w="100%">
           <Text variant="bold16">주문 및 배송 안내</Text>
-          {open ? <DownVerticalArrow /> : <UpVerticalArrow />}
+          {open ? <UpVerticalArrow /> : <DownVerticalArrow />}
         </HStack>
       </Button>
       {open && (
