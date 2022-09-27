@@ -1,3 +1,7 @@
+import { startsWith } from 'lodash';
+
+import { withTheme } from '@emotion/react';
+
 export const intComma = (x: number | string) => {
   return x?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
@@ -108,4 +112,25 @@ export const formatExamTime = (SECONDS: number) => {
     return `${minutes}분 ${seconds}초`;
   }
   return `${seconds}초`;
+};
+
+export const getAverage = (Ratings: number[]) => {
+  const n = Ratings.length;
+  const countNums = Array(5).fill(0);
+  let sum = 0;
+  Ratings.map((rating) => {
+    sum += rating;
+    countNums[rating - 1] = countNums[rating - 1] + 1;
+  });
+  if (((sum / n) % 1) * 2 >= 1) sum = Math.ceil(sum / n);
+  else sum = Math.floor(sum / n) + 0.5;
+
+  return { sum, countNums, total: n };
+};
+
+export const getStar = (rating: number) => {
+  const stars = Array(Math.floor(rating / 1)).fill(2);
+  if (rating % 1 > 0) stars.push(1);
+  while (stars.length !== 5) stars.push(0);
+  return stars;
 };
