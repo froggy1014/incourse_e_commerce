@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Box, Flex, Heading } from '@chakra-ui/react';
 
-import ProfileForm from './_fragments/ProfileForm';
+import { ProfileIcon } from '@icons/UI';
 
-import { ProfileIcon } from 'generated/icons/ProfileIcon';
+import ProfileForm from './_fragments/ProfileForm';
 
 const SignupPage = () => {
   return (

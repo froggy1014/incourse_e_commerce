@@ -2,8 +2,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 
 import { Divider, Flex, Heading, Text, VStack } from '@chakra-ui/react';
 
-import { AllCheckIcon } from 'generated/icons/AllCheckIcon';
-import { PassIcon } from 'generated/icons/PassIcon';
+import { AllCheckIcon, PassIcon } from '@icons/UI';
 
 interface AgreementType {
   check: string[];

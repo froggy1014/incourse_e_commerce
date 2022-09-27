@@ -3,10 +3,9 @@ import React from 'react';
 import { Container, Flex } from '@chakra-ui/react';
 
 import SocialButton, { SocialType } from '@components/common/SocialButton';
+import { Logo } from '@icons/UI';
 
 import { SOCIAL } from '@constants/social';
-
-import Logo from '../../generated/icons/Logo';
 
 const SOCIAL_REDIRECT_URL = `/#`;
 

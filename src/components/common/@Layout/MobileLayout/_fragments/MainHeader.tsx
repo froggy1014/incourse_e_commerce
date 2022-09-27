@@ -19,10 +19,9 @@ import {
 import CartIcon from '@components/common/@Icons/System/Cart';
 import ExitIcon from '@components/common/@Icons/System/Exit';
 import MenuIcon from '@components/common/@Icons/System/Menu';
+import { Logo } from '@icons/UI';
 
 import { ROUTES } from '@constants/routes';
-
-import Logo from 'generated/icons/Logo';
 
 type MainHeaderType = { px?: string };
 

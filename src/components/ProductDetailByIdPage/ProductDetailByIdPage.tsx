@@ -12,12 +12,11 @@ import {
 } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common';
+import { RatingIcon } from '@icons/UI';
 
 import DetailSection1 from './_fragment/DetailSection1';
 import DetailSection2 from './_fragment/DetailSection2';
 import DetailSection3 from './_fragment/DetailSection3';
-
-import { RatingIcon } from 'generated/icons/RatingIcon';
 
 interface ProductDetailByIdPageProps extends ChakraProps {
   id?: string | string[];

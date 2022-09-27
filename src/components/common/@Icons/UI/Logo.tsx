@@ -9,7 +9,7 @@ interface LogoType {
   size: string;
 }
 
-const Logo = (props: LogoType) => {
+export const Logo = (props: LogoType) => {
   const { size } = props;
   const router = useRouter();
   return (
@@ -40,5 +40,3 @@ const Logo = (props: LogoType) => {
     </>
   );
 };
-
-export default Logo;

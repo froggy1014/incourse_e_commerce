@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-scroll';
 
-import { Box, Button, Image, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Image, Text } from '@chakra-ui/react';
 
-import { DownVerticalArrow } from 'generated/icons/DownVerticalArrow';
-import { UpVerticalArrow } from 'generated/icons/UpVerticalArrow';
+import { DownVerticalArrow, UpVerticalArrow } from '@icons/UI';
 
 const DetailSection1 = () => {
   const [viewMore, setViewMore] = useState(false);

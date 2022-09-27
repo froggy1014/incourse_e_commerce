@@ -14,11 +14,9 @@ import {
 } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common';
+import { QtyMinusIcon, QtyPlusIcon } from '@icons/UI';
 
 import { intComma } from '@utils/format';
-
-import { QtyMinusIcon } from 'generated/icons/QtyMinusIcon';
-import { QtyPlusIcon } from 'generated/icons/QtyPlusIcon';
 
 interface PurchaseInfo {
   purchase: [name: string, price: number, id: string];

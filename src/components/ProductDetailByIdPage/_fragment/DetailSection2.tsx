@@ -1,17 +1,8 @@
 import React, { useState } from 'react';
 
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Text,
-  VStack,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, Text, VStack } from '@chakra-ui/react';
 
-import { DownVerticalArrow } from 'generated/icons/DownVerticalArrow';
-import { UpVerticalArrow } from 'generated/icons/UpVerticalArrow';
+import { DownVerticalArrow, UpVerticalArrow } from '@icons/UI';
 
 const DetailSection2 = () => {
   const [open, setOpen] = useState(false);

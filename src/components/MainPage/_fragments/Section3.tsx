@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Box, Button, Container, Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
+
+import { FloatingActionIcon } from '@icons/UI';
 
 import ButtonCarousel from './ButtonCarousel';
 import SingleCarousel from './SingleCarousel';
-
-import { FloatingActionIcon } from 'generated/icons/FloatingActionIcon';
 
 const Section3 = () => {
   return (

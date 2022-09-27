@@ -3,8 +3,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { Box, Flex, HStack, Image, Text, VStack } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common';
-
-import { RatingIcon } from 'generated/icons/RatingIcon';
+import { RatingIcon } from '@icons/UI';
 
 type Purchase = [string, number, string];
 interface productInfo {
