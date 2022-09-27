@@ -14,3 +14,7 @@ export * from './QtyPlusIcon';
 export * from './RatingIcon';
 export * from './UpVerticalArrow';
 export * from './UpwardArrow';
+export * from './MyReviewIcon';
+export * from './OrderListIcon';
+export * from './UserInfoEditIcon';
+export * from './ListArrowRight';
