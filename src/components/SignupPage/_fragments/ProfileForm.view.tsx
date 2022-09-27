@@ -1,5 +1,5 @@
 import { useRouter } from 'next/dist/client/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
 // import * as yup from 'yup';
@@ -24,6 +24,14 @@ import AgreementCheck from './AgreementCheck';
 interface FormPageProps extends BoxProps {
   formData: UseFormReturn<ProfileFormType>;
   signup?: boolean;
+  userInfo?: {
+    name?: string;
+    nickname?: string;
+    phone?: string;
+    email?: string;
+    gender?: string;
+    ages?: string;
+  };
 }
 
 const ProfileFormView = ({
@@ -31,26 +39,53 @@ const ProfileFormView = ({
     register,
     control,
     formState: { errors },
+    setValue,
   },
-  signup,
+  userInfo,
   onSubmit,
   ...basisProps
 }: FormPageProps) => {
   const [check, setCheck] = useState<string[]>([]);
   const router = useRouter();
+  const [signup, setSignup] = useState(true);
+  useEffect(() => {
+    if (userInfo !== undefined) {
+      setValue('name', userInfo.name || '');
+      setValue('nickname', userInfo.nickname || '');
+      setValue('phone', userInfo.phone || '');
+      setValue('email', userInfo.email || '');
+      setValue('gender', userInfo.gender || '');
+      setValue('ages', userInfo.ages || '');
+      setSignup(false);
+    }
+  }, []);
+
   return (
     <Box as="form" onSubmit={onSubmit} {...basisProps}>
-      <Heading as="h3" fontSize="26px" w="100%">
-        회원가입
-      </Heading>
-      <Box w="343px" h="auto" mt="60px">
-        <Heading as="h4" fontSize="md">
-          회원정보입력
-        </Heading>
-        <Flex w="100%" justify="center" mt="40px">
-          <ProfileIcon />
-        </Flex>
-      </Box>
+      {signup ? (
+        <>
+          <Heading as="h3" fontSize="26px" w="100%">
+            회원가입
+          </Heading>
+          <Box w="343px" h="auto" mt="60px">
+            <Heading as="h4" fontSize="md">
+              회원정보입력
+            </Heading>
+            <Flex w="100%" justify="center" mt="40px">
+              <ProfileIcon />
+            </Flex>
+          </Box>
+        </>
+      ) : (
+        <Box w="343px" h="auto" mt="60px">
+          <Heading as="h4" fontSize="md">
+            회원정보수정
+          </Heading>
+          <Flex w="100%" justify="center" mt="80px">
+            <ProfileIcon />
+          </Flex>
+        </Box>
+      )}
 
       <Stack spacing="9">
         <FormHelper mt="40px" label="이름" errorText={errors.name?.message}>

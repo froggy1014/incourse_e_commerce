@@ -60,7 +60,7 @@ const MainHeader = ({ px }: MainHeaderType) => {
       </Flex>
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent w="313px" maxW="313px" fontSize="20px">
+        <DrawerContent w="313px" maxW="313px">
           <DrawerCloseButton mt="2" />
           <DrawerBody py="0">
             <VStack
@@ -70,14 +70,19 @@ const MainHeader = ({ px }: MainHeaderType) => {
               align="start"
               fontWeight="bold"
             >
-              <Text>카테고리</Text>
-              <Text fontSize="16px" onClick={() => router.push(ROUTES.MAIN)}>
+              <Text fontSize={'20px'}>카테고리</Text>
+              <Text cursor="pointer" onClick={() => router.push(ROUTES.MAIN)}>
                 홈
               </Text>
-              <Text fontSize="16px" onClick={() => router.push(ROUTES.PRODUCT)}>
+              <Text
+                cursor="pointer"
+                onClick={() => router.push(ROUTES.PRODUCT)}
+              >
                 상품보기
               </Text>
-              <Text fontSize="16px">마이페이지</Text>
+              <Text cursor="pointer" onClick={() => router.push(ROUTES.MYPAGE)}>
+                마이페이지
+              </Text>
             </VStack>
             <Divider mt="4" />
           </DrawerBody>

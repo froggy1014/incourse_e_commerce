@@ -7,7 +7,7 @@ const SignupPage = () => {
   return (
     <>
       <SignupHeader />
-      <ProfileFormPage signup={true} />
+      <ProfileFormPage />
     </>
   );
 };
