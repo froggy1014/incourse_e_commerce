@@ -5,7 +5,7 @@ import MobileLayout from '@components/common/@Layout/MobileLayout';
 import SignupHeader from '@components/common/@Layout/MobileLayout/_fragments/SignupHeader';
 
 const SignUp = () => {
-  return <MobileLayout header={<SignupHeader />} content={<SignupPage />} />;
+  return <MobileLayout content={<SignupPage />} />;
 };
 
 export default SignUp;

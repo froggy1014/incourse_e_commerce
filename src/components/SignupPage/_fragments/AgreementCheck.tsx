@@ -24,6 +24,9 @@ const AgreementCheck = ({ setCheck, check }: AgreementType) => {
 
   return (
     <>
+      <Heading as="h4" fontSize="md">
+        이용약관동의
+      </Heading>
       <Flex direction="column">
         <Flex
           justify="space-between"
