@@ -6,6 +6,7 @@ const Light = {
   warning: getColorSchema('#FF6060'),
   sub_warning: '#FFE3E6',
   success: getColorSchema('#4850FF'),
+  commerse: getColorSchema('#FF710B'),
   gray: {
     50: '#FAFAFA',
     100: '#F7F7F7',
@@ -34,6 +35,7 @@ const Dark = {
   warning: getColorSchema('#FF6060'),
   sub_warning: '#FFE3E6',
   success: getColorSchema('#4850FF'),
+  commerse: getColorSchema('#FF710B'),
   gray: {
     50: '#292A2E',
     100: '#313236',

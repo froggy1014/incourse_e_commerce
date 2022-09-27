@@ -140,10 +140,10 @@ const DetailSection3 = () => {
               {sum}
             </Text>
             <HStack>
-              {getStar(sum).map((num) => {
-                if (num === 2) return <RatingIcon />;
-                else if (num === 1) return <HalfRatingIcon />;
-                else return <EmptyRatingIcon />;
+              {getStar(sum).map((num, i) => {
+                if (num === 2) return <RatingIcon key={i} />;
+                else if (num === 1) return <HalfRatingIcon key={i} />;
+                else return <EmptyRatingIcon key={i} />;
               })}
             </HStack>
           </HStack>
@@ -153,6 +153,7 @@ const DetailSection3 = () => {
                 <VStack key={i}>
                   <Flex>
                     <Progress
+                      colorScheme={`commerse`}
                       position="relative"
                       value={(num / total) * 100}
                       w="50px"
