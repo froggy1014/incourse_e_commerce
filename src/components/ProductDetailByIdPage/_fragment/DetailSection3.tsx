@@ -1,8 +1,22 @@
 import React from 'react';
 
-import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Divider,
+  Flex,
+  HStack,
+  Image,
+  Progress,
+  Select,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
+
+import { getAverage, getStar } from '@utils/format';
 
 import { ChatIcon } from 'generated/icons/ChatIcon';
+import { EmptyRatingIcon } from 'generated/icons/EmptyRatingIcon';
+import { HalfRatingIcon } from 'generated/icons/HalfRatingIcon';
 import { RatingIcon } from 'generated/icons/RatingIcon';
 
 const reviews = {
@@ -78,10 +92,88 @@ const reviews = {
   ],
 };
 
+const array = [5, 5, 5, 3, 4, 2, 1, 1];
+
 const DetailSection3 = () => {
+  const { countNums, total, sum } = getAverage(array);
   return (
     <>
       <Flex direction="column" w="100%" my="23px" id="ReviewInfo">
+        <HStack justify="space-between">
+          <Text as="span" fontWeight="bold">
+            리뷰
+            <Box as="span" color="commerse.500">
+              {` ${total}`}
+            </Box>
+            건
+          </Text>
+          <HStack w="193px">
+            <Select
+              placeholder="최신순"
+              size="xs"
+              bg="gray.200"
+              rounded="5px"
+              fontWeight="bold"
+            >
+              <option value="option2">평점 높은순</option>
+              <option value="option3">평점 높은순</option>
+            </Select>
+            <Select
+              placeholder="전체보기"
+              size="xs"
+              bg="gray.200"
+              rounded="5px"
+              fontWeight="bold"
+            >
+              <option value="option2">포토리뷰</option>
+            </Select>
+          </HStack>
+        </HStack>
+        <Flex justify="space-between" align="center" my="50px">
+          <HStack>
+            <Text
+              w="40px"
+              h="20px"
+              bg="commerse.500"
+              rounded="15px"
+              color="white"
+              fontWeight="bold"
+              textAlign="center"
+            >
+              {sum}
+            </Text>
+            <HStack>
+              {getStar(sum).map((num) => {
+                if (num === 2) return <RatingIcon />;
+                else if (num === 1) return <HalfRatingIcon />;
+                else return <EmptyRatingIcon />;
+              })}
+            </HStack>
+          </HStack>
+          <HStack spacing="-6">
+            {countNums.reverse().map((num, i) => {
+              return (
+                <VStack key={i}>
+                  <Flex>
+                    <Progress
+                      position="relative"
+                      value={(num / total) * 100}
+                      w="50px"
+                      h="10px"
+                      mb="10px"
+                      roundedRight="5px"
+                      transform="rotateZ(-90deg)"
+                    />
+                  </Flex>
+                  <Divider transform={'translateY(1px)'} />
+                  <Text color="gray.600" fontSize="12px">
+                    {5 - i}점
+                  </Text>
+                </VStack>
+              );
+            })}
+          </HStack>
+        </Flex>
         <Box w="100%" fontSize="12px" pt="10px">
           <Flex w="100%" justify="space-between">
             <Text fontWeight="bold">incourse.run</Text>
