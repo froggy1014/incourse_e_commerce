@@ -28,4 +28,5 @@ export const ROUTES = {
   SIGNUP: '/sign-up',
   MAIN: '/',
   PRODUCT: '/product',
+  MYPAGE: '/mypage',
 } as const;
