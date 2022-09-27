@@ -1,9 +1,12 @@
+import { useRouter } from 'next/dist/client/router';
 import React, { Dispatch, SetStateAction } from 'react';
 
 import { Box, Flex, HStack, Image, Text, VStack } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common';
 import { RatingIcon } from '@icons/UI';
+
+import { ROUTES } from '@constants/routes';
 
 type Purchase = [string, number, string];
 interface productInfo {
@@ -24,6 +27,7 @@ interface productInfo {
 }
 
 const ProductCard = ({ onOpen, setPurchase, ...props }: productInfo) => {
+  const router = useRouter();
   const { id, imgurl, name, capacity, price, avgRate, reviewCount, tags } =
     props.product;
 
@@ -39,14 +43,21 @@ const ProductCard = ({ onOpen, setPurchase, ...props }: productInfo) => {
       rounded="20px"
       boxShadow="0px 0px 10px 0px #1A1A1A1A"
     >
-      <Image objectFit="cover" src={imgurl} alt="product1" />
-      <Box w="310px" h="278px" mx="16px">
-        <Flex direction="column" w="100%" h="100%" justify="space-between">
-          <HStack mt="30px" spacing="1" ml="15px">
+      <Box onClick={() => router.push(`${ROUTES.PRODUCT}/${id}`)}>
+        <Image objectFit="cover" src={imgurl} alt="product1" />
+        <Flex
+          direction="column"
+          w="100%"
+          h="178px"
+          mx="30px"
+          mb="20px"
+          justify="space-between"
+        >
+          <HStack mt="30px" spacing="1">
             <Text variant="bold16">{name}</Text>
             <Text variant="normal16gray">{capacity}ml</Text>
           </HStack>
-          <VStack spacing="1" align="start" mb="10px" ml="15px">
+          <VStack spacing="1" align="start" mb="10px">
             <HStack spacing="0">
               <Text variant="bold16" color="commerse.500">
                 {price}
@@ -59,7 +70,7 @@ const ProductCard = ({ onOpen, setPurchase, ...props }: productInfo) => {
               <Text variant="normal16gray">(리뷰 {reviewCount}개)</Text>
             </HStack>
           </VStack>
-          <HStack justify="center" spacing="2">
+          <HStack spacing="2">
             {tags.map((tag, i) => {
               return (
                 <Text key={i} variant="normal16gray">
@@ -68,21 +79,20 @@ const ProductCard = ({ onOpen, setPurchase, ...props }: productInfo) => {
               );
             })}
           </HStack>
-          <Flex justify="space-between">
-            <SubmitButton
-              title="바로구매"
-              variant="btncommerse"
-              sizes="btnsm"
-              onClick={handleClick}
-            ></SubmitButton>
-            <SubmitButton
-              title="장바구니"
-              variant="btnwhite"
-              sizes="btnsm"
-            ></SubmitButton>
-          </Flex>
         </Flex>
       </Box>
+      <Flex justify="space-evenly" onClick={handleClick}>
+        <SubmitButton
+          title="바로구매"
+          variant="btncommerse"
+          sizes="btnsm"
+        ></SubmitButton>
+        <SubmitButton
+          title="장바구니"
+          variant="btnwhite"
+          sizes="btnsm"
+        ></SubmitButton>
+      </Flex>
     </Box>
   );
 };
