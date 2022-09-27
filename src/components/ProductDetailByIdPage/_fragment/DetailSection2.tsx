@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-import { Box, Button, Flex, HStack, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Collapse, HStack, Text, VStack } from '@chakra-ui/react';
 
 import { DownVerticalArrow, UpVerticalArrow } from '@icons/UI';
 
 const DetailSection2 = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   return (
     <>
       <Button
@@ -20,7 +20,7 @@ const DetailSection2 = () => {
           {open ? <UpVerticalArrow /> : <DownVerticalArrow />}
         </HStack>
       </Button>
-      {open && (
+      <Collapse in={open} animateOpacity>
         <VStack bg="gray.100" align="start" py="30px">
           <Text variant="bold16">[주문 및 배송 안내] </Text>
           <Text>배송방법 : 인코스런 택배 </Text>
@@ -35,7 +35,7 @@ const DetailSection2 = () => {
             </HStack>
           </VStack>
         </VStack>
-      )}
+      </Collapse>
     </>
   );
 };
