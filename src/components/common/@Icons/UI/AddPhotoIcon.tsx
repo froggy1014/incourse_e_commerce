@@ -4,6 +4,7 @@ export const AddPhotoIcon = (props: IconProps) => (
   <Icon
     w="80px"
     h="80px"
+    onClick={props.onClick}
     viewBox="0 0 80 80"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

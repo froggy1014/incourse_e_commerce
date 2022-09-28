@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import {
   Box,
@@ -19,7 +19,8 @@ interface MypagePostReviewPageProps extends ChakraProps {}
 
 function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
   const [rating, setRating] = useState(0);
-  console.log(rating);
+  const fileTrigger = useRef<HTMLInputElement>(null);
+
   return (
     <Box {...basisProps}>
       <Text variant="pageTitle">리뷰작성</Text>
@@ -69,7 +70,13 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
       <Stack my="20px">
         <Text>사진첨부 (0/3)</Text>
         <Flex py="20px">
-          <AddPhotoIcon />
+          <input style={{ display: 'none' }} type="file" ref={fileTrigger} />
+          <AddPhotoIcon
+            onClick={() => {
+              if (fileTrigger !== null && fileTrigger.current !== null)
+                fileTrigger.current.click();
+            }}
+          />
         </Flex>
       </Stack>
     </Box>
