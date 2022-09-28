@@ -63,8 +63,8 @@ const variantSolid: StyleObjectOrFn = (props) => {
   const {
     bg = `${c}.500`,
     color = 'white',
-    hoverBg = `${c}.600`,
-    activeBg = `${c}.700`,
+    hoverBg = `${c}`,
+    activeBg = `${c}`,
     border = `${c}.500`,
   } = accessibleColorMap[c] ?? {};
 
@@ -77,7 +77,8 @@ const variantSolid: StyleObjectOrFn = (props) => {
     borderWidth: 1,
     borderColor: borderColor,
     _hover: {
-      bg: hoverBg,
+      transform: 'scale(1.02)',
+      bg: `${c}`,
       borderColor: hoverBg,
       _disabled: {
         bg: background,

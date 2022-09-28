@@ -29,7 +29,7 @@ export const formatDateDash = (d: any) => {
   const monthIndex = date.getMonth() + 1;
   const year = date.getFullYear();
 
-  return `${year}-${`0${monthIndex}`.slice(-2)}-${`0${day}`.slice(-2)}`;
+  return `${year} - ${`0${monthIndex}`.slice(-2)} - ${`0${day}`.slice(-2)}`;
 };
 
 export const formatDateKR = (d: any) => {

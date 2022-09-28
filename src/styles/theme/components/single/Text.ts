@@ -10,16 +10,18 @@ export const Text: ComponentSingleStyleConfig = {
     bold16: {
       fontWeight: 'bold',
       fontSize: '16px',
-      color: 'black',
     },
     bold20: {
       fontWeight: 'bold',
       fontSize: '20px',
-      color: 'black',
     },
     bold20commerse: {
       fontWeight: 'bold',
       fontSize: '20px',
+      color: 'commerse.500',
+    },
+    boldcommerse: {
+      fontWeight: 'bold',
       color: 'commerse.500',
     },
     normal12gray: {
@@ -46,6 +48,12 @@ export const Text: ComponentSingleStyleConfig = {
       fontWeight: 'normal',
       fontSize: '20px',
       color: 'black',
+    },
+    pageTitle: {
+      pt: '50px',
+      pb: '80px',
+      fontWeight: 'bold',
+      fontSize: '20px',
     },
   },
   sizes: {},
