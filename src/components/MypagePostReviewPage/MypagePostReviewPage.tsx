@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import {
   Box,
@@ -13,6 +13,7 @@ import {
 
 import { AddPhotoIcon, EmptyBigRatingIcon } from '@components/common/@Icons/UI';
 
+import { bytesToMB, fileToBase64, isBase64Img, isOverSize } from '@utils/file';
 import { intComma } from '@utils/format';
 
 interface MypagePostReviewPageProps extends ChakraProps {}
@@ -20,7 +21,36 @@ interface MypagePostReviewPageProps extends ChakraProps {}
 function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
   const [rating, setRating] = useState(0);
   const fileTrigger = useRef<HTMLInputElement>(null);
+  const [files, setFiles] = React.useState<File[]>([]);
+  const [currentFile, setCurrentFile] = React.useState<File | null>(null);
+  const [currentFileBase64, setCurrentFileBase64] = React.useState<
+    string | ArrayBuffer | null
+  >();
+  const [base64Files, setBase64Files] = useState<string[] | unknown[]>([]);
 
+  const fileSelectedHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file !== undefined) {
+      setCurrentFile(file);
+      setFiles((files) => [...files, file]);
+    }
+  };
+
+  useEffect(() => {
+    async function setter() {
+      if (!currentFile) return;
+      setCurrentFileBase64(await fileToBase64(currentFile));
+    }
+    setter();
+  }, [currentFile]);
+
+  useEffect(() => {
+    if (
+      currentFileBase64 !== undefined &&
+      currentFileBase64 !== base64Files.at(-1)
+    )
+      setBase64Files((base64Files) => [...base64Files, currentFileBase64]);
+  }, [currentFileBase64]);
   return (
     <Box {...basisProps}>
       <Text variant="pageTitle">리뷰작성</Text>
@@ -69,15 +99,34 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
       </Stack>
       <Stack my="20px">
         <Text>사진첨부 (0/3)</Text>
-        <Flex py="20px">
-          <input style={{ display: 'none' }} type="file" ref={fileTrigger} />
+        <HStack py="20px" spacing="4">
+          <input
+            style={{ display: 'none' }}
+            type="file"
+            ref={fileTrigger}
+            onChange={fileSelectedHandler}
+          />
           <AddPhotoIcon
             onClick={() => {
               if (fileTrigger !== null && fileTrigger.current !== null)
                 fileTrigger.current.click();
             }}
           />
-        </Flex>
+
+          {base64Files.map((file, i) => {
+            if (typeof file === 'string') {
+              return (
+                <Image
+                  boxSize="80px"
+                  objectFit="cover"
+                  key={i}
+                  src={file}
+                  alt="upload img"
+                />
+              );
+            }
+          })}
+        </HStack>
       </Stack>
     </Box>
   );
