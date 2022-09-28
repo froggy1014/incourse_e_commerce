@@ -58,6 +58,20 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
           })}
         </Flex>
       </Stack>
+      <Stack>
+        <Text>내용</Text>
+        <Textarea
+          placeholder="내용을 입력하세요."
+          resize="none"
+          h="200px"
+        ></Textarea>
+      </Stack>
+      <Stack my="20px">
+        <Text>사진첨부 (0/3)</Text>
+        <Flex py="20px">
+          <AddPhotoIcon />
+        </Flex>
+      </Stack>
     </Box>
   );
 }
