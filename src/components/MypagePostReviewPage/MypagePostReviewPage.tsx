@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Box,
-  Button,
   ChakraProps,
   Flex,
   HStack,
   Image,
+  Stack,
   Text,
+  Textarea,
 } from '@chakra-ui/react';
+
+import { AddPhotoIcon, EmptyBigRatingIcon } from '@components/common/@Icons/UI';
 
 import { intComma } from '@utils/format';
 
 interface MypagePostReviewPageProps extends ChakraProps {}
 
 function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
+  const [rating, setRating] = useState(0);
+  console.log(rating);
   return (
     <Box {...basisProps}>
       <Text variant="pageTitle">리뷰작성</Text>
@@ -36,6 +41,23 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
           </Box>
         </HStack>
       </HStack>
+      <Stack>
+        <Text py="10px">별점</Text>
+        <Flex justify="center" py="20px">
+          {[...Array(5)].map((star, i) => {
+            const ratingValue = i;
+            return (
+              <Box key={i}>
+                <EmptyBigRatingIcon
+                  checked={ratingValue < rating ? true : false}
+                  id={ratingValue}
+                  onClick={() => setRating(ratingValue + 1)}
+                />
+              </Box>
+            );
+          })}
+        </Flex>
+      </Stack>
     </Box>
   );
 }
