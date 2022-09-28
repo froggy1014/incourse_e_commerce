@@ -3,7 +3,7 @@ import { getColorSchema } from '@utils/color-generator';
 const Light = {
   primary: getColorSchema('#4850FF'),
   secondary: getColorSchema('#7B61FF'),
-  warning: getColorSchema('#FF6060'),
+  warning: getColorSchema('#FF001A'),
   sub_warning: '#FFE3E6',
   success: getColorSchema('#4850FF'),
   commerse: getColorSchema('#FF710B'),
@@ -32,7 +32,7 @@ const Light = {
 const Dark = {
   primary: getColorSchema('#485BFF'),
   secondary: getColorSchema('#755AFF'),
-  warning: getColorSchema('#FF6060'),
+  warning: getColorSchema('#FF001A'),
   sub_warning: '#FFE3E6',
   success: getColorSchema('#4850FF'),
   commerse: getColorSchema('#FF710B'),

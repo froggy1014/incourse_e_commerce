@@ -28,5 +28,9 @@ export const ROUTES = {
   SIGNUP: '/sign-up',
   MAIN: '/',
   PRODUCT: '/product',
-  MYPAGE: '/mypage',
+  MYPAGE: {
+    MAIN: '/mypage',
+    PROFILE: '/mypage/modifyprofile',
+    WITHDRAWAL: '/mypage/withdrawal',
+  },
 } as const;
