@@ -80,7 +80,10 @@ const MainHeader = ({ px }: MainHeaderType) => {
               >
                 상품보기
               </Text>
-              <Text cursor="pointer" onClick={() => router.push(ROUTES.MYPAGE)}>
+              <Text
+                cursor="pointer"
+                onClick={() => router.push(ROUTES.MYPAGE.MAIN)}
+              >
                 마이페이지
               </Text>
             </VStack>

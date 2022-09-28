@@ -17,6 +17,8 @@ import {
 
 import { SubmitButton } from '@components/common';
 
+import { ROUTES } from '@constants/routes';
+
 interface MypageWithdrawalPageProps extends ChakraProps {}
 
 interface FormData {
@@ -51,6 +53,8 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
       };
       console.log(data);
     } else console.log(data);
+
+    router.push(ROUTES.LOGIN);
   });
 
   return (

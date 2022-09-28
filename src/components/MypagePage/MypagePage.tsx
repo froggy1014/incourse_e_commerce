@@ -1,3 +1,4 @@
+import { useRouter } from 'next/dist/client/router';
 import React from 'react';
 
 import {
@@ -17,9 +18,12 @@ import {
   UserInfoEditIcon,
 } from '@icons/UI';
 
+import { ROUTES } from '@constants/routes';
+
 interface MypagePageProps extends ChakraProps {}
 
 function MypagePage({ ...basisProps }: MypagePageProps) {
+  const router = useRouter();
   return (
     <Box mt="70px" {...basisProps}>
       <Stack divider={<Divider w="100%" h="10px" bg="gray.100" />}>
@@ -28,7 +32,7 @@ function MypagePage({ ...basisProps }: MypagePageProps) {
           <Text color={'gray.400'}>incourse.run@gmail.com</Text>
         </Box>
         <HStack w="100%" justify={'space-between'} py="36px">
-          <VStack>
+          <VStack onClick={() => router.push(ROUTES.MYPAGE.PROFILE)}>
             <UserInfoEditIcon />
             <Text>회원정보수정</Text>
           </VStack>
@@ -41,8 +45,13 @@ function MypagePage({ ...basisProps }: MypagePageProps) {
             <Text>내 상품 리뷰</Text>
           </VStack>
         </HStack>
-        <Stack>
-          <HStack w="100%" justify={'space-between'} h="60px">
+        <Stack cursor="pointer">
+          <HStack
+            w="100%"
+            justify={'space-between'}
+            h="60px"
+            onClick={() => router.push(ROUTES.MYPAGE.WITHDRAWAL)}
+          >
             <Text>회원탈퇴</Text>
             <ListArrowRight />
           </HStack>
