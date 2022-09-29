@@ -12,7 +12,11 @@ import {
 } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common';
-import { AddPhotoIcon, EmptyBigRatingIcon } from '@components/common/@Icons/UI';
+import {
+  AddPhotoIcon,
+  DeletePhotoIcon,
+  EmptyBigRatingIcon,
+} from '@components/common/@Icons/UI';
 
 import { bytesToMB, fileToBase64, isBase64Img, isOverSize } from '@utils/file';
 import { intComma } from '@utils/format';
@@ -104,27 +108,29 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
           h="200px"
         ></Textarea>
       </Stack>
-      <Text pt="20px">사진첨부 (0/3)</Text>
+      <Text pt="20px">사진첨부 ({base64Files.length}/3)</Text>
       <Stack my="20px">
         <Flex flexWrap="wrap" justify="flex-start">
-          <Box m="10px">
-            <input
-              style={{ display: 'none' }}
-              type="file"
-              ref={fileTrigger}
-              onChange={fileSelectedHandler}
-            />
-            <AddPhotoIcon
-              onClick={() => {
-                if (fileTrigger !== null && fileTrigger.current !== null)
-                  fileTrigger.current.click();
-              }}
-            />
-          </Box>
+          {base64Files.length !== 3 && (
+            <Box m="10px">
+              <input
+                style={{ display: 'none' }}
+                type="file"
+                ref={fileTrigger}
+                onChange={fileSelectedHandler}
+              />
+              <AddPhotoIcon
+                onClick={() => {
+                  if (fileTrigger !== null && fileTrigger.current !== null)
+                    fileTrigger.current.click();
+                }}
+              />
+            </Box>
+          )}
           {base64Files.map((file, i) => {
             if (typeof file === 'string') {
               return (
-                <Box m="10px">
+                <Box m="10px" position="relative">
                   <Image
                     boxSize="80px"
                     objectFit="cover"
@@ -132,6 +138,18 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
                     src={file}
                     alt="upload img"
                   />
+                  <Box
+                    position="absolute"
+                    top="-10px"
+                    right="-10px"
+                    onClick={() =>
+                      setBase64Files((base64Files) => {
+                        return base64Files.filter((base64) => base64 !== file);
+                      })
+                    }
+                  >
+                    <DeletePhotoIcon />
+                  </Box>
                 </Box>
               );
             }
