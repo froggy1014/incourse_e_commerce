@@ -20,13 +20,13 @@ const Section1 = () => {
         w="128px"
         position="absolute"
         bottom="200px"
-        left="16px"
+        left="-14px"
         variant="normal16"
         alignItems="center"
         cursor="pointer"
         onClick={handleClick}
       >
-        이벤트상세보기 <ArrowRightIcon />
+        이벤트 상세보기 <ArrowRightIcon />
       </Text>
     </Container>
   );
