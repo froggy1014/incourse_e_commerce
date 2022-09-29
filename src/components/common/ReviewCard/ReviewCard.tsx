@@ -4,7 +4,7 @@ import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react';
 
 import { ChatIcon, RatingIcon } from '@icons/UI';
 
-const ReviewCard = () => {
+export const ReviewCard = () => {
   return (
     <>
       <Box w="100%" fontSize="12px" pt="10px">
@@ -58,5 +58,3 @@ const ReviewCard = () => {
     </>
   );
 };
-
-export default ReviewCard;

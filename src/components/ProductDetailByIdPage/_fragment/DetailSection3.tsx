@@ -11,7 +11,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-import ReviewCard from '@components/common/ReviewCard';
+import { ReviewCard } from '@components/common';
 import { EmptyRatingIcon, HalfRatingIcon, RatingIcon } from '@icons/UI';
 
 import { getAverage, getStar } from '@utils/format';
