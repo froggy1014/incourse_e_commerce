@@ -61,7 +61,15 @@ const MainHeader = ({ px }: MainHeaderType) => {
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent w="313px" maxW="313px">
-          <DrawerCloseButton mt="2" />
+          <DrawerCloseButton
+            mt="2"
+            _focus={{
+              bg: 'none',
+            }}
+            _hover={{
+              bg: 'none',
+            }}
+          />
           <DrawerBody py="0">
             <VStack
               mt="80px"
