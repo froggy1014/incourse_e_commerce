@@ -21,3 +21,4 @@ export * from './ListArrowRight';
 export * from './BigRatingIcon';
 export * from './EmptyBigRatingIcon';
 export * from './AddPhotoIcon';
+export * from './DeletePhotoIcon';
