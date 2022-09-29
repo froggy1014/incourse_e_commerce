@@ -11,6 +11,7 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 
+import { SubmitButton } from '@components/common';
 import { AddPhotoIcon, EmptyBigRatingIcon } from '@components/common/@Icons/UI';
 
 import { bytesToMB, fileToBase64, isBase64Img, isOverSize } from '@utils/file';
@@ -51,8 +52,14 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
     )
       setBase64Files((base64Files) => [...base64Files, currentFileBase64]);
   }, [currentFileBase64]);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(event);
+  };
+
   return (
-    <Box {...basisProps}>
+    <form onSubmit={handleSubmit}>
       <Text variant="pageTitle">리뷰작성</Text>
       <Text fontWeight="bold" mb="18px">
         [2021 - 04 - 01]
@@ -97,38 +104,42 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
           h="200px"
         ></Textarea>
       </Stack>
+      <Text pt="20px">사진첨부 (0/3)</Text>
       <Stack my="20px">
-        <Text>사진첨부 (0/3)</Text>
-        <HStack py="20px" spacing="4">
-          <input
-            style={{ display: 'none' }}
-            type="file"
-            ref={fileTrigger}
-            onChange={fileSelectedHandler}
-          />
-          <AddPhotoIcon
-            onClick={() => {
-              if (fileTrigger !== null && fileTrigger.current !== null)
-                fileTrigger.current.click();
-            }}
-          />
-
+        <Flex flexWrap="wrap" justify="flex-start">
+          <Box m="10px">
+            <input
+              style={{ display: 'none' }}
+              type="file"
+              ref={fileTrigger}
+              onChange={fileSelectedHandler}
+            />
+            <AddPhotoIcon
+              onClick={() => {
+                if (fileTrigger !== null && fileTrigger.current !== null)
+                  fileTrigger.current.click();
+              }}
+            />
+          </Box>
           {base64Files.map((file, i) => {
             if (typeof file === 'string') {
               return (
-                <Image
-                  boxSize="80px"
-                  objectFit="cover"
-                  key={i}
-                  src={file}
-                  alt="upload img"
-                />
+                <Box m="10px">
+                  <Image
+                    boxSize="80px"
+                    objectFit="cover"
+                    key={i}
+                    src={file}
+                    alt="upload img"
+                  />
+                </Box>
               );
             }
           })}
-        </HStack>
+        </Flex>
       </Stack>
-    </Box>
+      <SubmitButton title="작성하기" sizes="btnlg" variant="btncommerse" />
+    </form>
   );
 }
 
