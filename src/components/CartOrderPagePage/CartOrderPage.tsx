@@ -5,6 +5,11 @@ import useFormValidate from './_hooks/useFormValidate';
 
 // interface SignUpPageProps extends ChakraProps { }
 
+const userInfo = {
+  name: '이정민',
+  phone: '010-8979-1169',
+};
+
 const OrderPage = () => {
   const formData = useFormValidate();
   const { handleSubmit } = formData;
@@ -27,7 +32,13 @@ const OrderPage = () => {
       );
     },
   );
-  return <OrderPageView formData={formData} onSubmit={onSubmit} />;
+  return (
+    <OrderPageView
+      formData={formData}
+      onSubmit={onSubmit}
+      userInfo={userInfo}
+    />
+  );
 };
 
 export default OrderPage;

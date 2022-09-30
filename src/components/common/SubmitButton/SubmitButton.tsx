@@ -18,6 +18,7 @@ export const SubmitButton = (props: SubmitButtonType) => {
     variant,
     isDisabled = false,
     sizes,
+    mt,
     mb,
     w,
     onClick,
@@ -27,6 +28,7 @@ export const SubmitButton = (props: SubmitButtonType) => {
     <>
       <Button
         w={w}
+        mt={mt}
         mb={mb}
         type={type !== 'submit' ? 'button' : 'submit'}
         borderRadius="100px"

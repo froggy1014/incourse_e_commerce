@@ -4,5 +4,12 @@ export const Divider: ComponentSingleStyleConfig = {
   baseStyle: {},
   defaultProps: {},
   sizes: {},
-  variants: {},
+  variants: {
+    fullthin: {
+      minW: '375px',
+      transform: 'translateX(-16px)',
+      h: '1px',
+      bg: 'gray.200',
+    },
+  },
 };
