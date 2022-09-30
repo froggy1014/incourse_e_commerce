@@ -2,16 +2,13 @@ import React, { useState } from 'react';
 
 import {
   Box,
-  Button,
   ChakraProps,
   Checkbox,
   CloseButton,
-  Flex,
   HStack,
   Image,
   Stack,
   Text,
-  VStack,
 } from '@chakra-ui/react';
 
 import { QtyMinusIcon, QtyPlusIcon } from '@components/common/@Icons/UI';
@@ -30,8 +27,8 @@ interface PropsType {
 interface CartCardProps extends ChakraProps {}
 interface CartCardProps extends PropsType {}
 
-function CartCard({ results, ...basisProps }: CartCardProps) {
-  const { name, volumn, price, count } = results;
+function CartCard({ ...basisProps }: CartCardProps) {
+  const { name, volumn, price, count } = basisProps.results;
   const [state, setState] = useState({
     count: count,
     price: price,

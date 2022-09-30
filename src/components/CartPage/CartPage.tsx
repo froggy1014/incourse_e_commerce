@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   Box,
-  Button,
   ChakraProps,
   Checkbox,
   Divider,
-  Flex,
   HStack,
-  Image,
   Stack,
   Text,
-  VStack,
 } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common';

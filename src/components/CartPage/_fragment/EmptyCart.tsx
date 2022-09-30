@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Button, ChakraProps, Stack, Text, VStack } from '@chakra-ui/react';
+import { ChakraProps, Text, VStack } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common';
 
