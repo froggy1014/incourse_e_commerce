@@ -25,7 +25,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "types": ["jest"],
+    "types": ["jest",  "kakao.maps.d.ts"],
     "incremental": true
   },
   "include": [

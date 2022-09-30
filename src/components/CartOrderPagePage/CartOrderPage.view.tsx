@@ -21,6 +21,7 @@ import {
 import { FormHelper, SubmitButton } from '@components/common';
 import { CardPayIcon } from '@components/common/@Icons/UI';
 
+import TestComponent from './_fragment/TestComponent';
 import { FormDataType } from './_hooks/useFormValidate';
 
 interface userInfoType {
@@ -305,6 +306,7 @@ const FormPageView = ({
           </Box>
         </Stack>
         {/* e: 최종 결제 금액 */}
+        {/* <TestComponent /> */}
       </Box>
     </>
   );

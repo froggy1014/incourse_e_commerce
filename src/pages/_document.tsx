@@ -84,6 +84,12 @@ class MyDocument extends Document {
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
           ></script>
+          <script
+            type="text/javascript"
+            defer
+            src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_JS_KEY}&autoload=false`}
+          />
+
           <script dangerouslySetInnerHTML={this.setGoogleAnalytics()} />
         </Head>
         <body>
