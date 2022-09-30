@@ -1,10 +1,11 @@
 import Head from 'next/head';
 
+import CartOrderPage from '@components/CartOrderPagePage/CartOrderPage';
 import MobileLayout from '@components/common/@Layout/MobileLayout';
 import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
 import MainHeader from '@components/common/@Layout/MobileLayout/_fragments/MainHeader';
 
-function CartOrderPage() {
+function CartOrder() {
   return (
     <>
       <Head>
@@ -20,4 +21,4 @@ function CartOrderPage() {
   );
 }
 
-export default CartOrderPage;
+export default CartOrder;
