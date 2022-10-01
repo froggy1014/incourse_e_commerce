@@ -4,15 +4,17 @@ import * as yup from 'yup';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
+// type username = { user: string; order: string; message: string };
+
 export type FormDataType = {
   username: string;
   phone: string;
-  adress: string;
-  adressDetail: string;
+  address: string;
+  addressDetail: string;
   orderUsername: string;
   orderPhone: string;
-  orderAdress: string;
-  orderAdressDetail: string;
+  orderAddress: string;
+  orderAddressDetail: string;
   orderRequest: string;
   paymentMethod: string;
   personalConsent: string;
@@ -33,43 +35,37 @@ export type FormDataType = {
 export const signupFormSchema = yup.object().shape({
   username: yup
     .string()
-    .required('해당 항목은 필수값 입니다.')
-    .min(2, '최소 2자 이상 입력해주세요.'),
+    .required('이름을 꼭 넣어주세요')
+    .min(2, '성과 이름 다 기입해주세요,.'),
   phone: yup
     .string()
-    .required('해당 항목은 필수값 입니다.')
-    .test('isNumber', '정확한 핸드폰 번호를 입력해주세요.', (val) => {
-      return !Number.isNaN(Number(val));
-    })
-    .min(10, '정확한 핸드폰 번호를 입력해주세요.')
-    .max(13, '정확한 핸드폰 번호를 입력해주세요.'),
-  adress: yup
+    .required('핸드폰 번호는 넣어주세요')
+    .matches(
+      /^\d{2,3}-\d{3,4}-\d{3,4}$/,
+      " '-' 기호도 넣어주시고, 번호를 다시한번 확인해주세요.",
+    ),
+  address: yup
     .string()
     .required('해당 항목은 필수값 입니다.')
     .min(2, '정확한 주소를 입력해주세요.'),
-  adressDetail: yup.string(),
+  addressDetail: yup.string(),
   orderUsername: yup
     .string()
-    .required('해당 항목은 필수값 입니다.')
-    .min(2, '최소 2자 이상 입력해주세요.'),
+    .required('이름을 꼭 넣어주세요')
+    .min(2, '성과 이름 다 기입해주세요,.'),
   orderPhone: yup
     .string()
-    .required('해당 항목은 필수값 입니다.')
-    .test('isNumber', '정확한 핸드폰 번호를 입력해주세요.', (val) => {
-      return !Number.isNaN(Number(val));
-    })
-    .min(10, '정확한 핸드폰 번호를 입력해주세요.')
-    .max(13, '정확한 핸드폰 번호를 입력해주세요.'),
-  orderAdress: yup
+    .required('핸드폰 번호는 넣어주세요')
+    .matches(
+      /^\d{2,3}-\d{3,4}-\d{3,4}$/,
+      " '-' 기호도 넣어주시고, 번호를 다시한번 확인해주세요.",
+    ),
+  orderAddress: yup
     .string()
     .required('해당 항목은 필수값 입니다.')
     .min(2, '정확한 주소를 입력해주세요.'),
-  orderAdressDetail: yup.string(),
+  orderAddressDetail: yup.string(),
   orderRequest: yup.string(),
-  paymentMethod: yup.string().required('결제수단을 선택해 주세요.'),
-  personalConsent: yup
-    .string()
-    .required('개인정보 수집 이용 동의를 체크해주세요.'),
 });
 
 const useFormValidate = (options?: UseFormProps<FormDataType>) => {

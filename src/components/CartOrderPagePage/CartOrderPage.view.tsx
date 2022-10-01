@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
 import {
@@ -39,14 +39,30 @@ const FormPageView = ({
     control,
     formState: { errors },
     setValue,
+    getValues,
   },
   onSubmit,
   userInfo,
   ...basisProps
 }: FormPageProps) => {
+  const [btn, setBtn] = useState(true);
+  const [copy, setCopy] = useState(true);
   const SearchTrigger = useRef<HTMLButtonElement>(null);
   const addressSearchHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log('hi');
+  };
+
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setCopy(!copy);
+    console.log(copy);
+    const { username, phone, address, addressDetail } = getValues();
+    setValue('orderUsername', copy ? username : '', { shouldValidate: true });
+    setValue('orderPhone', copy ? phone : '', { shouldValidate: true });
+    setValue('orderAddress', copy ? address : '', { shouldValidate: true });
+    setValue('orderAddressDetail', copy ? addressDetail : '', {
+      shouldValidate: true,
+    });
   };
 
   useEffect(() => {
@@ -107,14 +123,14 @@ const FormPageView = ({
             <FormHelper
               mb="3.125rem"
               label="주소"
-              errorText={errors.adress?.message}
+              errorText={errors.address?.message}
             >
               <Flex gap=".7rem" mb=".7rem">
                 <Input
                   borderRadius="100px"
                   size="md"
                   borderColor="black"
-                  {...register('adress')}
+                  {...register('address')}
                   autoComplete="off"
                   placeholder="주소"
                   onClick={() => {
@@ -142,7 +158,7 @@ const FormPageView = ({
                 borderRadius="100px"
                 size="md"
                 borderColor="black"
-                {...register('adressDetail')}
+                {...register('addressDetail')}
                 autoComplete="off"
                 placeholder="주소 상세"
               />
@@ -152,9 +168,21 @@ const FormPageView = ({
 
           {/* s: 베송지 정보 */}
           <Box>
-            <Text fontWeight="bold" mt="35px">
-              배송지 정보
-            </Text>
+            <HStack
+              justify="space-between"
+              align="center"
+              textAlign="center"
+              mt="35px"
+            >
+              <Text fontWeight="bold">배송지 정보</Text>
+              <Checkbox
+                colorScheme="commerse"
+                color="gray.600"
+                onChange={(e) => changeHandler(e)}
+              >
+                주문자 정보와 동일
+              </Checkbox>
+            </HStack>
             <FormHelper
               mt="2.5rem"
               mb="3.125rem"
@@ -187,14 +215,14 @@ const FormPageView = ({
             <FormHelper
               mb="3.125rem"
               label="주소"
-              errorText={errors.orderAdress?.message}
+              errorText={errors.orderAddress?.message}
             >
               <Flex gap=".7rem" mb=".7rem">
                 <Input
                   borderRadius="100px"
                   size="md"
                   borderColor="black"
-                  {...register('orderAdress')}
+                  {...register('orderAddress')}
                   autoComplete="off"
                   placeholder="주소"
                 />
@@ -213,7 +241,7 @@ const FormPageView = ({
                 borderRadius="100px"
                 size="md"
                 borderColor="black"
-                {...register('orderAdressDetail')}
+                {...register('orderAddressDetail')}
                 autoComplete="off"
                 placeholder="주소 상세"
               />
@@ -284,9 +312,13 @@ const FormPageView = ({
               render={({ field: { onChange } }) => (
                 <FormHelper errorText={errors.personalConsent?.message}>
                   <Checkbox
-                    // onChange={onChange}
                     colorScheme="commerse"
                     size="lg"
+                    onChange={(e) => {
+                      e.preventDefault();
+                      onChange();
+                      setBtn(!btn);
+                    }}
                   >
                     <Text textColor="gray.600">
                       개인정보 수집 이용 동의(필수)
@@ -297,6 +329,7 @@ const FormPageView = ({
             />
             {/* Submit Button */}
             <SubmitButton
+              isDisabled={btn}
               title="결제하기"
               sizes="btnlg"
               variant="btncommerse"
