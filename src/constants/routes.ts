@@ -25,13 +25,20 @@ export const ROUTES = {
     },
   },
   LOGIN: '/login',
+  CART: '/cart',
   SIGNUP: '/sign-up',
   MAIN: '/',
   PRODUCT: '/product',
+  PURCHASE: {
+    MAIN: '/orderpage',
+    SUCCESS: '/orderpage/success',
+  },
   MYPAGE: {
     MAIN: '/mypage',
     PROFILE: '/mypage/modifyprofile',
     WITHDRAWAL: '/mypage/withdrawal',
     ORDERHISTORY: '/mypage/orderhistory',
+    MYREVIEWS: '/mypage/myreviews',
+    POSTREVIEW: '/mypage/orderhistory/post-review',
   },
 } as const;

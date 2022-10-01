@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import {
@@ -12,6 +13,7 @@ import {
 
 import { SubmitButton } from '@components/common';
 
+import { ROUTES } from '@constants/routes';
 import { intComma } from '@utils/format';
 
 import CartCard from './_fragment/CartCard';
@@ -41,6 +43,7 @@ const results: resultsType[] = [
   // },
 ];
 function CartPage({ ...basisProps }: CartPageProps) {
+  const router = useRouter();
   if (results.length === 0) return <EmptyCart />;
   return (
     <Box {...basisProps}>
@@ -68,7 +71,12 @@ function CartPage({ ...basisProps }: CartPageProps) {
             <Text>결제금액</Text>
             <Text variant="boldcommerse">{intComma(108000)}원</Text>
           </HStack>
-          <SubmitButton title="결제하기" sizes="btnlg" variant="btncommerse" />
+          <SubmitButton
+            title="결제하기"
+            sizes="btnlg"
+            variant="btncommerse"
+            onClick={() => router.push(ROUTES.PURCHASE.MAIN)}
+          />
         </Stack>
       </Stack>
     </Box>

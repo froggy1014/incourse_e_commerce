@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import {
@@ -11,6 +12,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 
+import { ROUTES } from '@constants/routes';
 import { formatDateDash, intComma } from '@utils/format';
 
 interface productType {
@@ -35,6 +37,7 @@ const HistoryCard = ({
   orderProducts: orderProductsType;
 }) => {
   const { count, shippingStatus, created } = orderProducts;
+  const router = useRouter();
   return (
     <Stack mb="20px">
       <Text fontWeight="bold">[{formatDateDash(created)}]</Text>
@@ -80,6 +83,7 @@ const HistoryCard = ({
             colorScheme="commerse"
             w="140px"
             color="commerse.500"
+            onClick={() => router.push(ROUTES.MYPAGE.POSTREVIEW)}
           >
             리뷰작성
           </Button>

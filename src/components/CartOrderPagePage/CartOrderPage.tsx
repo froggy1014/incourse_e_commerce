@@ -1,4 +1,7 @@
+import { useRouter } from 'next/router';
 import React from 'react';
+
+import { ROUTES } from '@constants/routes';
 
 import OrderPageView from './CartOrderPage.view';
 import useFormValidate from './_hooks/useFormValidate';
@@ -11,6 +14,7 @@ const userInfo = {
 };
 
 const OrderPage = () => {
+  const router = useRouter();
   const formData = useFormValidate();
   const { handleSubmit } = formData;
   console.log('formData: ', formData);
@@ -30,6 +34,7 @@ const OrderPage = () => {
       console.log(
         `submitted: ${username},  ${phone}, ${address}, ${addressDetail}, ${orderUsername},  ${orderPhone}, ${orderAddress}, ${orderAddressDetail},${orderRequest}`,
       );
+      router.push(ROUTES.PURCHASE.SUCCESS);
     },
   );
   return (

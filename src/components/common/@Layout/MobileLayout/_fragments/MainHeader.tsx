@@ -52,7 +52,7 @@ const MainHeader = ({ px }: MainHeaderType) => {
         />
         <Logo size="sm" />
         <IconButton
-          // onClick={}
+          onClick={() => router.push(ROUTES.CART)}
           aria-label="CartIcon"
           icon={<CartIcon />}
           bg="transparent"

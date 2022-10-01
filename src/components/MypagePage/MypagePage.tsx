@@ -36,11 +36,11 @@ function MypagePage({ ...basisProps }: MypagePageProps) {
             <UserInfoEditIcon />
             <Text>회원정보수정</Text>
           </VStack>
-          <VStack>
+          <VStack onClick={() => router.push(ROUTES.MYPAGE.ORDERHISTORY)}>
             <OrderListIcon />
             <Text>주문내역</Text>
           </VStack>
-          <VStack>
+          <VStack onClick={() => router.push(ROUTES.MYPAGE.MYREVIEWS)}>
             <MyReviewIcon />
             <Text>내 상품 리뷰</Text>
           </VStack>
@@ -56,7 +56,12 @@ function MypagePage({ ...basisProps }: MypagePageProps) {
             <ListArrowRight />
           </HStack>
           <Divider w="100%" m="0px" />
-          <HStack w="100%" justify={'space-between'} h="60px">
+          <HStack
+            w="100%"
+            justify={'space-between'}
+            h="60px"
+            onClick={() => router.push(ROUTES.LOGIN)}
+          >
             <Text>로그아웃</Text>
             <ListArrowRight />
           </HStack>
