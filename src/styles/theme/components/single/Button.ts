@@ -103,8 +103,12 @@ export const Button: ComponentSingleStyleConfig = {
       my: '50px',
       px: '15px',
       py: '6px',
-      fontWeight: '400',
+      fontWeight: 'bold',
       boxSize: 'border-box',
+      _active: {
+        bg: 'commerse.500',
+        color: 'white',
+      },
     },
     btncommerse: {
       bg: 'commerse.500',
