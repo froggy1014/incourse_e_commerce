@@ -1,4 +1,4 @@
-import { useRouter } from 'next/dist/client/router';
+import Link from 'next/link';
 
 import {
   Button,
@@ -21,13 +21,10 @@ import ExitIcon from '@components/common/@Icons/System/Exit';
 import MenuIcon from '@components/common/@Icons/System/Menu';
 import { Logo } from '@icons/UI';
 
-import { ROUTES } from '@constants/routes';
-
 type MainHeaderType = { px?: string };
 
 const MainHeader = ({ px }: MainHeaderType) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const router = useRouter();
   return (
     <>
       <Flex
@@ -51,12 +48,13 @@ const MainHeader = ({ px }: MainHeaderType) => {
           bg="transparent"
         />
         <Logo size="sm" />
-        <IconButton
-          onClick={() => router.push(ROUTES.CART)}
-          aria-label="CartIcon"
-          icon={<CartIcon />}
-          bg="transparent"
-        />
+        <Link href="/">
+          <IconButton
+            aria-label="CartIcon"
+            icon={<CartIcon />}
+            bg="transparent"
+          />
+        </Link>
       </Flex>
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
@@ -79,21 +77,15 @@ const MainHeader = ({ px }: MainHeaderType) => {
               fontWeight="bold"
             >
               <Text fontSize={'20px'}>카테고리</Text>
-              <Text cursor="pointer" onClick={() => router.push(ROUTES.MAIN)}>
-                홈
-              </Text>
-              <Text
-                cursor="pointer"
-                onClick={() => router.push(ROUTES.PRODUCT)}
-              >
-                상품보기
-              </Text>
-              <Text
-                cursor="pointer"
-                onClick={() => router.push(ROUTES.MYPAGE.MAIN)}
-              >
-                마이페이지
-              </Text>
+              <Link href="/">
+                <a>홈</a>
+              </Link>
+              <Link href="/product">
+                <a>상품보기</a>
+              </Link>
+              <Link href="/mypage">
+                <a>마이페이지</a>
+              </Link>
             </VStack>
             <Divider mt="4" />
           </DrawerBody>
