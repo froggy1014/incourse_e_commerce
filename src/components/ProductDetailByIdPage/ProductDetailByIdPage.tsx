@@ -1,5 +1,4 @@
-import React from 'react';
-import { Link } from 'react-scroll';
+import React, { useRef } from 'react';
 
 import {
   Box,
@@ -97,6 +96,21 @@ function ProductDetailByIdPage({
   ...basisProps
 }: ProductDetailByIdPageProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const sectionOne = useRef(null);
+  const sectionTwo = useRef(null);
+  const sectionThree = useRef(null);
+  const scrollToSection = (
+    elementRef: React.MutableRefObject<HTMLButtonElement | null>,
+  ) => {
+    console.log(elementRef.current);
+    if (elementRef.current !== null) {
+      const offset = elementRef.current.offsetTop;
+      window.scrollTo({
+        top: offset,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
     <Box {...basisProps}>
@@ -150,19 +164,28 @@ function ProductDetailByIdPage({
         </VStack>
       </Flex>
       <HStack w="100%" justify="space-evenly" pb="30">
-        <Link to="DetailInfo" spy={true} smooth={true}>
-          <Button variant="btntoggle">상세정보</Button>
-        </Link>
-        <Link to="PurchaseInfo" spy={true} smooth={true} offset={-200}>
-          <Button variant="btntoggle">구매정보</Button>
-        </Link>
-        <Link to="ReviewInfo" spy={true} smooth={true}>
-          <Button variant="btntoggle">리뷰 (78)</Button>
-        </Link>
+        <Button variant="btntoggle" onClick={() => scrollToSection(sectionOne)}>
+          상세정보
+        </Button>
+        <Button variant="btntoggle" onClick={() => scrollToSection(sectionTwo)}>
+          구매정보
+        </Button>
+        <Button
+          variant="btntoggle"
+          onClick={() => scrollToSection(sectionThree)}
+        >
+          리뷰 (78)
+        </Button>
       </HStack>
-      <DetailSection1 />
-      <DetailSection2 />
-      <DetailSection3 />
+      <Box ref={sectionOne}>
+        <DetailSection1 />
+      </Box>
+      <Box ref={sectionTwo}>
+        <DetailSection2 />
+      </Box>
+      <Box ref={sectionThree}>
+        <DetailSection3 />
+      </Box>
       <PurchaseModal
         isOpen={isOpen}
         onClose={onClose}

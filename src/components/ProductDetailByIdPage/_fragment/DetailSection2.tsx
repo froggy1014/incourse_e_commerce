@@ -8,13 +8,7 @@ const DetailSection2 = () => {
   const [open, setOpen] = useState(true);
   return (
     <>
-      <Button
-        id="PurchaseInfo"
-        w="100%"
-        rounded={'0px'}
-        p="0"
-        onClick={() => setOpen(!open)}
-      >
+      <Button w="100%" rounded={'0px'} p="0" onClick={() => setOpen(!open)}>
         <HStack justify="space-between" w="100%">
           <Text variant="bold16">주문 및 배송 안내</Text>
           {open ? <UpVerticalArrow /> : <DownVerticalArrow />}

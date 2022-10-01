@@ -95,7 +95,7 @@ const DetailSection3 = () => {
   const { countNums, total, sum } = getAverage(array);
   return (
     <>
-      <Flex direction="column" w="100%" my="23px" id="ReviewInfo">
+      <Flex direction="column" w="100%" my="23px">
         <HStack justify="space-between">
           <Text as="span" fontWeight="bold">
             리뷰
