@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common';
+import CompleteModal from '@components/common/GlobalModal/CompleteModal';
 
 import { ROUTES } from '@constants/routes';
 
@@ -29,6 +30,7 @@ interface FormData {
 
 function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
   const [etc, setEtc] = useState('');
   const [flag, setFlag] = useState(true);
   const {
@@ -45,6 +47,10 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
     } else setFlag(true);
   };
 
+  const modalHandler = async () => {
+    setOpen(!open);
+  };
+
   const onSubmit = handleSubmit((data) => {
     if (data.reasonWhy === '기타') {
       data = {
@@ -53,8 +59,8 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
       };
       console.log(data);
     } else console.log(data);
-
-    router.push(ROUTES.LOGIN);
+    modalHandler();
+    // router.push(ROUTES.LOGIN);
   });
 
   return (
@@ -174,7 +180,6 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
           )}
         </Stack>
       </Stack>
-
       <HStack justify="space-between" pb="30px">
         <SubmitButton
           title="취소"
@@ -186,6 +191,12 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
         />
         <SubmitButton title="탈퇴하기" variant="btncommerse" sizes="btnsm" />
       </HStack>
+      <CompleteModal
+        title="탈퇴가 완료되었습니다."
+        isOpen={open}
+        onClose={() => modalHandler()}
+      />
+      ;
     </Stack>
   );
 }
