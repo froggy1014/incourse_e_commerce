@@ -11,5 +11,11 @@ export const Divider: ComponentSingleStyleConfig = {
       h: '1px',
       bg: 'gray.200',
     },
+    fullthick: {
+      minW: '375px',
+      transform: 'translateX(-16px)',
+      h: '10px',
+      bg: 'gray.200',
+    },
   },
 };

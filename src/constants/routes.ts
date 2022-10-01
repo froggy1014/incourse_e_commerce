@@ -32,5 +32,6 @@ export const ROUTES = {
     MAIN: '/mypage',
     PROFILE: '/mypage/modifyprofile',
     WITHDRAWAL: '/mypage/withdrawal',
+    ORDERHISTORY: '/mypage/orderhistory',
   },
 } as const;
