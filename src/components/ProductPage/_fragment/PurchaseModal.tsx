@@ -45,7 +45,6 @@ function PurchaseModal(props: Omit<DrawerExampleProps, 'children'>) {
   };
 
   useEffect(() => {
-    console.log('reset');
     setState(() => {
       return { count: 1, price: productPrice };
     });

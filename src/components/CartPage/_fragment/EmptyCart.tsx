@@ -22,7 +22,13 @@ function EmptyCart({ ...basisProps }: EmptyCartType) {
         <Text fontWeight="bold">상품을 추가해보세요!</Text>
       </VStack>
       <Link href="/product">
-        <SubmitButton title="상품보러가기" size="btnmd" variant="btncommerse" />
+        <a>
+          <SubmitButton
+            title="상품보러가기"
+            size="btnmd"
+            variant="btncommerse"
+          />
+        </a>
       </Link>
     </VStack>
   );

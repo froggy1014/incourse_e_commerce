@@ -3,7 +3,7 @@ import { Button, ButtonProps } from '@chakra-ui/react';
 interface SubmitButtonType extends ButtonProps {}
 
 export const SubmitButton = ({ ...props }: SubmitButtonType) => {
-  const { title, variant, isDisabled = false, size } = props;
+  const { title, isDisabled = false } = props;
   return (
     <>
       <Button
@@ -12,8 +12,6 @@ export const SubmitButton = ({ ...props }: SubmitButtonType) => {
         fontSize="16px"
         h="50px"
         fontWeight="bold"
-        variant={variant}
-        size={size}
         isDisabled={isDisabled}
         {...props}
       >

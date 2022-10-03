@@ -6,10 +6,6 @@ import { Box, Container, Image } from '@chakra-ui/react';
 import { SubmitButton } from '@components/common/index';
 
 const Section2 = () => {
-  const handleClick = () => {
-    console.log('Submit');
-  };
-
   return (
     <Container position="relative" centerContent>
       <Image
@@ -20,18 +16,19 @@ const Section2 = () => {
         h="auto"
       />
       <Box
-        onClick={handleClick}
         position="absolute"
         top="263px"
         left="50%"
         transform="translateX(-50%)"
       >
         <Link href="/product">
-          <SubmitButton
-            title="상품전체보기"
-            variant="btncommerse"
-            size="btnmd"
-          />
+          <a>
+            <SubmitButton
+              title="상품전체보기"
+              variant="btncommerse"
+              size="btnmd"
+            />
+          </a>
         </Link>
       </Box>
     </Container>
