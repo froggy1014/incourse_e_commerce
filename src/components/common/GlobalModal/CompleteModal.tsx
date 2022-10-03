@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import {
   Modal,
@@ -17,8 +18,10 @@ import { SubmitButton } from '../SubmitButton/SubmitButton';
 
 interface ModalExampleProps extends Omit<ModalProps, 'children'> {
   title: string;
+  linkTo?: string;
 }
-function CompleteModal({ title, ...props }: ModalExampleProps) {
+function CompleteModal({ title, linkTo, ...props }: ModalExampleProps) {
+  const [destination, setDestination] = useState(linkTo);
   const router = useRouter();
   return (
     <Modal isCentered {...props}>
@@ -34,6 +37,10 @@ function CompleteModal({ title, ...props }: ModalExampleProps) {
               variant="btncommerse"
               size="btnmd"
               onClick={() => {
+                if (destination === 'back') router.back();
+                else if (destination !== undefined) {
+                  router.push(`${ROUTES[destination as keyof typeof ROUTES]}`);
+                }
                 props.onClose();
               }}
             />

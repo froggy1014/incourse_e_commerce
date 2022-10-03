@@ -56,5 +56,3 @@ export const MyReviewCard = ({
     </Box>
   );
 };
-
-const Basis = Box;

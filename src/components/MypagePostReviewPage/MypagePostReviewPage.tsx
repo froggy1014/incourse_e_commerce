@@ -17,6 +17,7 @@ import {
   DeletePhotoIcon,
   EmptyBigRatingIcon,
 } from '@components/common/@Icons/UI';
+import CompleteModal from '@components/common/GlobalModal/CompleteModal';
 
 import { bytesToMB, fileToBase64, isBase64Img, isOverSize } from '@utils/file';
 import { intComma } from '@utils/format';
@@ -24,6 +25,7 @@ import { intComma } from '@utils/format';
 interface MypagePostReviewPageProps extends ChakraProps {}
 
 function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
+  const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const fileTrigger = useRef<HTMLInputElement>(null);
   const [files, setFiles] = React.useState<File[]>([]);
@@ -32,6 +34,10 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
     string | ArrayBuffer | null
   >();
   const [base64Files, setBase64Files] = useState<string[] | unknown[]>([]);
+
+  const modalHandler = async () => {
+    setOpen(!open);
+  };
 
   const fileSelectedHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -59,7 +65,7 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(event);
+    modalHandler();
   };
 
   return (
@@ -158,6 +164,12 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
         </Flex>
       </Stack>
       <SubmitButton title="작성하기" size="btnlg" variant="btncommerse" />
+      <CompleteModal
+        title="리뷰작성이 완료되었습니다."
+        linkTo="back"
+        isOpen={open}
+        onClose={() => modalHandler()}
+      />
     </form>
   );
 }

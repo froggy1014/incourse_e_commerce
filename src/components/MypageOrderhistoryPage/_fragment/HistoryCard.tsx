@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Box,
@@ -11,6 +11,8 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
+
+import CompleteModal from '@components/common/GlobalModal/CompleteModal';
 
 import { ROUTES } from '@constants/routes';
 import { formatDateDash, intComma } from '@utils/format';
@@ -38,6 +40,12 @@ const HistoryCard = ({
 }) => {
   const { count, shippingStatus, created } = orderProducts;
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+
+  const modalHandler = async () => {
+    setOpen(!open);
+  };
+
   return (
     <Stack mb="20px">
       <Text fontWeight="bold">[{formatDateDash(created)}]</Text>
@@ -73,7 +81,12 @@ const HistoryCard = ({
       })}
       <Flex justify="end">
         {shippingStatus === 'PAID' && (
-          <Button colorScheme="commerse" w="140px" color="white">
+          <Button
+            colorScheme="commerse"
+            w="140px"
+            color="white"
+            onClick={() => modalHandler()}
+          >
             주문취소
           </Button>
         )}
@@ -88,6 +101,11 @@ const HistoryCard = ({
             리뷰작성
           </Button>
         )}
+        <CompleteModal
+          title="주문취소가 완료되었습니다."
+          isOpen={open}
+          onClose={() => modalHandler()}
+        />
       </Flex>
     </Stack>
   );
