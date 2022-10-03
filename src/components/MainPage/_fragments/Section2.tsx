@@ -1,14 +1,11 @@
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import React from 'react';
 
 import { Box, Container, Image } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common/index';
 
-import { ROUTES } from '@constants/routes';
-
 const Section2 = () => {
-  const router = useRouter();
   const handleClick = () => {
     console.log('Submit');
   };
@@ -29,12 +26,13 @@ const Section2 = () => {
         left="50%"
         transform="translateX(-50%)"
       >
-        <SubmitButton
-          title="상품전체보기"
-          variant="btncommerse"
-          sizes="btnmd"
-          onClick={() => router.push(ROUTES.PRODUCT)}
-        />
+        <Link href="/product">
+          <SubmitButton
+            title="상품전체보기"
+            variant="btncommerse"
+            size="btnmd"
+          />
+        </Link>
       </Box>
     </Container>
   );

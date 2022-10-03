@@ -156,7 +156,7 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
           })}
         </Flex>
       </Stack>
-      <SubmitButton title="작성하기" sizes="btnlg" variant="btncommerse" />
+      <SubmitButton title="작성하기" size="btnlg" variant="btncommerse" />
     </form>
   );
 }

@@ -109,14 +109,14 @@ function CartOrderpageSuccessPage({
             <Flex justify="space-between" pt="34px">
               <SubmitButton
                 title="메인화면 이동"
-                sizes="btnsm"
+                size="btnsm"
                 variant="btnwhite"
                 w="165px"
                 onClick={() => router.push(ROUTES.MAIN)}
               />
               <SubmitButton
                 title="주문내역 이동"
-                sizes="btnsm"
+                size="btnsm"
                 variant="btncommerse"
                 w="165px"
                 onClick={() => router.push(ROUTES.MYPAGE.ORDERHISTORY)}

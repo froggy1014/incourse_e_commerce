@@ -29,12 +29,12 @@ interface resultsType {
 }
 
 const results: resultsType[] = [
-  {
-    name: '바스 & 샴푸',
-    volumn: 120,
-    price: 27000,
-    count: 1,
-  },
+  // {
+  //   name: '바스 & 샴푸',
+  //   volumn: 120,
+  //   price: 27000,
+  //   count: 1,
+  // },
   // {
   //   name: '바스 & 샴푸',
   //   volumn: 120,
@@ -73,7 +73,7 @@ function CartPage({ ...basisProps }: CartPageProps) {
           </HStack>
           <SubmitButton
             title="결제하기"
-            sizes="btnlg"
+            size="btnlg"
             variant="btncommerse"
             onClick={() => router.push(ROUTES.PURCHASE.MAIN)}
           />

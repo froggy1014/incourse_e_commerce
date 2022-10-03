@@ -153,13 +153,13 @@ function ProductDetailByIdPage({
           <SubmitButton
             title="장바구니"
             variant="btnwhite"
-            sizes="btnlg"
+            size="btnlg"
             mb="0px"
           ></SubmitButton>
           <SubmitButton
             title="바로구매"
             variant="btncommerse"
-            sizes="btnlg"
+            size="btnlg"
           ></SubmitButton>
         </VStack>
       </Flex>

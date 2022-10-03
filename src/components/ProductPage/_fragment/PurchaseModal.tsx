@@ -108,7 +108,7 @@ function PurchaseModal(props: Omit<DrawerExampleProps, 'children'>) {
               <SubmitButton
                 title="장바구니"
                 variant="btnwhite"
-                sizes="btnsm"
+                size="btnsm"
                 w="165px"
                 mb="10px"
                 onClick={() => handleCart()}
@@ -116,7 +116,7 @@ function PurchaseModal(props: Omit<DrawerExampleProps, 'children'>) {
               <SubmitButton
                 title="바로구매"
                 variant="btncommerse"
-                sizes="btnsm"
+                size="btnsm"
                 w="165px"
                 mb="10px"
                 onClick={() => handleCart()}

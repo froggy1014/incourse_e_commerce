@@ -1,14 +1,10 @@
 import { useRouter } from 'next/router';
 
 import {
-  Button,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
-  ModalHeader,
   ModalOverlay,
   ModalProps,
   Stack,
@@ -36,10 +32,9 @@ function CompleteModal({ title, ...props }: ModalExampleProps) {
             <SubmitButton
               title="확인"
               variant="btncommerse"
-              sizes="btnmd"
+              size="btnmd"
               onClick={() => {
                 props.onClose();
-                router.push(ROUTES.LOGIN);
               }}
             />
           </Stack>

@@ -85,12 +85,12 @@ const ProductCard = ({ onOpen, setPurchase, ...props }: productInfo) => {
         <SubmitButton
           title="바로구매"
           variant="btncommerse"
-          sizes="btnsm"
+          size="btnsm"
         ></SubmitButton>
         <SubmitButton
           title="장바구니"
           variant="btnwhite"
-          sizes="btnsm"
+          size="btnsm"
         ></SubmitButton>
       </Flex>
     </Box>

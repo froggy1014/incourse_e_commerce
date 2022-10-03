@@ -331,7 +331,7 @@ const FormPageView = ({
             <SubmitButton
               isDisabled={btn}
               title="결제하기"
-              sizes="btnlg"
+              size="btnlg"
               variant="btncommerse"
               mt="40px"
               mb="80px"

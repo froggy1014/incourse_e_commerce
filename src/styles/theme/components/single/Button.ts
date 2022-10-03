@@ -147,23 +147,14 @@ export const Button: ComponentSingleStyleConfig = {
   sizes: {
     btnsm: {
       w: '150px',
-      h: '50px',
-      fontSize: '16px',
-      fontWeight: 'bold',
       mb: '30px',
     },
     btnmd: {
       w: '190px',
-      h: '50px',
-      fontSize: '16px',
-      fontWeight: 'bold',
       mb: '30px',
     },
     btnlg: {
       w: '100%',
-      h: '50px',
-      fontSize: '16px',
-      fontWeight: 'bold',
       mb: '50px',
     },
     lg: {

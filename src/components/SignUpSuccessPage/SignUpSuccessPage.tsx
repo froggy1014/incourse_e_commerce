@@ -34,7 +34,7 @@ function SignUpSuccessPage({ ...basisProps }: SignUpSuccessPageProps) {
         <SubmitButton
           title="시작하기"
           variant="btncommerse"
-          sizes="btnlg"
+          size="btnlg"
           mb="0"
         />
       </Flex>

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -181,15 +182,16 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
         </Stack>
       </Stack>
       <HStack justify="space-between" pb="30px">
-        <SubmitButton
-          title="취소"
-          variant="btnwhite"
-          sizes="btnsm"
-          mb="0px"
-          type="button"
-          onClick={() => router.back()}
-        />
-        <SubmitButton title="탈퇴하기" variant="btncommerse" sizes="btnsm" />
+        <Link href="/mypage">
+          <SubmitButton
+            title="취소"
+            variant="btnwhite"
+            size="btnsm"
+            mb="0px"
+            type="button"
+          />
+        </Link>
+        <SubmitButton title="탈퇴하기" variant="btncommerse" size="btnsm" />
       </HStack>
       <CompleteModal
         title="탈퇴가 완료되었습니다."

@@ -1,4 +1,5 @@
 import { useRouter } from 'next/dist/client/router';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
@@ -190,31 +191,27 @@ const ProfileFormView = ({
             title="회원가입 완료"
             isDisabled={check.length !== 3 ? true : false}
             variant="btncommerse"
-            sizes="btnlg"
+            size="btnlg"
           />
         </>
       ) : (
-        <HStack
+        <Flex
           justify="space-between"
           w="100%"
           align="center"
           mt="80px"
           mb="30px"
         >
-          <SubmitButton
-            title="취소"
-            variant="btnwhite"
-            sizes="btnsm"
-            mb="0px"
-            type="button"
-            onClick={() => router.back()}
-          ></SubmitButton>
-          <SubmitButton
-            title="저장"
-            variant="btncommerse"
-            sizes="btnsm"
-          ></SubmitButton>
-        </HStack>
+          <Link href="/mypage">
+            <SubmitButton
+              title="취소"
+              variant="btnwhite"
+              size="btnsm"
+              type="button"
+            />
+          </Link>
+          <SubmitButton title="저장" variant="btncommerse" size="btnsm" />
+        </Flex>
       )}
     </Box>
   );
