@@ -30,8 +30,8 @@ export const MyReviewCard = ({
           <Text fontWeight="bold">{title}</Text>
           <HStack spacing="1">
             {rateArr.map((arr, i) => {
-              if (i <= rate - 1) return <RatingIcon />;
-              else return <EmptyRatingIcon />;
+              if (i <= rate - 1) return <RatingIcon key={i} />;
+              else return <EmptyRatingIcon key={i} />;
             })}
           </HStack>
         </Flex>

@@ -183,13 +183,15 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
       </Stack>
       <HStack justify="space-between" pb="30px">
         <Link href="/mypage">
-          <SubmitButton
-            title="취소"
-            variant="btnwhite"
-            size="btnsm"
-            mb="0px"
-            type="button"
-          />
+          <a>
+            <SubmitButton
+              title="취소"
+              variant="btnwhite"
+              size="btnsm"
+              mb="0px"
+              type="button"
+            />
+          </a>
         </Link>
         <SubmitButton title="탈퇴하기" variant="btncommerse" size="btnsm" />
       </HStack>

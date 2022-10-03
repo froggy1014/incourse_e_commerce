@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { Box, ChakraProps, Divider, Image, Text } from '@chakra-ui/react';
+import {
+  Box,
+  ChakraProps,
+  Divider,
+  Image,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
 
 import { MyReviewCard } from '@components/common';
 
@@ -56,10 +63,10 @@ function MypageMyreviewsPage({ ...basisProps }: MypageMyreviewsPageProps) {
         </Box>
         건
       </Text>
-      {results.map((result) => {
-        const { id, title, description, rate, imgUrl, date } = result;
-        return (
-          <>
+      <Stack divider={<Divider />}>
+        {results.map((result) => {
+          const { id, title, description, rate, imgUrl, date } = result;
+          return (
             <MyReviewCard
               key={id}
               title={title}
@@ -68,10 +75,9 @@ function MypageMyreviewsPage({ ...basisProps }: MypageMyreviewsPageProps) {
               imgUrl={imgUrl}
               date={date}
             />
-            <Divider />
-          </>
-        );
-      })}
+          );
+        })}
+      </Stack>
     </Box>
   );
 }

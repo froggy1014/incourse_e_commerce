@@ -1,4 +1,3 @@
-import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
@@ -8,7 +7,6 @@ import {
   Box,
   BoxProps,
   Flex,
-  HStack,
   Heading,
   Input,
   Select,
@@ -47,7 +45,6 @@ const ProfileFormView = ({
   ...basisProps
 }: FormPageProps) => {
   const [check, setCheck] = useState<string[]>([]);
-  const router = useRouter();
   const [signup, setSignup] = useState(true);
   useEffect(() => {
     if (userInfo !== undefined) {
@@ -195,20 +192,16 @@ const ProfileFormView = ({
           />
         </>
       ) : (
-        <Flex
-          justify="space-between"
-          w="100%"
-          align="center"
-          mt="80px"
-          mb="30px"
-        >
+        <Flex justify="space-between" w="100%" align="center" mt="80px">
           <Link href="/mypage">
-            <SubmitButton
-              title="취소"
-              variant="btnwhite"
-              size="btnsm"
-              type="button"
-            />
+            <a>
+              <SubmitButton
+                title="취소"
+                variant="btnwhite"
+                size="btnsm"
+                type="button"
+              />
+            </a>
           </Link>
           <SubmitButton title="저장" variant="btncommerse" size="btnsm" />
         </Flex>

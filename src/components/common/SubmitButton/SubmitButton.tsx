@@ -13,6 +13,7 @@ export const SubmitButton = ({ ...props }: SubmitButtonType) => {
         h="50px"
         fontWeight="bold"
         isDisabled={isDisabled}
+        type="submit"
         {...props}
       >
         {title}

@@ -48,7 +48,7 @@ const MainHeader = ({ px }: MainHeaderType) => {
           bg="transparent"
         />
         <Logo size="sm" />
-        <Link href="/">
+        <Link href="/cart">
           <IconButton
             aria-label="CartIcon"
             icon={<CartIcon />}

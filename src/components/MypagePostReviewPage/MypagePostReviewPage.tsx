@@ -106,6 +106,7 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
           placeholder="내용을 입력하세요."
           resize="none"
           h="200px"
+          required
         ></Textarea>
       </Stack>
       <Text pt="20px">사진첨부 ({base64Files.length}/3)</Text>
@@ -130,7 +131,7 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
           {base64Files.map((file, i) => {
             if (typeof file === 'string') {
               return (
-                <Box m="10px" position="relative">
+                <Box key={i} m="10px" position="relative">
                   <Image
                     boxSize="80px"
                     objectFit="cover"
