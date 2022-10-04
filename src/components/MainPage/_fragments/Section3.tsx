@@ -5,79 +5,11 @@ import { Box, Text } from '@chakra-ui/react';
 
 import { FloatingActionIcon } from '@icons/UI';
 
+import { AllReviewTypes } from '../data';
 import ButtonCarousel from './ButtonCarousel';
-// import SingleCarousel from './SingleCarousel';
 import ReviewCard from './ReviewCard';
 
-const results = [
-  {
-    id: 19786754631,
-    userId: 9876543,
-    productId: 5555,
-    rate: 5,
-    content: '파우더로션',
-    reviewimageSet: [
-      {
-        reviewId: 1231,
-        url: '/images/ReviewImage.png',
-      },
-    ],
-  },
-  {
-    id: 2135161,
-    userId: 23456789,
-    productId: 1111,
-    rate: 3,
-    content: '샴푸',
-    reviewimageSet: [
-      {
-        reviewId: 1232,
-        url: '/images/ReviewImage.png',
-      },
-    ],
-  },
-  {
-    id: 2135161,
-    userId: 23456789,
-    productId: 4444,
-    rate: 1,
-    content: '크림',
-    reviewimageSet: [
-      {
-        reviewId: 1232,
-        url: '/images/ReviewImage.png',
-      },
-    ],
-  },
-  {
-    id: 2135161,
-    userId: 23456789,
-    productId: 2222,
-    rate: 3,
-    content: '오일',
-    reviewimageSet: [
-      {
-        reviewId: 1232,
-        url: '/images/ReviewImage.png',
-      },
-    ],
-  },
-  {
-    id: 2135161,
-    userId: 23456789,
-    productId: 3333,
-    rate: 2,
-    content: '로션',
-    reviewimageSet: [
-      {
-        reviewId: 1232,
-        url: '/images/ReviewImage.png',
-      },
-    ],
-  },
-];
-
-const Section3 = () => {
+const Section3 = ({ results }: AllReviewTypes) => {
   const [value, setValue] = useState(0);
   const settings = {
     dots: false,

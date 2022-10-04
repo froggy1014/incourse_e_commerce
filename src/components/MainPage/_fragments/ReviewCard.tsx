@@ -12,26 +12,30 @@ import {
 
 import { EmptyRatingIcon, RatingIcon } from '@components/common/@Icons/UI';
 
-type ReviewType = { reviewId: number; url: string };
+import { formatDate } from '@utils/format';
 
-interface DataType {
-  data: {
-    id: number;
-    userId: number;
-    productId: number;
-    rate: number;
-    content: string;
-    reviewimageSet: ReviewType[];
-  };
-}
+import { ReviewTypes } from '../data';
 
 interface ReviewCardType extends ChakraProps {}
-interface ReviewCardType extends DataType {}
 
-const ReviewCard = ({ data, ...basisProps }: ReviewCardType) => {
-  const { id, userId, productId, rate, content, reviewimageSet } = data;
+const ReviewCard = ({
+  data,
+  ...Props
+}: {
+  data: ReviewTypes;
+  Props?: ReviewCardType;
+}) => {
+  const { created, rate, content, reviewimageSet } = data;
   return (
-    <>
+    <Box
+      w="95%"
+      rounded="20px"
+      boxShadow="1px 2px 10px 1px #1A1A1A1A"
+      m="10px"
+      p="20px"
+      bg="white"
+      h="100%"
+    >
       <Box w="100%" fontSize="12px" pt="10px">
         <Flex w="100%" justify="space-between">
           <Text fontWeight="bold">incourse.run</Text>
@@ -47,19 +51,19 @@ const ReviewCard = ({ data, ...basisProps }: ReviewCardType) => {
               })}
           </HStack>
         </Flex>
-        <Text color="gray.600">2021.03.29</Text>
+        <Text color="gray.600">{formatDate(created)}</Text>
       </Box>
-      <Text>{content}</Text>
+      <Text my="30px">{content}</Text>
       <Divider my="20px" />
       <HStack>
         {reviewimageSet.length &&
-          reviewimageSet.map((review) => {
+          reviewimageSet.map((review, i) => {
             return (
-              <Image key={review.reviewId} src={review.url} alt="detail" />
+              <Image boxSize="80px" key={i} src={review.url} alt="detail" />
             );
           })}
       </HStack>
-    </>
+    </Box>
   );
 };
 

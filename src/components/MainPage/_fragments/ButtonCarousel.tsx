@@ -41,11 +41,11 @@ function ButtonCarousel({
           </Box>
           <Box>
             <Button
-              value={1111}
+              value={4}
               variant="review"
               w="63px"
               onClick={(e) => handleClick(e)}
-              isActive={value === 1111}
+              isActive={value === 4}
             >
               {' '}
               바스&샴푸
@@ -53,41 +53,41 @@ function ButtonCarousel({
           </Box>
           <Box>
             <Button
-              value={2222}
+              value={2}
               variant="review"
               onClick={(e) => handleClick(e)}
-              isActive={value === 2222}
+              isActive={value === 2}
             >
               오일
             </Button>
           </Box>
           <Box>
             <Button
-              value={3333}
+              value={3}
               variant="review"
               onClick={(e) => handleClick(e)}
-              isActive={value === 3333}
+              isActive={value === 3}
             >
               로션
             </Button>
           </Box>
           <Box>
             <Button
-              value={4444}
+              value={1}
               variant="review"
               onClick={(e) => handleClick(e)}
-              isActive={value === 4444}
+              isActive={value === 1}
             >
               크림
             </Button>
           </Box>
           <Box>
             <Button
-              value={5555}
+              value={5}
               variant="review"
               w="83px"
               onClick={(e) => handleClick(e)}
-              isActive={value === 5555}
+              isActive={value === 5}
             >
               파우더 로션
             </Button>
