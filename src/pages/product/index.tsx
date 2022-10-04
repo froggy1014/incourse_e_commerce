@@ -10,7 +10,6 @@ import { productFetch } from '@utils/axios';
 
 function Product({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { results } = data;
-  console.log(data);
   return (
     <>
       <Head>

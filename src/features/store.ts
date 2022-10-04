@@ -1,17 +1,18 @@
-//@delete:line
+// //@delete:line
 import counterSlice from '@features/counter/counterSlice';
 import modalSlice from '@features/modal/modalSlice';
-import userSlice from '@features/user/userSlice';
+// import userSlice from '@features/user/userSlice';
+import pgSlice from '@features/pg/pgSlice';
 
 import { configureStore } from '@reduxjs/toolkit';
 
 export function makeStore() {
   return configureStore({
     reducer: {
-      //@delete:line
       [counterSlice.name]: counterSlice.reducer,
-      [userSlice.name]: userSlice.reducer,
+      // [userSlice.name]: userSlice.reducer,
       [modalSlice.name]: modalSlice.reducer,
+      [pgSlice.name]: pgSlice.reducer,
     },
   });
 }
@@ -19,3 +20,6 @@ export function makeStore() {
 const store = makeStore();
 
 export default store;
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

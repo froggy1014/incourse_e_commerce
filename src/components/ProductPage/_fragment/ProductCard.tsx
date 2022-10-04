@@ -1,7 +1,10 @@
 import { useRouter } from 'next/dist/client/router';
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Box, Flex, HStack, Image, Text, VStack } from '@chakra-ui/react';
+
+import { focusProduct } from '@features/pg/pgSlice';
 
 import { SubmitButton } from '@components/common';
 import { RatingIcon } from '@icons/UI';
@@ -10,25 +13,19 @@ import { ROUTES } from '@constants/routes';
 
 import { dataType } from '../data';
 
-type Purchase = [string, number, number];
 interface productInfo {
-  setPurchase: Dispatch<SetStateAction<Purchase>>;
   onOpen: () => void;
   product: dataType;
 }
 
-const ProductCard = ({
-  onOpen,
-  setPurchase,
-  product,
-  ...props
-}: productInfo) => {
+const ProductCard = ({ onOpen, product, ...props }: productInfo) => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const { id, thumbnail, name, capacity, price, avgRate, reviewCount, tags } =
     product;
 
   const handleClick = () => {
-    setPurchase([name, price, id]);
+    dispatch(focusProduct([id, price, name]));
     onOpen();
   };
   return (

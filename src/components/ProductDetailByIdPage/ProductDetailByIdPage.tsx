@@ -118,11 +118,7 @@ function ProductDetailByIdPage({
       <Box ref={sectionThree}>
         <DetailSection3 />
       </Box>
-      <PurchaseModal
-        isOpen={isOpen}
-        onClose={onClose}
-        purchase={['테스트', 2000, id]}
-      />
+      <PurchaseModal isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 }

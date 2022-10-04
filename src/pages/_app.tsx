@@ -1,3 +1,5 @@
+import { Provider } from 'react-redux';
+
 import { ThemeProvider, useColorMode, useTheme } from '@chakra-ui/react';
 
 import ToggleColorModeButton from '@components/common/ToggleColorModeButton';
@@ -5,6 +7,8 @@ import ToggleColorModeButton from '@components/common/ToggleColorModeButton';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { mode } from '@theme/foundations/colors';
+
+import store from '../features/store';
 
 import withAppProvider from 'contexts/app/app.provider';
 import { withGlobalModalHandlerContext } from 'contexts/modal/useGlobalModalHandler.context';
@@ -22,7 +26,9 @@ function MyApp({ Component, pageProps }: any) {
     >
       <ToggleColorModeButton />
       <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ThemeProvider>
