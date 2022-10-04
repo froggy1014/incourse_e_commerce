@@ -1,3 +1,4 @@
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 
 import ProductPage from '@components/ProductPage';
@@ -5,7 +6,11 @@ import MobileLayout from '@components/common/@Layout/MobileLayout';
 import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
 import MainHeader from '@components/common/@Layout/MobileLayout/_fragments/MainHeader';
 
-function Product() {
+import { productFetch } from '@utils/axios';
+
+function Product({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { results } = data;
+  console.log(data);
   return (
     <>
       <Head>
@@ -13,11 +18,21 @@ function Product() {
       </Head>
       <MobileLayout
         header={<MainHeader />}
-        content={<ProductPage />}
+        content={<ProductPage data={results} />}
         footer={<Footer />}
       />
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const res = await productFetch('');
+  const data = await res.data;
+  return {
+    props: {
+      data,
+    },
+  };
+};
 
 export default Product;

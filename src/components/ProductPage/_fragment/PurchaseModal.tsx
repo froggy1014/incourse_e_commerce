@@ -19,7 +19,7 @@ import { QtyMinusIcon, QtyPlusIcon } from '@icons/UI';
 import { intComma } from '@utils/format';
 
 interface PurchaseInfo {
-  purchase: [name: string, price: number, id: string];
+  purchase: [name: string, price: number, id: number];
 }
 
 interface DrawerExampleProps extends DrawerProps {}

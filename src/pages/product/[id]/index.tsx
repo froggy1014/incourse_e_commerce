@@ -13,12 +13,11 @@ function ProductDetailById() {
   return (
     <>
       <Head>
-        {/* ex) Your App Name | Page Name */}
-        <title>똑똑한 개발자 | 상세 페이지</title>
+        <title>상세 페이지</title>
       </Head>
       <MobileLayout
         header={<MainHeader />}
-        content={<ProductDetailByIdPage id={id} />}
+        content={<ProductDetailByIdPage id={Number(id)} />}
         footer={<Footer />}
       />
     </>

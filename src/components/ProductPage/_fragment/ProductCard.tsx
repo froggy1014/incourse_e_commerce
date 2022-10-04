@@ -8,28 +8,24 @@ import { RatingIcon } from '@icons/UI';
 
 import { ROUTES } from '@constants/routes';
 
-type Purchase = [string, number, string];
+import { dataType } from '../data';
+
+type Purchase = [string, number, number];
 interface productInfo {
   setPurchase: Dispatch<SetStateAction<Purchase>>;
   onOpen: () => void;
-  product: {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    capacity: number;
-    tags: string[];
-    avgRate: string;
-    reviewCount: string;
-    created: string;
-    imgurl: string;
-  };
+  product: dataType;
 }
 
-const ProductCard = ({ onOpen, setPurchase, ...props }: productInfo) => {
+const ProductCard = ({
+  onOpen,
+  setPurchase,
+  product,
+  ...props
+}: productInfo) => {
   const router = useRouter();
-  const { id, imgurl, name, capacity, price, avgRate, reviewCount, tags } =
-    props.product;
+  const { id, thumbnail, name, capacity, price, avgRate, reviewCount, tags } =
+    product;
 
   const handleClick = () => {
     setPurchase([name, price, id]);
@@ -44,7 +40,7 @@ const ProductCard = ({ onOpen, setPurchase, ...props }: productInfo) => {
       boxShadow="0px 0px 10px 0px #1A1A1A1A"
     >
       <Box onClick={() => router.push(`${ROUTES.PRODUCT}/${id}`)}>
-        <Image objectFit="cover" src={imgurl} alt="product1" />
+        <Image objectFit="cover" src={thumbnail} alt="product1" />
         <Flex
           direction="column"
           w="100%"
@@ -71,10 +67,10 @@ const ProductCard = ({ onOpen, setPurchase, ...props }: productInfo) => {
             </HStack>
           </VStack>
           <HStack spacing="2">
-            {tags.map((tag, i) => {
+            {tags.map((tag) => {
               return (
-                <Text key={i} variant="normal16gray">
-                  # {tag}
+                <Text key={tag.id} variant="normal16gray">
+                  # {tag.name}
                 </Text>
               );
             })}
