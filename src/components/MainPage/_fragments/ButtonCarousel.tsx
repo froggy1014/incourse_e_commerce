@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Slider from 'react-slick';
 
 import { Box, Button } from '@chakra-ui/react';
@@ -15,7 +15,6 @@ function ButtonCarousel({
 }) {
   const handleClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLButtonElement;
-    console.log(typeof target.value);
     Number(target.value) !== 0 ? setValue(Number(target.value)) : setValue(0);
   };
   const settings = {

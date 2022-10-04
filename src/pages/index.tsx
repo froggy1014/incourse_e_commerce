@@ -5,7 +5,7 @@ import MainPage from '@components/MainPage';
 import MobileLayout from '@components/common/@Layout/MobileLayout';
 import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
 
-import { AllReviewTypes } from '../components/MainPage/data';
+import { reviewFetch } from '@utils/axios';
 
 function Main({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { results } = data;
@@ -23,8 +23,8 @@ function Main({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch('https://api.commerce.incourse.run/v1/review/');
-  const data = await res.json();
+  const res = await reviewFetch('/');
+  const data = await res.data;
   return {
     props: {
       data,
