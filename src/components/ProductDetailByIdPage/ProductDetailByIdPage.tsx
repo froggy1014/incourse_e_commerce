@@ -64,7 +64,7 @@ function ProductDetailByIdPage({
   };
 
   useEffect(() => {
-    dispatch(storeReviews(reviewList));
+    if (reviewList.length) dispatch(storeReviews(reviewList));
   }, []);
 
   return (

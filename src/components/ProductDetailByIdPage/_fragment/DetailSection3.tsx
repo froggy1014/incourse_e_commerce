@@ -147,13 +147,16 @@ const DetailSection3 = () => {
           </HStack>
           <HStack spacing="-6">
             {countNums.map((num: number, i: number) => {
+              let value = 0;
+              if (isNaN((num / total) * 100)) value = 0;
+              else value = (num / total) * 100;
               return (
                 <VStack key={i}>
                   <Flex>
                     <Progress
                       colorScheme={`commerse`}
                       position="relative"
-                      value={(num / total) * 100}
+                      value={value}
                       w="50px"
                       h="10px"
                       mb="10px"

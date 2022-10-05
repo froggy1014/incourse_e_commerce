@@ -23,10 +23,10 @@ interface detailReviewTypes {
 const initialState = {
   reviewList: [],
   rateArray: [],
-  countNums: [],
+  countNums: [0, 0, 0, 0, 0],
   total: 0,
   sum: 0,
-  stars: [],
+  stars: [0, 0, 0, 0, 0],
 };
 
 const detailReviewsSlice = createSlice({
