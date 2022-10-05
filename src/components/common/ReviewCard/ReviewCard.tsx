@@ -46,7 +46,7 @@ export const ReviewCard = ({ review }: reviewListTypes) => {
             ({ reviewId, url }: { reviewId: number; url: string }) => {
               return (
                 <Image
-                  key={reviewId}
+                  key={url}
                   src={url}
                   boxSize="80px"
                   alt="reviewImg"

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
 import {
   Box,
@@ -43,9 +43,9 @@ function ProductDetailByIdPage({
     detail,
     photo,
     reviewList,
-    avgRate,
     reviewCount,
   } = props;
+  const { sum } = useSelector((state: RootStateOrAny) => state.detailReviews);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const sectionOne = useRef(null);
   const sectionTwo = useRef(null);
@@ -97,7 +97,7 @@ function ProductDetailByIdPage({
           <Text mb="10px">{description}</Text>
           <HStack spacing="1">
             <RatingIcon />
-            <Text variant="bold16">{avgRate}</Text>
+            <Text variant="bold16">{sum}</Text>
             <Text variant="normal16gray">{`(${reviewCount}개 리뷰)`}</Text>
           </HStack>
         </Box>

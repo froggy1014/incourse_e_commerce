@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable prettier/prettier */
+import React, { useEffect, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -11,6 +12,10 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
+
+import {
+  filterReviews
+} from '@features/detailReview/detailReviewSlice';
 
 import { ReviewCard } from '@components/common';
 import { EmptyRatingIcon, HalfRatingIcon, RatingIcon } from '@icons/UI';
@@ -26,10 +31,17 @@ interface reviewListTypes {
 }
 
 const DetailSection3 = () => {
+  const [sorting, setSorting] = useState({optionOne: '', optionTwo: ''});
+  const dispatch = useDispatch();
   const { countNums, total, sum, stars, reviewList } = useSelector(
     (state: RootStateOrAny) => state.detailReviews,
   );
-  console.log(reviewList);
+
+    useEffect(() => {
+      // console.log(sorting);
+      dispatch(filterReviews(sorting));
+    }, [sorting])
+
   return (
     <>
       <Flex direction="column" w="100%" my="23px">
@@ -43,23 +55,33 @@ const DetailSection3 = () => {
           </Text>
           <HStack w="193px">
             <Select
+              onChange={(e) => setSorting((sorting) => 
+                ({ ...sorting, 
+                  optionOne: e.target.value }
+              ))}
               placeholder="최신순"
+              defaultValue="최신순"
               size="xs"
               bg="gray.200"
               rounded="5px"
               fontWeight="bold"
             >
-              <option value="option2">평점 높은순</option>
-              <option value="option3">평점 높은순</option>
+              <option value="평점높은순">평점 높은순</option>
+              <option value="평점낮은순">평점 낮은순</option>
             </Select>
             <Select
+              onChange={(e) => setSorting((sorting) => 
+                ({ ...sorting, 
+                  optionTwo: e.target.value }
+              ))}
               placeholder="전체보기"
+              defaultValue="전체보기"
               size="xs"
               bg="gray.200"
               rounded="5px"
               fontWeight="bold"
             >
-              <option value="option2">포토리뷰</option>
+              <option value="포토리뷰">포토리뷰</option>
             </Select>
           </HStack>
         </HStack>
