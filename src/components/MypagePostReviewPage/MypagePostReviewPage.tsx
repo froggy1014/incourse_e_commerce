@@ -56,10 +56,7 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
   }, [currentFile]);
 
   useEffect(() => {
-    if (
-      currentFileBase64 !== undefined &&
-      currentFileBase64 !== base64Files.at(-1)
-    )
+    if (typeof currentFileBase64 === 'string')
       setBase64Files((base64Files) => [...base64Files, currentFileBase64]);
   }, [currentFileBase64]);
 
