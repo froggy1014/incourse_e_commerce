@@ -4,16 +4,17 @@ import { Box, BoxProps, Button, Image, Text } from '@chakra-ui/react';
 
 import { DownVerticalArrow, UpVerticalArrow } from '@icons/UI';
 
-interface DetailSectionOne extends BoxProps {}
+interface DetailSectionOne extends BoxProps {
+  detail: string;
+}
 
-const DetailSection1 = ({ ...basisProps }: DetailSectionOne) => {
-  const sectionOne = useRef(null);
+const DetailSection1 = ({ detail, ...basisProps }: DetailSectionOne) => {
   const [viewMore, setViewMore] = useState(false);
-
+  const str = detail.split('"')[3];
   return (
     <Box position="relative">
       <Image
-        src="/images/DetailImage.png"
+        src={str}
         alt="DetailImage"
         objectFit="cover"
         w="100%"

@@ -123,14 +123,12 @@ export const getAverage = (Ratings: number[]) => {
     countNums[rating - 1] = countNums[rating - 1] + 1;
   });
   if (((sum / n) % 1) * 2 >= 1) sum = Math.ceil(sum / n);
-  else sum = Math.floor(sum / n) + 0.5;
+  else if (n !== 1) sum = Math.floor(sum / n) + 0.5;
+  else sum = sum / n;
 
-  return { sum, countNums, total: n };
-};
-
-export const getStar = (rating: number) => {
-  const stars = Array(Math.floor(rating / 1)).fill(2);
-  if (rating % 1 > 0) stars.push(1);
+  const stars = Array(Math.floor(sum / 1)).fill(2);
+  if (sum % 1 > 0) stars.push(1);
   while (stars.length !== 5) stars.push(0);
-  return stars;
+
+  return { sum, countNums, total: n, stars };
 };

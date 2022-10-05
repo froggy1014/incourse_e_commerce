@@ -1,4 +1,5 @@
 import React from 'react';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
 import {
   Box,
@@ -14,85 +15,82 @@ import {
 import { ReviewCard } from '@components/common';
 import { EmptyRatingIcon, HalfRatingIcon, RatingIcon } from '@icons/UI';
 
-import { getAverage, getStar } from '@utils/format';
-
-const reviews = {
-  count: 5,
-  next: 'http://api.example.org/accounts/?page=4',
-  previous: 'http://api.example.org/accounts/?page=2',
-  results: [
-    {
-      id: 1,
-      userId: 'kelly',
-      productId: 1,
-      rate: 5,
-      content: 'string',
-      reviewimageSet: [
-        {
-          reviewId: 1,
-          url: '/images/ReviewImage.png',
-        },
-      ],
-    },
-    {
-      id: 2,
-      userId: 'ovan',
-      productId: 2,
-      rate: 4,
-      content: 'string',
-      reviewimageSet: [
-        {
-          reviewId: 2,
-          url: '/images/ReviewImage.png',
-        },
-      ],
-    },
-    {
-      id: 3,
-      userId: 'micheal',
-      productId: 3,
-      rate: 3,
-      content: 'string',
-      reviewimageSet: [
-        {
-          reviewId: 3,
-          url: '/images/ReviewImage.png',
-        },
-      ],
-    },
-    {
-      id: 4,
-      userId: 'john',
-      productId: 4,
-      rate: 2,
-      content: 'string',
-      reviewimageSet: [
-        {
-          reviewId: 4,
-          url: '/images/ReviewImage.png',
-        },
-      ],
-    },
-    {
-      id: 5,
-      userId: 'evan',
-      productId: 5,
-      rate: 1,
-      content: 'string',
-      reviewimageSet: [
-        {
-          reviewId: 5,
-          url: '/images/ReviewImage.png',
-        },
-      ],
-    },
-  ],
-};
-
-const array = [5, 5, 5, 3, 4, 2, 1, 1];
+//   count: 5,
+//   next: 'http://api.example.org/accounts/?page=4',
+//   previous: 'http://api.example.org/accounts/?page=2',
+//   results: [
+//     {
+//       id: 1,
+//       userId: 'kelly',
+//       productId: 1,
+//       rate: 5,
+//       content: 'string',
+//       reviewimageSet: [
+//         {
+//           reviewId: 1,
+//           url: '/images/ReviewImage.png',
+//         },
+//       ],
+//     },
+//     {
+//       id: 2,
+//       userId: 'ovan',
+//       productId: 2,
+//       rate: 4,
+//       content: 'string',
+//       reviewimageSet: [
+//         {
+//           reviewId: 2,
+//           url: '/images/ReviewImage.png',
+//         },
+//       ],
+//     },
+//     {
+//       id: 3,
+//       userId: 'micheal',
+//       productId: 3,
+//       rate: 3,
+//       content: 'string',
+//       reviewimageSet: [
+//         {
+//           reviewId: 3,
+//           url: '/images/ReviewImage.png',
+//         },
+//       ],
+//     },
+//     {
+//       id: 4,
+//       userId: 'john',
+//       productId: 4,
+//       rate: 2,
+//       content: 'string',
+//       reviewimageSet: [
+//         {
+//           reviewId: 4,
+//           url: '/images/ReviewImage.png',
+//         },
+//       ],
+//     },
+//     {
+//       id: 5,
+//       userId: 'evan',
+//       productId: 5,
+//       rate: 1,
+//       content: 'string',
+//       reviewimageSet: [
+//         {
+//           reviewId: 5,
+//           url: '/images/ReviewImage.png',
+//         },
+//       ],
+//     },
+//   ],
+// };
 
 const DetailSection3 = () => {
-  const { countNums, total, sum } = getAverage(array);
+  const { countNums, total, sum, stars } = useSelector(
+    (state: RootStateOrAny) => state.detailReviews,
+  );
   return (
     <>
       <Flex direction="column" w="100%" my="23px">
@@ -140,7 +138,7 @@ const DetailSection3 = () => {
               {sum}
             </Text>
             <HStack>
-              {getStar(sum).map((num, i) => {
+              {stars.map((num: number, i: number) => {
                 if (num === 2) return <RatingIcon key={i} />;
                 else if (num === 1) return <HalfRatingIcon key={i} />;
                 else return <EmptyRatingIcon key={i} />;
@@ -148,7 +146,7 @@ const DetailSection3 = () => {
             </HStack>
           </HStack>
           <HStack spacing="-6">
-            {countNums.reverse().map((num, i) => {
+            {countNums.map((num: number, i: number) => {
               return (
                 <VStack key={i}>
                   <Flex>

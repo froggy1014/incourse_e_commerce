@@ -8,7 +8,7 @@ export const reviewFetch = axios.create({
 });
 
 export const productFetch = axios.create({
-  baseURL: 'https://api.commerce.incourse.run/v1/product/?page_size=5',
+  baseURL: 'https://api.commerce.incourse.run/v1/product',
   headers: {
     accept: 'application/json',
   },
