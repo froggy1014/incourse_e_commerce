@@ -16,12 +16,13 @@ import {
   Spacer,
   Stack,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 
 import { FormHelper, SubmitButton } from '@components/common';
 import { CardPayIcon } from '@components/common/@Icons/UI';
 
-import TestComponent from './_fragment/TestComponent';
+import AddressModal from './_fragment/AddressModal';
 import { FormDataType } from './_hooks/useFormValidate';
 
 interface userInfoType {
@@ -45,12 +46,10 @@ const FormPageView = ({
   userInfo,
   ...basisProps
 }: FormPageProps) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [btn, setBtn] = useState(true);
   const [copy, setCopy] = useState(true);
   const SearchTrigger = useRef<HTMLButtonElement>(null);
-  const addressSearchHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('hi');
-  };
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -149,7 +148,7 @@ const FormPageView = ({
                   colorScheme="commerse"
                   type="button"
                   ref={SearchTrigger}
-                  onClick={addressSearchHandler}
+                  onClick={onOpen}
                 >
                   우편번호 검색
                 </Button>
@@ -341,6 +340,7 @@ const FormPageView = ({
         {/* e: 최종 결제 금액 */}
         {/* <TestComponent /> */}
       </Box>
+      <AddressModal isOpen={isOpen} onClose={onClose} setValue={setValue} />
     </>
   );
 };
