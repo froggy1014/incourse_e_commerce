@@ -1,4 +1,4 @@
-import axios, { AxiosRequestHeaders } from 'axios';
+import axios from 'axios';
 
 export const reviewFetch = axios.create({
   baseURL: 'https://api.commerce.incourse.run/v1/review/',
@@ -15,7 +15,7 @@ export const productFetch = axios.create({
 });
 
 export const socialLoginReq = axios.create({
-  baseURL: 'https://api.commerce.incourse.run/v1/user/social_login',
+  baseURL: 'https://api.commerce.incourse.run/v1/user/social_login/',
   headers: {
     'content-type': 'application/json',
   },
