@@ -5,6 +5,8 @@ import { getCookie } from 'cookies-next';
 
 import CompleteModal from '@components/common/GlobalModal/CompleteModal';
 
+import { signupReq } from '@utils/axios';
+
 import useProfileForm from '../_hook/useProfieForm';
 import ProfileFormContentView from './ProfileForm.view';
 
@@ -33,15 +35,22 @@ const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {
       const data = {
         socialToken: getCookie('socialToken'),
         email: email,
-        phone: phone,
+        phone: phone.split('-').join(''),
         name: name,
         nickname: nickname,
-        profile: profile,
+        profile: 'https://www.naver.com/',
         gender: gender,
         age: ages,
         marketingAdAgree: true,
       };
       console.log(data);
+      try {
+        signupReq.post('user/register/', data).then((response) => {
+          console.log(response);
+        });
+      } catch (error) {
+        console.log(error);
+      }
       if (router.pathname === '/mypage/modifyprofile') modalHandler();
     },
   );
