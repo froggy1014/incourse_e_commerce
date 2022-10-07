@@ -23,3 +23,4 @@ export * from './EmptyBigRatingIcon';
 export * from './AddPhotoIcon';
 export * from './DeletePhotoIcon';
 export * from './CardPayIcon';
+export * from './AddProfile';

@@ -1,5 +1,11 @@
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
 // import * as yup from 'yup';
@@ -8,6 +14,7 @@ import {
   BoxProps,
   Flex,
   Heading,
+  Image,
   Input,
   Select,
   Stack,
@@ -15,7 +22,9 @@ import {
 } from '@chakra-ui/react';
 
 import { FormHelper, SubmitButton } from '@components/common/index';
-import { ProfileIcon } from '@icons/UI';
+import { AddProfile, ProfileIcon } from '@icons/UI';
+
+import { fileToBase64 } from '@utils/file';
 
 import { ProfileFormType } from '../_hook/useProfieForm';
 import AgreementCheck from './AgreementCheck';
@@ -31,6 +40,8 @@ interface FormPageProps extends BoxProps {
     gender?: string;
     ages?: string;
   };
+  setProfile: Dispatch<SetStateAction<string | null | ArrayBuffer>>;
+  profile: string | ArrayBuffer | null | undefined;
 }
 
 const ProfileFormView = ({
@@ -42,8 +53,23 @@ const ProfileFormView = ({
   },
   userInfo,
   onSubmit,
+  setProfile,
+  profile,
   ...basisProps
 }: FormPageProps) => {
+  const fileTrigger = useRef<HTMLInputElement>(null);
+  const [currentFile, setCurrentFile] = React.useState<File | null>(null);
+  const fileSelectedHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file !== undefined) setCurrentFile(file);
+  };
+  useEffect(() => {
+    async function setter() {
+      if (!currentFile) return;
+      setProfile(await fileToBase64(currentFile));
+    }
+    setter();
+  }, [currentFile]);
   const [check, setCheck] = useState<string[]>([]);
   const [signup, setSignup] = useState(true);
   useEffect(() => {
@@ -57,7 +83,6 @@ const ProfileFormView = ({
       setSignup(false);
     }
   }, []);
-
   return (
     <Box as="form" onSubmit={onSubmit} {...basisProps}>
       {signup ? (
@@ -70,7 +95,27 @@ const ProfileFormView = ({
               회원정보입력
             </Heading>
             <Flex w="100%" justify="center" mt="40px">
-              <ProfileIcon />
+              <Box m="10px" position="relative">
+                <input
+                  style={{ display: 'none' }}
+                  type="file"
+                  ref={fileTrigger}
+                  onChange={fileSelectedHandler}
+                />
+                <Image
+                  cursor="pointer"
+                  boxSize="70px"
+                  rounded={'full'}
+                  objectFit="cover"
+                  alt="upload img"
+                  src={typeof profile === 'string' ? profile : undefined}
+                  onClick={() => {
+                    if (fileTrigger !== null && fileTrigger.current !== null)
+                      fileTrigger.current.click();
+                  }}
+                />
+                <AddProfile position="absolute" right="0" bottom="0" />
+              </Box>
             </Flex>
           </Box>
         </>
