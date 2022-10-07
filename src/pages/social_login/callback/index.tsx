@@ -2,6 +2,8 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+import { setCookie } from 'cookies-next';
+
 import { Flex, Spinner } from '@chakra-ui/react';
 
 import MobileLayout from '@components/common/@Layout/MobileLayout';
@@ -12,9 +14,14 @@ function SocialloginCallback({ code, state }: { code: string; state: string }) {
   const router = useRouter();
   const social = { code: code, state: state };
   socialLoginReq.post('/user/social_login/', social).then((response) => {
-    document.cookie = 'socialToken=' + response.data.socialToken;
-    if (!response.data.isRegister) router.push('/sign-up');
-    else router.push('/');
+    if (!response.data.isRegister) {
+      router.push('/sign-up');
+      setCookie('socialToken', response.data.socialToken);
+    } else {
+      setCookie('access', response.data.access);
+      setCookie('refresh', response.data.refresh);
+      router.push('/');
+    }
   });
   return (
     <>
