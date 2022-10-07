@@ -10,7 +10,7 @@ export type ProfileFormType = {
   phone: string;
   email: string;
   gender: string;
-  ages: string;
+  ages: number;
 };
 
 export const ProfileSchema = yup.object().shape({
@@ -41,7 +41,10 @@ export const ProfileSchema = yup.object().shape({
     .required('이메일을 넣어주세요')
     .email('잘못된 이메일주소 형식입니다. 이메일주소를 정확하게 입력해주세요.'),
   gender: yup.string().required('성별을 꼭 선택해주세요.'),
-  ages: yup.string().required('연령대를 꼭 선택해주세요'),
+  ages: yup
+    .number()
+    .typeError('연령대를 꼭 선택해주세요')
+    .required('연령대를 꼭 선택해주세요'),
 });
 
 const useProfileForm = (options?: UseFormProps<ProfileFormType>) => {

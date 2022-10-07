@@ -38,7 +38,7 @@ interface FormPageProps extends BoxProps {
     phone?: string;
     email?: string;
     gender?: string;
-    ages?: string;
+    ages?: number;
   };
   setProfile: Dispatch<SetStateAction<string | null | ArrayBuffer>>;
   profile: string | ArrayBuffer | null | undefined;
@@ -79,7 +79,7 @@ const ProfileFormView = ({
       setValue('phone', userInfo.phone || '');
       setValue('email', userInfo.email || '');
       setValue('gender', userInfo.gender || '');
-      setValue('ages', userInfo.ages || '');
+      setValue('ages', userInfo.ages || 0);
       setSignup(false);
     }
   }, []);
@@ -211,15 +211,16 @@ const ProfileFormView = ({
               {...register('ages')}
               onChange={onChange}
               focusBorderColor="gray.500"
+              defaultValue={0}
               placeholder="연령대를 선택하세요."
               errorBorderColor="warning.500"
               variant="flushed"
             >
-              <option value="10">10대</option>
-              <option value="20">20대</option>
-              <option value="30">30대</option>
-              <option value="40">40대</option>
-              <option value="50">50대 이상</option>
+              <option value={10}>10대</option>
+              <option value={20}>20대</option>
+              <option value={30}>30대</option>
+              <option value={40}>40대</option>
+              <option value={50}>50대 이상</option>
             </Select>
           </FormHelper>
         )}

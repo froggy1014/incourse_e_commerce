@@ -12,7 +12,7 @@ const dummyData = {
   phone: '010-8979-1169',
   email: 'clcl6084@gmail.com',
   gender: 'male',
-  ages: '20',
+  ages: 20,
 };
 
 function MypageModifyprofilePage({

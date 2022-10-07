@@ -14,7 +14,7 @@ interface UserInfo {
   phone: string;
   email: string;
   gender: string;
-  ages: string;
+  ages: number;
 }
 
 const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {
@@ -41,6 +41,7 @@ const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {
         age: ages,
         marketingAdAgree: true,
       };
+      console.log(data);
       if (router.pathname === '/mypage/modifyprofile') modalHandler();
     },
   );
