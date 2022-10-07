@@ -23,7 +23,7 @@ function Main({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
 }
 
 export async function getStaticProps() {
-  const res = await reviewFetch('/');
+  const res = await reviewFetch('/review/');
   const data = await res.data;
   return {
     props: {

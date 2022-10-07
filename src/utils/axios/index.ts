@@ -1,21 +1,13 @@
 import axios from 'axios';
 
-export const reviewFetch = axios.create({
-  baseURL: 'https://api.commerce.incourse.run/v1/review/',
-  headers: {
-    accept: 'application/json',
-  },
-});
+axios.defaults.baseURL = 'https://api.commerce.incourse.run/v1/';
+axios.defaults.headers.common['accept'] = 'application/json';
 
-export const productFetch = axios.create({
-  baseURL: 'https://api.commerce.incourse.run/v1/product',
-  headers: {
-    accept: 'application/json',
-  },
-});
+export const reviewFetch = axios.create({});
+
+export const productFetch = axios.create({});
 
 export const socialLoginReq = axios.create({
-  baseURL: 'https://api.commerce.incourse.run/v1/user/social_login/',
   headers: {
     'content-type': 'application/json',
   },

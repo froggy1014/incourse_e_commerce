@@ -28,7 +28,7 @@ function ProductDetailById({
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { id } = context.query;
-    const res = await productFetch(`${id}/`);
+    const res = await productFetch(`/product/${id}/`);
     const data = await res.data;
     return {
       props: {

@@ -25,7 +25,7 @@ function Product({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await productFetch('?page_size=4/');
+  const res = await productFetch('/product/?page_size=4');
   const data = await res.data;
   return {
     props: {

@@ -21,7 +21,10 @@ const SocialButton = ({ data, size }: SocialButtonProps) => {
       w={width}
       h="45px"
       maxW={maxWidth}
-      onClick={() => window.open(data.link)}
+      onClick={() => {
+        window.open(data.link);
+        // window.close();
+      }}
       borderRadius="4px"
     >
       <Flex alignItems="center" justifyContent="center">
