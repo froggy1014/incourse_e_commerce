@@ -19,18 +19,17 @@ import {
 import { SubmitButton } from '@components/common';
 import CompleteModal from '@components/common/GlobalModal/CompleteModal';
 
-import { ROUTES } from '@constants/routes';
-
 interface MypageWithdrawalPageProps extends ChakraProps {}
 
 interface FormData {
-  reasonWhy: string;
+  reason: string;
   isRobot: string;
-  detailReason?: string;
+  additionalReason: string;
 }
 
 function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
   const router = useRouter();
+  const { id, name, email, phone } = router.query;
   const [open, setOpen] = useState(false);
   const [etc, setEtc] = useState('');
   const [flag, setFlag] = useState(true);
@@ -53,15 +52,19 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
   };
 
   const onSubmit = handleSubmit((data) => {
-    if (data.reasonWhy === '기타') {
+    if (data.reason === '기타') {
       data = {
         ...data,
-        detailReason: etc,
+        additionalReason: etc,
       };
       console.log(data);
-    } else console.log(data);
+    } else {
+      data = {
+        ...data,
+        additionalReason: '',
+      };
+    }
     modalHandler();
-    // router.push(ROUTES.LOGIN);
   });
 
   return (
@@ -100,9 +103,9 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
               <Text>이메일 주소</Text>
             </Stack>
             <Stack color="gray.700">
-              <Text>김인코스런</Text>
-              <Text>010-1234-1234</Text>
-              <Text>incourse.run@gmail.com</Text>
+              <Text>{name}</Text>
+              <Text>{phone}</Text>
+              <Text>{email}</Text>
             </Stack>
           </HStack>
         </Box>
@@ -113,11 +116,11 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
           <FormControl as="fieldset">
             <Controller
               control={control}
-              name="reasonWhy"
+              name="reason"
               render={({ field: { onChange } }) => {
                 return (
                   <RadioGroup
-                    {...register('reasonWhy', { required: true })}
+                    {...register('reason', { required: true })}
                     onChange={(e) => {
                       onChange();
                       handleChange(e);
@@ -126,22 +129,22 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
                     mb="20px"
                   >
                     <Stack>
-                      <Radio {...register('reasonWhy')} value="아이디 변경">
+                      <Radio {...register('reason')} value="아이디 변경">
                         아이디 변경(재가입)
                       </Radio>
-                      <Radio {...register('reasonWhy')} value="낮은 구매 빈도">
+                      <Radio {...register('reason')} value="낮은 구매 빈도">
                         낮은 구매 빈도
                       </Radio>
                       <Radio
-                        {...register('reasonWhy')}
+                        {...register('reason')}
                         value="서비스 및 고객지원 불만족"
                       >
                         서비스 및 고객지원 불만족
                       </Radio>
-                      <Radio {...register('reasonWhy')} value="타 브랜드 이용">
+                      <Radio {...register('reason')} value="타 브랜드 이용">
                         타 브랜드 이용
                       </Radio>
-                      <Radio {...register('reasonWhy')} value="기타">
+                      <Radio {...register('reason')} value="기타">
                         기타
                       </Radio>
                       <Input
@@ -152,7 +155,7 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
                         type="text"
                         placeholder="사유를 입력해주세요."
                       />
-                      {!flag && errors.detailReason?.type === 'min' && (
+                      {!flag && errors.additionalReason?.type === 'min' && (
                         <Text color="warning.500">사유를 꼭 입력해주세요.</Text>
                       )}
                     </Stack>

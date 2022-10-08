@@ -20,6 +20,7 @@ import {
 } from '@icons/UI';
 
 import { ROUTES } from '@constants/routes';
+import { getQueryString } from '@utils/format';
 
 interface MypagePageProps extends ChakraProps {
   meinfo: {
@@ -37,20 +38,16 @@ interface MypagePageProps extends ChakraProps {
 
 function MypagePage({ meinfo, ...basisProps }: MypagePageProps) {
   const router = useRouter();
-  const { id, name, nickname, phone, address, email, profile, gender, age } =
-    meinfo;
-  console.log(profile);
+  const queryString = getQueryString(meinfo);
   return (
     <Box mt="70px" {...basisProps}>
       <Stack divider={<Divider w="100%" h="10px" bg="gray.100" />}>
         <Box mb="30px">
-          <Text variant={'bold20'}>{name}</Text>
-          <Text color={'gray.400'}>{email}</Text>
+          <Text variant={'bold20'}>{meinfo.name}</Text>
+          <Text color={'gray.400'}>{meinfo.email}</Text>
         </Box>
         <HStack w="100%" justify={'space-between'} py="36px">
-          <Link
-            href={`/mypage/modifyprofile?name=${name}&nickname=${nickname}&phone=${phone}&email=${email}&profile=${profile}&gender=${gender}&age=${age}&id=${id}`}
-          >
+          <Link href={`/mypage/modifyprofile?${queryString}`}>
             <VStack cursor="pointer">
               <UserInfoEditIcon />
               <Text>회원정보수정</Text>
@@ -70,15 +67,12 @@ function MypagePage({ meinfo, ...basisProps }: MypagePageProps) {
           </Link>
         </HStack>
         <Stack cursor="pointer">
-          <HStack
-            w="100%"
-            justify={'space-between'}
-            h="60px"
-            onClick={() => router.push(ROUTES.MYPAGE.WITHDRAWAL)}
-          >
-            <Text>회원탈퇴</Text>
-            <ListArrowRight />
-          </HStack>
+          <Link href={`/mypage/withdrawal?${queryString}`}>
+            <HStack w="100%" justify={'space-between'} h="60px">
+              <Text>회원탈퇴</Text>
+              <ListArrowRight />
+            </HStack>
+          </Link>
           <Divider w="100%" m="0px" />
           <HStack
             w="100%"
