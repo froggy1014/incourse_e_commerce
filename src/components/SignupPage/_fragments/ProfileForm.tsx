@@ -10,13 +10,15 @@ import { signupReq } from '@utils/axios';
 import useProfileForm from '../_hook/useProfieForm';
 import ProfileFormContentView from './ProfileForm.view';
 
-interface UserInfo {
+export interface UserInfo {
   name: string;
   nickname: string;
   phone: string;
   email: string;
   gender: string;
   ages: number;
+  id?: number;
+  profile?: string;
 }
 
 const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {

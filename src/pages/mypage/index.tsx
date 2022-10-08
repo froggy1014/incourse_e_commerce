@@ -10,9 +10,8 @@ import { myInfoFetch } from '@utils/axios';
 import { cookieStringToObject } from '@utils/token';
 
 function Mypage({
-  profile,
+  meinfo,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log(profile);
   return (
     <>
       <Head>
@@ -20,7 +19,7 @@ function Mypage({
       </Head>
       <MobileLayout
         header={<MainHeader />}
-        content={<MypagePage profile={profile} />}
+        content={<MypagePage meinfo={meinfo} />}
         footer={<Footer />}
       />
     </>
@@ -31,13 +30,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = context.req.headers.cookie;
   const access = cookieStringToObject(cookies);
   try {
-    const profile = await myInfoFetch('user/me/', {
+    const meinfo = await myInfoFetch('user/me/', {
       headers: {
         Authorization: `Bearer ${access}`,
       },
     }).then((res) => res.data);
     return {
-      props: { profile },
+      props: { meinfo },
     };
   } catch (error) {
     console.log(error);

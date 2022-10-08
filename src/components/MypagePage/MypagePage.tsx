@@ -1,4 +1,5 @@
 import { useRouter } from 'next/dist/client/router';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 import {
@@ -21,7 +22,7 @@ import {
 import { ROUTES } from '@constants/routes';
 
 interface MypagePageProps extends ChakraProps {
-  profile: {
+  meinfo: {
     id: number;
     name: string;
     nickname: string;
@@ -34,29 +35,39 @@ interface MypagePageProps extends ChakraProps {
   };
 }
 
-function MypagePage({ profile, ...basisProps }: MypagePageProps) {
+function MypagePage({ meinfo, ...basisProps }: MypagePageProps) {
   const router = useRouter();
-
+  const { id, name, nickname, phone, address, email, profile, gender, age } =
+    meinfo;
+  console.log(profile);
   return (
     <Box mt="70px" {...basisProps}>
       <Stack divider={<Divider w="100%" h="10px" bg="gray.100" />}>
         <Box mb="30px">
-          <Text variant={'bold20'}>{profile.name}</Text>
-          <Text color={'gray.400'}>{profile.email}</Text>
+          <Text variant={'bold20'}>{name}</Text>
+          <Text color={'gray.400'}>{email}</Text>
         </Box>
         <HStack w="100%" justify={'space-between'} py="36px">
-          <VStack onClick={() => router.push(ROUTES.MYPAGE.PROFILE)}>
-            <UserInfoEditIcon />
-            <Text>회원정보수정</Text>
-          </VStack>
-          <VStack onClick={() => router.push(ROUTES.MYPAGE.ORDERHISTORY)}>
-            <OrderListIcon />
-            <Text>주문내역</Text>
-          </VStack>
-          <VStack onClick={() => router.push(ROUTES.MYPAGE.MYREVIEWS)}>
-            <MyReviewIcon />
-            <Text>내 상품 리뷰</Text>
-          </VStack>
+          <Link
+            href={`/mypage/modifyprofile?name=${name}&nickname=${nickname}&phone=${phone}&email=${email}&profile=${profile}&gender=${gender}&age=${age}&id=${id}`}
+          >
+            <VStack cursor="pointer">
+              <UserInfoEditIcon />
+              <Text>회원정보수정</Text>
+            </VStack>
+          </Link>
+          <Link href="/mypage/orderhistory">
+            <VStack cursor="pointer">
+              <OrderListIcon />
+              <Text>주문내역</Text>
+            </VStack>
+          </Link>
+          <Link href="/mypage/myreviews">
+            <VStack cursor="pointer">
+              <MyReviewIcon />
+              <Text>내 상품 리뷰</Text>
+            </VStack>
+          </Link>
         </HStack>
         <Stack cursor="pointer">
           <HStack
