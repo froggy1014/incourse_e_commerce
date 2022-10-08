@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   Modal,
@@ -22,7 +22,20 @@ interface ModalExampleProps extends Omit<ModalProps, 'children'> {
 }
 function CompleteModal({ title, linkTo, ...props }: ModalExampleProps) {
   const [destination, setDestination] = useState(linkTo);
+  const [trigger, setTrigger] = useState(0);
   const router = useRouter();
+
+  useEffect(() => {
+    let n = trigger;
+    setTrigger((n += 1));
+    if (trigger === 2) {
+      if (destination === 'back') router.back();
+      else if (destination !== undefined) {
+        router.push(`${ROUTES[destination as keyof typeof ROUTES]}`);
+      }
+    }
+  }, [props.isOpen]);
+
   return (
     <Modal isCentered {...props}>
       <ModalOverlay />
@@ -36,13 +49,7 @@ function CompleteModal({ title, linkTo, ...props }: ModalExampleProps) {
               title="확인"
               variant="btncommerse"
               size="btnmd"
-              onClick={() => {
-                if (destination === 'back') router.back();
-                else if (destination !== undefined) {
-                  router.push(`${ROUTES[destination as keyof typeof ROUTES]}`);
-                }
-                props.onClose();
-              }}
+              onClick={() => props.onClose()}
             />
           </Stack>
         </ModalBody>

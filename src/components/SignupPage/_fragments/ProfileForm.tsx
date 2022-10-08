@@ -45,12 +45,13 @@ const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {
         age: ages,
         marketingAdAgree: true,
       };
-      console.log(data);
       try {
         signupReq.post('user/register/', data).then((response) => {
-          console.log(response);
+          if (response.status === 201) {
+            router.push('/');
+          }
         });
-      } catch (error) {
+      } catch (error: any) {
         console.log(error);
       }
       if (router.pathname === '/mypage/modifyprofile') modalHandler();
