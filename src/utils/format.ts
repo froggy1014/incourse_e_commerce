@@ -132,3 +132,18 @@ export const getAverage = (Ratings: number[]) => {
 
   return { sum, countNums, total: n, stars };
 };
+
+export const getQueryString = (obj: any) => {
+  const result = Object.keys(obj)
+    .map((key) => key + '=' + obj[key])
+    .join('&');
+  return result;
+};
+
+export const addHyphenPhone = (number: string) => {
+  const result = number
+    .replace(/[^0-9]/g, '')
+    .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+
+  return result;
+};
