@@ -1,5 +1,5 @@
 import { useRouter } from 'next/dist/client/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Box,
@@ -20,16 +20,29 @@ import {
 
 import { ROUTES } from '@constants/routes';
 
-interface MypagePageProps extends ChakraProps {}
+interface MypagePageProps extends ChakraProps {
+  profile: {
+    id: number;
+    name: string;
+    nickname: string;
+    phone: string;
+    address: string;
+    email: string;
+    profile: string;
+    gender: string;
+    age: number;
+  };
+}
 
-function MypagePage({ ...basisProps }: MypagePageProps) {
+function MypagePage({ profile, ...basisProps }: MypagePageProps) {
   const router = useRouter();
+
   return (
     <Box mt="70px" {...basisProps}>
       <Stack divider={<Divider w="100%" h="10px" bg="gray.100" />}>
         <Box mb="30px">
-          <Text variant={'bold20'}>김인코스런</Text>
-          <Text color={'gray.400'}>incourse.run@gmail.com</Text>
+          <Text variant={'bold20'}>{profile.name}</Text>
+          <Text color={'gray.400'}>{profile.email}</Text>
         </Box>
         <HStack w="100%" justify={'space-between'} py="36px">
           <VStack onClick={() => router.push(ROUTES.MYPAGE.PROFILE)}>

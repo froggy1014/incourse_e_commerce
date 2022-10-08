@@ -1,7 +1,5 @@
-import { GetServerSideProps, GetStaticProps } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
-
-import { getCookie } from 'cookies-next';
 
 import MypagePage from '@components/MypagePage';
 import MobileLayout from '@components/common/@Layout/MobileLayout';
@@ -9,49 +7,48 @@ import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
 import MainHeader from '@components/common/@Layout/MobileLayout/_fragments/MainHeader';
 
 import { myInfoFetch } from '@utils/axios';
+import { cookieStringToObject } from '@utils/token';
 
-function Mypage() {
-  myInfoFetch('user/me/', {
-    headers: {
-      Authorization: `Bearer ${getCookie('access')}`,
-    },
-  }).then((response) => console.log(response));
+function Mypage({
+  profile,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  console.log(profile);
   return (
     <>
       <Head>
-        {/* ex) Your App Name | Page Name */}
         <title>mypage</title>
       </Head>
       <MobileLayout
         header={<MainHeader />}
-        content={<MypagePage />}
+        content={<MypagePage profile={profile} />}
         footer={<Footer />}
       />
     </>
   );
 }
 
-// export const getServerSideProps = async () => {
-//   try {
-//     myInfoFetch('user/me').then((response) => console.log(response));
-//   } catch (error) {
-//     console.log(error);
-//   }
-
-//   return {
-//     props: {},
-//   };
-// };
-
-// export const getStaticProps: GetStaticProps = async (context) => {
-//   try {
-//   } catch (error) {
-//     console.log(error);
-//   }
-
-//   return {
-//     props: {},
-//   };
-// };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookies = context.req.headers.cookie;
+  const access = cookieStringToObject(cookies);
+  try {
+    const profile = await myInfoFetch('user/me/', {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    }).then((res) => res.data);
+    return {
+      props: { profile },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+      props: {},
+    };
+  }
+};
 
 export default Mypage;
