@@ -134,10 +134,12 @@ export const getAverage = (Ratings: number[]) => {
 };
 
 export const getQueryString = (obj: any) => {
-  const result = Object.keys(obj)
-    .map((key) => key + '=' + obj[key])
-    .join('&');
-  return result;
+  if (obj !== undefined || null) {
+    const result = Object.keys(obj)
+      .map((key) => key + '=' + obj[key])
+      .join('&');
+    return result;
+  }
 };
 
 export const addHyphenPhone = (number: string) => {

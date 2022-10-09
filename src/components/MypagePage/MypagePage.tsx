@@ -2,6 +2,8 @@ import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
+import { StringIterator } from 'lodash';
+
 import {
   Box,
   ChakraProps,
@@ -22,29 +24,31 @@ import {
 import { ROUTES } from '@constants/routes';
 import { getQueryString } from '@utils/format';
 
-interface MypagePageProps extends ChakraProps {
-  meinfo: {
-    id: number;
-    name: string;
-    nickname: string;
-    phone: string;
-    address: string;
-    email: string;
-    profile: string;
-    gender: string;
-    age: number;
-  };
+interface DataType {
+  address: null | string | undefined;
+  age: number | undefined;
+  email: string | undefined;
+  gender: string | undefined;
+  id: number | undefined;
+  name: string | undefined;
+  nickname: string | undefined;
+  phone: string | undefined;
+  profile: string | undefined;
 }
 
-function MypagePage({ meinfo, ...basisProps }: MypagePageProps) {
+interface InfoType {
+  UserInfo: DataType | undefined;
+}
+
+function MypagePage({ UserInfo }: InfoType) {
   const router = useRouter();
-  const queryString = getQueryString(meinfo);
+  const queryString = getQueryString(UserInfo);
   return (
-    <Box mt="70px" {...basisProps}>
+    <Box mt="70px">
       <Stack divider={<Divider w="100%" h="10px" bg="gray.100" />}>
         <Box mb="30px">
-          <Text variant={'bold20'}>{meinfo.name}</Text>
-          <Text color={'gray.400'}>{meinfo.email}</Text>
+          <Text variant={'bold20'}>{UserInfo?.name}</Text>
+          <Text color={'gray.400'}>{UserInfo?.email}</Text>
         </Box>
         <HStack w="100%" justify={'space-between'} py="36px">
           <Link href={`/mypage/modifyprofile?${queryString}`}>

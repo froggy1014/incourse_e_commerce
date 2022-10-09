@@ -1,17 +1,28 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
+
+import { getCookie } from 'cookies-next';
 
 import MypagePage from '@components/MypagePage';
 import MobileLayout from '@components/common/@Layout/MobileLayout';
 import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
 import MainHeader from '@components/common/@Layout/MobileLayout/_fragments/MainHeader';
 
-import { myInfoFetch } from '@utils/axios';
-import { cookieStringToObject } from '@utils/token';
+import { axiosInstance } from '@utils/axios';
 
-function Mypage({
-  meinfo,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+function Mypage() {
+  const [meinfo, setMeinfo] = useState();
+  useEffect(() => {
+    async function mypageFunc() {
+      await axiosInstance('user/me/', {
+        headers: { Authorization: `Bearer ${getCookie('access')}` },
+      }).then((res) => {
+        setMeinfo(res.data);
+      });
+    }
+    mypageFunc();
+  }, []);
   return (
     <>
       <Head>
@@ -19,32 +30,24 @@ function Mypage({
       </Head>
       <MobileLayout
         header={<MainHeader />}
-        content={<MypagePage meinfo={meinfo} />}
+        content={<MypagePage UserInfo={meinfo} />}
         footer={<Footer />}
       />
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const cookies = context.req.headers.cookie;
-  const access = cookieStringToObject(cookies);
-  try {
-    const meinfo = await myInfoFetch('user/me/', {
-      headers: {
-        Authorization: `Bearer ${access}`,
-      },
-    }).then((res) => res.data);
-    return {
-      props: { meinfo },
-    };
-  } catch (error) {
-    console.log(error);
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const refresh = getCookie('refresh', { req, res });
+  if (refresh === undefined) {
     return {
       redirect: {
         permanent: false,
         destination: '/login',
       },
+    };
+  } else {
+    return {
       props: {},
     };
   }
