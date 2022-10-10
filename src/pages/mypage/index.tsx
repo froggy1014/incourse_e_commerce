@@ -15,9 +15,7 @@ function Mypage() {
   const [meinfo, setMeinfo] = useState();
   useEffect(() => {
     async function mypageFunc() {
-      await axiosInstance('user/me/', {
-        headers: { Authorization: `Bearer ${getCookie('access')}` },
-      }).then((res) => {
+      await axiosInstance('user/me/').then((res) => {
         setMeinfo(res.data);
       });
     }

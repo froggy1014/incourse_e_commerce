@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-import { getCookie } from 'cookies-next';
+import { deleteCookie } from 'cookies-next';
 
 import {
   Box,
@@ -21,7 +21,7 @@ import {
 import { SubmitButton } from '@components/common';
 import CompleteModal from '@components/common/GlobalModal/CompleteModal';
 
-import { withdrawalReq } from '@utils/axios';
+import { axiosInstance } from '@utils/axios';
 
 interface MypageWithdrawalPageProps extends ChakraProps {}
 
@@ -52,35 +52,6 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
     } else setFlag(true);
   };
 
-  // const modalHandler = async (data?: FormData): Promise<any> => {
-  //   try {
-  //     // 탈퇴 이유 POST
-  //     await withdrawalReq.post('user/withdrawal/reason/', data).then((res) => {
-  //       /* 포스트 성공시 삭제 요청  */
-  //       if (res.status === 201) {
-  //         try {
-  //           withdrawalReq
-  //             .delete(`user/withdrawal/${id}/`, {
-  //               headers: {
-  //                 Authorization: `Bearer ${getCookie('access')}`,
-  //               },
-  //             })
-  //             /* 삭제 완료 모달 오픈 */
-  //             .then((res) => {
-  //               if (res.status === 204) {
-  //                 setOpen(!open);
-  //               }
-  //             });
-  //         } catch (error) {
-  //           console.log('회원 삭제 실패', error);
-  //         }
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.log('Reason Post 실패', error);
-  //   }
-  // };
-
   const onSubmit = handleSubmit((data) => {
     if (data.reason === '기타') {
       data = {
@@ -95,20 +66,18 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
     }
     try {
       /* 탈퇴 이유 POST */
-      withdrawalReq.post('user/withdrawal/reason/', data).then((res) => {
+      axiosInstance.post('user/withdrawal/reason/', data).then((res) => {
         /* 포스트 성공시 삭제 요청  */
         if (res.status === 201) {
           try {
-            withdrawalReq
-              .delete(`user/withdrawal/${id}/`, {
-                headers: {
-                  Authorization: `Bearer ${getCookie('access')}`,
-                },
-              })
+            axiosInstance
+              .delete(`user/withdrawal/${id}/`)
               /* 삭제 완료 모달 오픈 */
               .then((res) => {
                 if (res.status === 204) {
                   setOpen(!open);
+                  deleteCookie('access');
+                  deleteCookie('refresh');
                 }
               });
           } catch (error) {

@@ -24,7 +24,6 @@ function MypageModifyprofilePage({
     profile: String(query.profile),
   };
 
-  console.log(meInfo);
   return (
     <Box {...basisProps}>
       <ProfileFormPage userInfo={meInfo} />
