@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { RootStateOrAny, useSelector } from 'react-redux';
 
 import {
   Box,
@@ -14,6 +15,7 @@ import {
 import { SubmitButton } from '@components/common';
 
 import { ROUTES } from '@constants/routes';
+import { axiosInstance } from '@utils/axios';
 import { intComma } from '@utils/format';
 
 import CartCard from './_fragment/CartCard';
@@ -26,6 +28,13 @@ interface resultsType {
   volumn: number;
   price: number;
   count: 1;
+}
+
+interface CartType {
+  cartId: number;
+  count: number;
+  id: number;
+  productId: number;
 }
 
 const results: resultsType[] = [
@@ -44,6 +53,24 @@ const results: resultsType[] = [
 ];
 function CartPage({ ...basisProps }: CartPageProps) {
   const router = useRouter();
+  const { userid } = useSelector((state: RootStateOrAny) => state.USER);
+  const [data, setData] = useState<CartType[]>();
+
+  useEffect(() => {
+    async function cartFunc() {
+      await axiosInstance(`cart/?user_id=${userid}`)
+        .then((res) => res.data[0].cartitem)
+        .then((data) => setData(data));
+    }
+    cartFunc();
+  }, []);
+
+  if (!data) return <h1>Loading</h1>;
+
+  console.log(data);
+  data.map((item) => {
+    console.log(item);
+  });
   if (results.length === 0) return <EmptyCart />;
   return (
     <Box {...basisProps}>
@@ -54,8 +81,8 @@ function CartPage({ ...basisProps }: CartPageProps) {
           </Checkbox>
           <Text>선택삭제</Text>
         </HStack>
-        {results.map((result, i) => {
-          return <CartCard key={i} results={result} />;
+        {data.map((cartItem) => {
+          return <CartCard key={cartItem.id} cartItem={cartItem} />;
         })}
         <Stack h="auto" spacing="4" pb="70px">
           <HStack color="gray.600" justify="space-between">

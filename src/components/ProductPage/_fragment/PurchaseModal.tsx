@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -19,6 +19,7 @@ import { decProduct, incProduct } from '@features/pg/pgSlice';
 import { SubmitButton } from '@components/common';
 import { QtyMinusIcon, QtyPlusIcon } from '@icons/UI';
 
+import { axiosInstance } from '@utils/axios';
 import { intComma } from '@utils/format';
 
 interface DrawerExampleProps extends DrawerProps {}
@@ -28,13 +29,18 @@ function PurchaseModal(props: Omit<DrawerExampleProps, 'children'>) {
   const { id, count, price, name, total } = useSelector(
     (state: RootStateOrAny) => state.products,
   );
+  const { cartId } = useSelector((state: RootStateOrAny) => state.USER);
 
   const handleCart = async () => {
-    console.log('hi');
-    // const data = { "productId": id,
-    // "cartId": ,
-    // "count": 0}
+    const data = {
+      productId: id,
+      cartId: cartId,
+      count: count,
+    };
+    axiosInstance.post('cart/item/', data).then((res) => console.log(res));
+    props.onClose();
   };
+
   return (
     <Box position="relative">
       <Drawer placement="bottom" {...props}>

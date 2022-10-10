@@ -6,11 +6,12 @@ export interface UserStateType {
   age: number | null;
   email: string | null;
   gender: string | null;
-  id: number | null;
+  userid: number | null;
   name: string | null;
   nickname: string | null;
   phone: string | null;
   profile: string | null;
+  cartId: number | null;
 }
 
 const initialState: UserStateType = {
@@ -19,11 +20,12 @@ const initialState: UserStateType = {
   age: null,
   email: null,
   gender: null,
-  id: null,
+  userid: null,
   name: null,
   nickname: null,
   phone: null,
   profile: null,
+  cartId: null,
 };
 
 const userSlice = createSlice({
@@ -50,16 +52,19 @@ const userSlice = createSlice({
       state.age = age;
       state.email = email;
       state.gender = gender;
-      state.id = id;
+      state.userid = id;
       state.name = name;
       state.nickname = nickname;
       state.phone = phone;
       state.profile = profile;
     },
+    setCartId: (state, { payload }) => {
+      state.cartId = payload;
+    },
   },
 });
 
-export const { setUserInfo } = userSlice.actions;
+export const { setUserInfo, setCartId } = userSlice.actions;
 
 export const {
   actions: userSliceActions, //

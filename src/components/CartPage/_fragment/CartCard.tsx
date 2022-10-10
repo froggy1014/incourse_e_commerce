@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Box,
@@ -13,34 +13,54 @@ import {
 
 import { QtyMinusIcon, QtyPlusIcon } from '@components/common/@Icons/UI';
 
+import { axiosInstance } from '@utils/axios';
 import { intComma } from '@utils/format';
 
-interface PropsType {
-  results: {
-    name: string;
-    volumn: number;
-    price: number;
+interface CartItemType {
+  cartItem: {
+    cartId: number;
     count: number;
+    id: number;
+    productId: number;
   };
 }
 
-interface CartCardProps extends ChakraProps {}
-interface CartCardProps extends PropsType {}
+interface productType {
+  avgRate: number | null;
+  capacity: number;
+  description: string;
+  detail: string;
+  id: number;
+  name: string;
+  photo: string;
+  price: number;
+  reviewCount: number;
+}
 
-function CartCard({ ...basisProps }: CartCardProps) {
-  const { name, volumn, price, count } = basisProps.results;
+// interface CartCardProps extends ChakraProps {}
+interface CartCardProps extends CartItemType {}
+
+function CartCard({ cartItem }: CartCardProps) {
+  const [product, setProduct] = useState<productType>();
   const [state, setState] = useState({
-    count: count,
-    price: price,
+    count: 0,
+    price: 0,
   });
-
-  const minusFunc = () => {
-    if (state.count !== 1) {
+  useEffect(() => {
+    axiosInstance(`product/${cartItem.productId}/`).then((res) => {
+      setProduct(res.data);
       setState((state) => {
-        return { count: state.count - 1, price: state.price - price };
+        return {
+          count: cartItem.count,
+          price: cartItem.count * res.data.price,
+        };
       });
-    }
-  };
+    });
+  }, []);
+
+  if (!product) return <h1>Loading</h1>;
+  console.log(cartItem);
+  console.log(product);
   return (
     <HStack align="flex-start" justify="space-evenly">
       <Checkbox size="sm" colorScheme="commerse"></Checkbox>
@@ -56,11 +76,13 @@ function CartCard({ ...basisProps }: CartCardProps) {
                   rounded="5px"
                 />
                 <Box>
-                  <Text fontWeight="bold">{name}</Text>
+                  <Text fontWeight="bold">{product.name}</Text>
                   <Text variant="normal12gray">
-                    {name} | {volumn}ml
+                    {product.name} | {product.capacity}ml
                   </Text>
-                  <Text variant="boldcommerse">{intComma(price)}원</Text>
+                  <Text variant="boldcommerse">
+                    {intComma(product.price)}원
+                  </Text>
                 </Box>
               </HStack>
               <CloseButton position="absolute" top="-5px" right="0" />
@@ -69,11 +91,22 @@ function CartCard({ ...basisProps }: CartCardProps) {
         </HStack>
         <Stack w="100%" h="80px" bg="gray.200" p="10px">
           <Text w="100%" text-align="left" variant="normal16gray">
-            {name}
+            {product.name}
           </Text>
           <HStack w="100%" justify="space-between">
             <HStack rounded="5px" spacing="1px">
-              <Box onClick={() => minusFunc()}>
+              <Box
+                as="button"
+                disabled={state.count === 1}
+                onClick={() =>
+                  setState((state) => {
+                    return {
+                      count: state.count - 1,
+                      price: state.price - product.price,
+                    };
+                  })
+                }
+              >
                 <QtyMinusIcon />
               </Box>
               <Text
@@ -90,7 +123,7 @@ function CartCard({ ...basisProps }: CartCardProps) {
                   setState((state) => {
                     return {
                       count: state.count + 1,
-                      price: state.price + price,
+                      price: state.price + product.price,
                     };
                   })
                 }

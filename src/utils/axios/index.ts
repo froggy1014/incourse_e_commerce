@@ -1,8 +1,15 @@
 import axios from 'axios';
 import { getCookie, hasCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
-import { request } from 'http';
 import jwt_decode from 'jwt-decode';
+
+interface JWTType {
+  exp: number;
+  iat: number;
+  jti: string;
+  token_type: string;
+  user_id: number;
+}
 
 axios.defaults.baseURL = 'https://api.commerce.incourse.run/v1/';
 
@@ -23,7 +30,12 @@ export const axiosInstance = axios.create({});
 // axiosInstance 요청 인터셉터
 axiosInstance.interceptors.request.use(
   async (req) => {
-    if (getCookie('access')) {
+    // jwt token 디코딩
+    const user: JWTType = jwt_decode(String(getCookie('access')));
+    // 현재 시간과 해당 토큰의 expiration날짜를 비교해서 만료되었는지 boolean 반환
+    const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
+
+    if (getCookie('access') && !isExpired) {
       console.log('req 정상');
       req.headers = {
         Authorization: `Bearer ${getCookie('access')}`,
