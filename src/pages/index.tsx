@@ -1,14 +1,27 @@
 import { InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setUserInfo } from '@features/user/userSlice';
 
 import MainPage from '@components/MainPage';
 import MobileLayout from '@components/common/@Layout/MobileLayout';
 import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
 
-import { reviewFetch } from '@utils/axios';
+import { axiosInstance, reviewFetch } from '@utils/axios';
 
 function Main({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { results } = data;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    axiosInstance('user/me/')
+      .then((res) => res.data)
+      .then((data) => {
+        dispatch(setUserInfo(data));
+      });
+  }, []);
+
   return (
     <>
       <Head>
@@ -23,8 +36,8 @@ function Main({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
 }
 
 export async function getStaticProps() {
-  const res = await reviewFetch('/review/');
-  const data = await res.data;
+  const response = await reviewFetch('/review/');
+  const data = await response.data;
   return {
     props: {
       data,

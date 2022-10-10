@@ -4,8 +4,6 @@ import dayjs from 'dayjs';
 import { request } from 'http';
 import jwt_decode from 'jwt-decode';
 
-import { Toast, useToast } from '@chakra-ui/react';
-
 axios.defaults.baseURL = 'https://api.commerce.incourse.run/v1/';
 
 export const reviewFetch = axios.create({});
@@ -59,14 +57,6 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async function (error) {
-    const toast = useToast({
-      position: 'top',
-      title: 'Container style is updated',
-      containerStyle: {
-        width: '800px',
-        maxWidth: '100%',
-      },
-    });
     // error 코드 444 인경우 refresh POST 요청하여,
     // access, refresh 토큰 재 등록
     // if (error.response.status === 444) {
@@ -85,7 +75,6 @@ axiosInstance.interceptors.response.use(
     //   });
     // }
     console.log('res 비정상');
-    toast();
     return Promise.reject(error);
   },
 );

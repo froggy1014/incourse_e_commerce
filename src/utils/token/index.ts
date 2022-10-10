@@ -1,3 +1,5 @@
+import { getCookie } from 'cookies-next';
+
 export const cookieStringToObject = (cookieString: string | undefined) => {
   if (!cookieString) {
     return '';
@@ -12,4 +14,9 @@ export const cookieStringToObject = (cookieString: string | undefined) => {
     }
     return result;
   }
+};
+
+export const getAccessToken = () => {
+  const access = getCookie('access');
+  return access;
 };

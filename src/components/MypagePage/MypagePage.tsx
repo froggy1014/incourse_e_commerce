@@ -24,6 +24,8 @@ import {
 import { ROUTES } from '@constants/routes';
 import { getQueryString } from '@utils/format';
 
+import LogoutModal from './_fragment/LogoutModal';
+
 interface DataType {
   address: null | string | undefined;
   age: number | undefined;
@@ -42,6 +44,7 @@ interface InfoType {
 
 function MypagePage({ UserInfo }: InfoType) {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
   const queryString = getQueryString(UserInfo);
   return (
     <Box mt="70px">
@@ -82,7 +85,7 @@ function MypagePage({ UserInfo }: InfoType) {
             w="100%"
             justify={'space-between'}
             h="60px"
-            onClick={() => router.push(ROUTES.LOGIN)}
+            onClick={() => setOpen(!open)}
           >
             <Text>로그아웃</Text>
             <ListArrowRight />
@@ -90,6 +93,7 @@ function MypagePage({ UserInfo }: InfoType) {
           <Box w="100%" bg="gray.100" h="30px"></Box>
         </Stack>
       </Stack>
+      <LogoutModal isOpen={open} onClose={() => setOpen(!open)} />
     </Box>
   );
 }

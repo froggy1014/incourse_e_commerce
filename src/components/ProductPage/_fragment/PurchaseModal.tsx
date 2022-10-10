@@ -29,6 +29,12 @@ function PurchaseModal(props: Omit<DrawerExampleProps, 'children'>) {
     (state: RootStateOrAny) => state.products,
   );
 
+  const handleCart = async () => {
+    console.log('hi');
+    // const data = { "productId": id,
+    // "cartId": ,
+    // "count": 0}
+  };
   return (
     <Box position="relative">
       <Drawer placement="bottom" {...props}>
@@ -80,6 +86,7 @@ function PurchaseModal(props: Omit<DrawerExampleProps, 'children'>) {
                 size="btnsm"
                 w="165px"
                 mb="10px"
+                onClick={handleCart}
               ></SubmitButton>
               <SubmitButton
                 title="바로구매"

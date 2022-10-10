@@ -13,10 +13,10 @@ import { socialLoginReq } from '@utils/axios';
 function SocialloginCallback({ code, state }: { code: string; state: string }) {
   const router = useRouter();
   const social = { code: code, state: state };
+  setCookie('socialToken', code);
   socialLoginReq.post('/user/social_login/', social).then((response) => {
     if (!response.data.isRegister) {
       router.push('/sign-up');
-      setCookie('socialToken', response.data.socialToken);
     } else {
       setCookie('access', response.data.access);
       setCookie('refresh', response.data.refresh);
