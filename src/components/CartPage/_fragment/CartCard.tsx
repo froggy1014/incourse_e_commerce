@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import {
   Box,
+  Button,
   ChakraProps,
   Checkbox,
   CloseButton,
@@ -58,6 +59,11 @@ function CartCard({ cartItem }: CartCardProps) {
     });
   }, []);
 
+  const cartDelete = () => {
+    console.log('delete');
+    axiosInstance.delete(`cart/item/${cartItem.id}/`);
+  };
+
   if (!product) return <h1>Loading</h1>;
   console.log(cartItem);
   console.log(product);
@@ -85,7 +91,12 @@ function CartCard({ cartItem }: CartCardProps) {
                   </Text>
                 </Box>
               </HStack>
-              <CloseButton position="absolute" top="-5px" right="0" />
+              <CloseButton
+                position="absolute"
+                top="-5px"
+                right="0"
+                onClick={cartDelete}
+              />
             </HStack>
           </Stack>
         </HStack>

@@ -10,6 +10,7 @@ import { SubmitButton } from '@components/common';
 import { RatingIcon } from '@icons/UI';
 
 import { ROUTES } from '@constants/routes';
+import { intComma } from '@utils/format';
 
 import { dataType } from '../data';
 
@@ -24,10 +25,12 @@ const ProductCard = ({ onOpen, product, ...props }: productInfo) => {
   const { id, thumbnail, name, capacity, price, avgRate, reviewCount, tags } =
     product;
 
+  //** 클릭 액션 */}
   const handleClick = () => {
     dispatch(focusProduct([id, price, name]));
     onOpen();
   };
+
   return (
     <Box
       w="100%"
@@ -53,13 +56,13 @@ const ProductCard = ({ onOpen, product, ...props }: productInfo) => {
           <VStack spacing="1" align="start" mb="10px">
             <HStack spacing="0">
               <Text variant="bold16" color="commerse.500">
-                {price}
+                {intComma(price)}
               </Text>
               <Text variant="normal16">원</Text>
             </HStack>
             <HStack spacing="1">
               <RatingIcon />
-              <Text variant="bold16">{avgRate}</Text>
+              <Text variant="bold16">{avgRate ? avgRate?.toFixed(1) : 0}</Text>
               <Text variant="normal16gray">(리뷰 {reviewCount}개)</Text>
             </HStack>
           </VStack>
@@ -74,6 +77,7 @@ const ProductCard = ({ onOpen, product, ...props }: productInfo) => {
           </HStack>
         </Flex>
       </Box>
+      {/** 둘 중에 버튼 하나라도 누르면 PG모달창 뜨게끔 만들었음 */}
       <Flex justify="space-evenly" onClick={handleClick}>
         <SubmitButton
           title="바로구매"

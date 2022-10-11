@@ -12,10 +12,18 @@ interface JWTType {
 }
 
 axios.defaults.baseURL = 'https://api.commerce.incourse.run/v1/';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export const reviewFetch = axios.create({});
 
 export const productFetch = axios.create({});
+
+export const getProduct = async ({ pageParam = null }) => {
+  let response;
+  if (!pageParam) response = await axios.get('/product/');
+  else response = await axios.get(`/product/?cursor=${pageParam}`);
+  return response.data;
+};
 
 export const refreshReq = axios.create({});
 

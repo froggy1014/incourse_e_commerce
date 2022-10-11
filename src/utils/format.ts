@@ -1,7 +1,3 @@
-import { startsWith } from 'lodash';
-
-import { withTheme } from '@emotion/react';
-
 export const intComma = (x: number | string) => {
   return x?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
