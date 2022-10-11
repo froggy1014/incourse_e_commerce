@@ -13,14 +13,14 @@ import { axiosInstance, reviewFetch } from '@utils/axios';
 
 function Main({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { results } = data;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    axiosInstance('user/me/')
-      .then((res) => res.data)
-      .then((data) => {
-        dispatch(setUserInfo(data));
-      });
-  }, []);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   axiosInstance('user/me/')
+  //     .then((res) => res.data)
+  //     .then((data) => {
+  //       dispatch(setUserInfo(data));
+  //     });
+  // }, []);
 
   return (
     <>
