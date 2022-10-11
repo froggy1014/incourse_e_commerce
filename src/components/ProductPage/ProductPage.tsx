@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import { useInfiniteQuery } from 'react-query';
 
-import { Box, HStack, Spinner, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, HStack, Spinner, useDisclosure } from '@chakra-ui/react';
 
 import { getProduct } from '@utils/axios';
 
@@ -20,7 +20,7 @@ function ProductPage({ ...props }: ProductPageType) {
     isFetching,
     isFetchingNextPage,
     isLoading,
-  } = useInfiniteQuery<any, Error>(['ProductList'], getProduct, {
+  } = useInfiniteQuery(['ProductList'], getProduct, {
     getNextPageParam: (lastPage, pages) => lastPage.cursor,
   });
 
@@ -28,7 +28,7 @@ function ProductPage({ ...props }: ProductPageType) {
 
   // 타겟 엘리먼트
   const observer = useRef<IntersectionObserver>();
-  // 타겟 엘리먼트가 인터섹션시 콜백
+  // 타겟 엘리먼트가 관촬될 시 콜백
   const lastElementRef = useCallback(
     (node) => {
       //** 이미 fetch 중이라면  return*/
@@ -37,6 +37,7 @@ function ProductPage({ ...props }: ProductPageType) {
       // 타겟 엘리먼트의 가시성 변화를 더 이상 감지하지 않는다.
       if (observer.current) observer.current.disconnect();
 
+      // observer.current를 Intersection Observer 인스턴스를 생성
       observer.current = new IntersectionObserver((entries) => {
         // callback으로부터 받은 entries 배열에서 isIntersecting 노출 여부와
         // 다음 페이지가 있는지 확인을 하면 다음 페이지 fetchNextPage
@@ -45,14 +46,15 @@ function ProductPage({ ...props }: ProductPageType) {
         }
       });
 
-      // 마지막 엘리먼트가 맞다면 계속 관찬하게끔 유지
+      // 타겟 엘리먼트 다시 관찰 시작
+      // 기존 타겟 엘리먼트는 disconnect되었고,
+      // 새로 뿌려진 마지막 요소를 다시 타겟으로 삼게됨.
       if (node) observer.current.observe(node);
     },
-    [isLoading, hasNextPage],
+    [isLoading, hasNextPage, fetchNextPage],
   );
 
   /* -------------------------------------- */
-
   return (
     <>
       <Box>
