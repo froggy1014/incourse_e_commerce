@@ -1,11 +1,11 @@
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider } from 'react-redux';
 
 import { ThemeProvider, useColorMode, useTheme } from '@chakra-ui/react';
 
 import ToggleColorModeButton from '@components/common/ToggleColorModeButton';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { mode } from '@theme/foundations/colors';
 
 import store from '../features/store';
@@ -21,17 +21,17 @@ function MyApp({ Component, pageProps }: any) {
 
   return (
     // Provide the client to your App
-    <ThemeProvider
-      theme={{ ...theme, colors: { ...theme.colors, ...mode[colorMode] } }}
-    >
-      <ToggleColorModeButton />
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider
+        theme={{ ...theme, colors: { ...theme.colors, ...mode[colorMode] } }}
+      >
+        <ToggleColorModeButton />
         <Provider store={store}>
           <Component {...pageProps} />
         </Provider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 
