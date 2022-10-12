@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
+import { getCookie } from 'cookies-next';
+
 import {
   Box,
   Drawer,
@@ -29,12 +31,11 @@ function PurchaseModal(props: Omit<DrawerExampleProps, 'children'>) {
   const { id, count, price, name, total } = useSelector(
     (state: RootStateOrAny) => state.products,
   );
-  const { cartId } = useSelector((state: RootStateOrAny) => state.USER);
 
   const handleCart = async () => {
     const data = {
       productId: id,
-      cartId: cartId,
+      cartId: getCookie('cartId'),
       count: count,
     };
     axiosInstance.post('cart/item/', data).then((res) => console.log(res));

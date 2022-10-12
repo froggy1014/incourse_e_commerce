@@ -39,6 +39,8 @@ export const axiosInstance = axios.create({});
 axiosInstance.interceptors.request.use(
   async (req) => {
     const accessToken = getCookie('access');
+    const refreshToken = getCookie('refresh');
+
     // access 토큰이 존재한다면 만료가 되었는지 확인 후 진행
     if (accessToken) {
       // jwt token 디코딩
@@ -53,7 +55,7 @@ axiosInstance.interceptors.request.use(
         return req;
       }
     }
-    const refreshToken = getCookie('refresh');
+
     // access 토큰는 없는데 refresh 토큰이 있다면 토큰 재 요청
     if (refreshToken) {
       console.log('refresh 토큰');
