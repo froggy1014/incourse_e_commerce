@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useQueryClient } from 'react-query';
 
 import {
   Box,
-  Button,
-  ChakraProps,
   Checkbox,
   CloseButton,
   HStack,
@@ -14,8 +13,9 @@ import {
 
 import { QtyMinusIcon, QtyPlusIcon } from '@components/common/@Icons/UI';
 
-import { axiosInstance } from '@utils/axios';
 import { intComma } from '@utils/format';
+
+import { useDeleteCart, useGetItemInfo } from '../_hook/useCartData';
 
 interface CartItemType {
   cartItem: {
@@ -26,47 +26,32 @@ interface CartItemType {
   };
 }
 
-interface productType {
-  avgRate: number | null;
-  capacity: number;
-  description: string;
-  detail: string;
-  id: number;
-  name: string;
-  photo: string;
-  price: number;
-  reviewCount: number;
-}
-
 // interface CartCardProps extends ChakraProps {}
 interface CartCardProps extends CartItemType {}
 
 function CartCard({ cartItem }: CartCardProps) {
-  const [product, setProduct] = useState<productType>();
+  const queryClient = useQueryClient();
+  // const [product, setProduct] = useState<productType>();
   const [state, setState] = useState({
     count: 0,
     price: 0,
   });
-  useEffect(() => {
-    axiosInstance(`product/${cartItem.productId}/`).then((res) => {
-      setProduct(res.data);
-      setState((state) => {
-        return {
-          count: cartItem.count,
-          price: cartItem.count * res.data.price,
-        };
-      });
-    });
-  }, []);
 
-  const cartDelete = () => {
-    console.log('delete');
-    axiosInstance.delete(`cart/item/${cartItem.id}/`);
+  const onSuccess = () => {
+    return queryClient.invalidateQueries(['CartList']);
   };
 
-  if (!product) return <h1>Loading</h1>;
-  console.log(cartItem);
-  console.log(product);
+  const { mutate } = useDeleteCart(onSuccess);
+  const { data: product, isLoading } = useGetItemInfo(cartItem.productId);
+  const cartDelete = () => {
+    console.log('delete');
+    mutate(cartItem.id),
+      {
+        onSuccess,
+      };
+  };
+
+  if (isLoading) return <h1>Loading</h1>;
   return (
     <HStack align="flex-start" justify="space-evenly">
       <Checkbox size="sm" colorScheme="commerse"></Checkbox>
@@ -127,7 +112,7 @@ function CartCard({ cartItem }: CartCardProps) {
                 bg="white"
                 color="gray.800"
               >
-                {state.count}
+                {cartItem.count}
               </Text>
               <Box
                 onClick={() =>
@@ -143,13 +128,15 @@ function CartCard({ cartItem }: CartCardProps) {
               </Box>
             </HStack>
             <Text variant="bold16gray" color="gray.600">
-              {intComma(state.price)}원
+              {intComma(cartItem.count * product.price)}원
             </Text>
           </HStack>
         </Stack>
         <HStack w="100%" justify="space-between" py="10px">
           <Text>{state.price >= 30000 ? '배송비무료' : '배송비 2500원'}</Text>
-          <Text variant="boldcommerse">{intComma(state.price)}원</Text>
+          <Text variant="boldcommerse">
+            {intComma(cartItem.count * product.price)}원
+          </Text>
         </HStack>
       </Stack>
     </HStack>
