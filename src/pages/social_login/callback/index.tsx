@@ -8,7 +8,7 @@ import { Flex, Spinner } from '@chakra-ui/react';
 
 import MobileLayout from '@components/common/@Layout/MobileLayout';
 
-import { socialLoginReq } from '@utils/axios';
+import { axiosInstance, socialLoginReq } from '@utils/axios';
 
 function SocialloginCallback({ code, state }: { code: string; state: string }) {
   const router = useRouter();
@@ -20,7 +20,15 @@ function SocialloginCallback({ code, state }: { code: string; state: string }) {
     } else {
       setCookie('access', response.data.access);
       setCookie('refresh', response.data.refresh);
-      router.push('/');
+      axiosInstance('user/me/')
+        .then((res) => res.data)
+        .then((data) => {
+          axiosInstance(`cart/?user_id=${data.id}`).then((res) =>
+            setCookie('cartId', res.data[0].id),
+          );
+          setCookie('userId', data.id);
+        })
+        .then(() => router.push('/'));
     }
   });
   return (
