@@ -6,6 +6,7 @@ import {
   Checkbox,
   CloseButton,
   HStack,
+  IconButton,
   Image,
   Stack,
   Text,
@@ -15,7 +16,11 @@ import { QtyMinusIcon, QtyPlusIcon } from '@components/common/@Icons/UI';
 
 import { intComma } from '@utils/format';
 
-import { useDeleteCart, useGetItemInfo } from '../_hook/useCartData';
+import {
+  useDeleteCart,
+  useGetItemInfo,
+  usePatchCartItem,
+} from '../_hook/useCartData';
 
 interface CartItemType {
   cartItem: {
@@ -31,6 +36,10 @@ interface CartCardProps extends CartItemType {}
 
 function CartCard({ cartItem }: CartCardProps) {
   const queryClient = useQueryClient();
+  const [counting, setCounting] = useState({
+    id: cartItem.id,
+    count: cartItem.count,
+  });
   // const [product, setProduct] = useState<productType>();
   const [state, setState] = useState({
     count: 0,
@@ -41,7 +50,26 @@ function CartCard({ cartItem }: CartCardProps) {
     return queryClient.invalidateQueries(['CartList']);
   };
 
+  const handleClick = async (name: string) => {
+    async function calculate() {
+      if (name === 'minus' && counting.count !== 1) {
+        setCounting((counting) => {
+          return { ...counting, count: counting.count - 1 };
+        });
+      } else if (name === 'plus') {
+        setCounting((counting) => {
+          return { ...counting, count: counting.count + 1 };
+        });
+      }
+    }
+    await calculate();
+    // const counting = { id: cartItem.id, count: cartItem.count };
+    await patchItem();
+    return queryClient.invalidateQueries(['CartList']);
+  };
+
   const { mutate } = useDeleteCart(onSuccess);
+  const { mutate: patchItem } = usePatchCartItem(counting);
   const { data: product, isLoading } = useGetItemInfo(cartItem.productId);
   const cartDelete = () => {
     console.log('delete');
@@ -91,19 +119,8 @@ function CartCard({ cartItem }: CartCardProps) {
           </Text>
           <HStack w="100%" justify="space-between">
             <HStack rounded="5px" spacing="1px">
-              <Box
-                as="button"
-                disabled={state.count === 1}
-                onClick={() =>
-                  setState((state) => {
-                    return {
-                      count: state.count - 1,
-                      price: state.price - product.price,
-                    };
-                  })
-                }
-              >
-                <QtyMinusIcon />
+              <Box>
+                <QtyMinusIcon onClick={() => handleClick('minus')} />
               </Box>
               <Text
                 w="25px"
@@ -114,17 +131,8 @@ function CartCard({ cartItem }: CartCardProps) {
               >
                 {cartItem.count}
               </Text>
-              <Box
-                onClick={() =>
-                  setState((state) => {
-                    return {
-                      count: state.count + 1,
-                      price: state.price + product.price,
-                    };
-                  })
-                }
-              >
-                <QtyPlusIcon />
+              <Box>
+                <QtyPlusIcon onClick={() => handleClick('plus')} />
               </Box>
             </HStack>
             <Text variant="bold16gray" color="gray.600">

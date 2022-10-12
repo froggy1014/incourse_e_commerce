@@ -9,6 +9,8 @@ export const QtyPlusIcon = (props: IconProps) => (
     bg="white"
     xmlns="http://www.w3.org/2000/svg"
     roundedRight="5px"
+    name="plus"
+    {...props}
   >
     <path d="M17 12H8V13H17V12Z" fill="#4A4D55" />
     <path d="M13 17V8H12V17H13Z" fill="#4A4D55" />

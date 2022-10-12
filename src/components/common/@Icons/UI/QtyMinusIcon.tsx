@@ -9,6 +9,7 @@ export const QtyMinusIcon = (props: IconProps) => (
     bg="white"
     roundedLeft="5px"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <path d="M17 12H8V13H17V12Z" fill="#4A4D55" />
   </Icon>

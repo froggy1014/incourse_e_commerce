@@ -33,14 +33,7 @@ interface CartType {
 function CartPage({ ...basisProps }: CartPageProps) {
   const router = useRouter();
 
-  const {
-    isLoading,
-    data: cart,
-    isError,
-    error,
-    isFetching,
-    refetch,
-  } = useGetCart();
+  const { isLoading, data: cart } = useGetCart();
 
   if (isLoading)
     return (
