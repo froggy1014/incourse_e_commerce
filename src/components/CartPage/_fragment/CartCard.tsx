@@ -6,12 +6,12 @@ import {
   Checkbox,
   CloseButton,
   HStack,
-  IconButton,
   Image,
   Stack,
   Text,
 } from '@chakra-ui/react';
 
+import { Loading } from '@components/common';
 import { QtyMinusIcon, QtyPlusIcon } from '@components/common/@Icons/UI';
 
 import { intComma } from '@utils/format';
@@ -63,23 +63,26 @@ function CartCard({ cartItem }: CartCardProps) {
       }
     }
     await calculate();
-    // const counting = { id: cartItem.id, count: cartItem.count };
-    await patchItem();
-    return queryClient.invalidateQueries(['CartList']);
+    CountingItem();
   };
 
   const { mutate } = useDeleteCart(onSuccess);
-  const { mutate: patchItem } = usePatchCartItem(counting);
+  const { mutate: patchItem } = usePatchCartItem(counting, onSuccess);
   const { data: product, isLoading } = useGetItemInfo(cartItem.productId);
   const cartDelete = () => {
-    console.log('delete');
     mutate(cartItem.id),
       {
         onSuccess,
       };
   };
+  const CountingItem = () => {
+    patchItem(),
+      {
+        onSuccess,
+      };
+  };
 
-  if (isLoading) return <h1>Loading</h1>;
+  if (isLoading) return <Loading />;
   return (
     <HStack align="flex-start" justify="space-evenly">
       <Checkbox size="sm" colorScheme="commerse"></Checkbox>

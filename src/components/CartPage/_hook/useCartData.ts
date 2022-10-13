@@ -14,7 +14,7 @@ const fetchCartList = async () => {
 };
 
 export const useGetCart = () => {
-  return useQuery(['CartList'], fetchCartList, {});
+  return useQuery(['CartList'], fetchCartList);
 };
 
 /* --------------------- Delete Selected Item Hook -------------------- */
@@ -60,6 +60,11 @@ const patchCartItem = async ({ id, count }: { id: number; count: number }) => {
   return axios.patch(`cart/item/${id}/`, { count: count });
 };
 
-export const usePatchCartItem = (counting: { id: number; count: number }) => {
-  return useMutation(['cartItem', counting.id], () => patchCartItem(counting));
+export const usePatchCartItem = (
+  counting: { id: number; count: number },
+  onSuccess: () => void,
+) => {
+  return useMutation(['cartItem', counting.id], () => patchCartItem(counting), {
+    onSuccess,
+  });
 };

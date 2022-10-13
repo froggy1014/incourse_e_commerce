@@ -13,7 +13,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import { SubmitButton } from '@components/common';
+import { Loading, SubmitButton } from '@components/common';
 
 import { ROUTES } from '@constants/routes';
 import { intComma } from '@utils/format';
@@ -35,19 +35,7 @@ function CartPage({ ...basisProps }: CartPageProps) {
 
   const { isLoading, data: cart } = useGetCart();
 
-  if (isLoading)
-    return (
-      <Flex w="100%" h="100vh" justify="center" align="center">
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="gray.200"
-          color="commerse.500"
-          size="xl"
-        />
-      </Flex>
-    );
-
+  if (isLoading) return <Loading />;
   if (cart.length === 0) return <EmptyCart />;
 
   return (
