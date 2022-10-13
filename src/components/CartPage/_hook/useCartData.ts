@@ -5,12 +5,15 @@ import { getCookie } from 'cookies-next';
 
 import { axiosInstance } from '@utils/axios';
 
+axios.defaults.baseURL = 'https://api.commerce.incourse.run/v1/';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 /* --------------------- Get All Cart Item Hook -------------------- */
 
 const fetchCartList = async () => {
-  return await axios(`cart/?user_id=${getCookie('userId')}`).then(
-    (res) => res.data[0].cartitem,
-  );
+  return await axios
+    .get(`cart/?user_id=29`)
+    .then((res) => res.data[0].cartitem);
 };
 
 export const useGetCart = () => {

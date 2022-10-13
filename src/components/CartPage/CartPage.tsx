@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
+import { cloneDeep } from 'lodash';
+
 import {
   Box,
   ChakraProps,
@@ -35,6 +37,12 @@ function CartPage({ ...basisProps }: CartPageProps) {
 
   const { isLoading, data: cart } = useGetCart();
 
+  const [checkedItems, setCheckedItems] = useState(
+    Array(cart.length).fill(false),
+  );
+
+  const allChecked = checkedItems.every(Boolean);
+  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
   if (isLoading) return <Loading />;
   if (cart.length === 0) return <EmptyCart />;
 
@@ -42,13 +50,38 @@ function CartPage({ ...basisProps }: CartPageProps) {
     <Box {...basisProps}>
       <Stack divider={<Divider bg="gray.200" h="10px" />}>
         <HStack color="gray.600" justify="space-between">
-          <Checkbox size="sm" colorScheme="commerse">
+          <Checkbox
+            colorScheme="commerse"
+            isChecked={allChecked}
+            isIndeterminate={isIndeterminate}
+            onChange={() => {
+              if (checkedItems.every((b) => b === true))
+                setCheckedItems(cloneDeep(checkedItems.fill(false)));
+              else setCheckedItems(cloneDeep(checkedItems.fill(true)));
+              console.log(checkedItems);
+            }}
+          >
             모두선택
           </Checkbox>
           <Text>선택삭제</Text>
         </HStack>
-        {cart.map((cartItem: CartType) => {
-          return <CartCard key={cartItem.id} cartItem={cartItem} />;
+        {cart.map((cartItem: CartType, i: number) => {
+          return (
+            <HStack key={cartItem.id} align="start">
+              <Checkbox
+                value={i}
+                isChecked={checkedItems[i]}
+                colorScheme="commerse"
+                onChange={(e) => {
+                  const newArr = checkedItems.map((v, idx) =>
+                    idx === Number(e.target.value) ? !v : v,
+                  );
+                  setCheckedItems(newArr);
+                }}
+              ></Checkbox>
+              <CartCard cartItem={cartItem} />;
+            </HStack>
+          );
         })}
         <Stack h="auto" spacing="4" pb="70px">
           <HStack color="gray.600" justify="space-between">

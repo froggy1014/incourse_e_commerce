@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import CartPage from '@components/CartPage';
+import CartPage from '@components/CartPage/CartPage';
 import MobileLayout from '@components/common/@Layout/MobileLayout';
 import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
 import MainHeader from '@components/common/@Layout/MobileLayout/_fragments/MainHeader';
