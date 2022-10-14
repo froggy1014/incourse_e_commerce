@@ -12,7 +12,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const fetchCartList = async () => {
   return await axios
-    .get(`cart/?user_id=29`)
+    .get(`cart/?user_id=${getCookie('userId')}`)
     .then((res) => res.data[0].cartitem);
 };
 

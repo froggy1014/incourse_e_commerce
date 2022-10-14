@@ -1,6 +1,7 @@
 // //@delete:line
 import counterSlice from '@features/counter/counterSlice';
 import detailReviewsSlice from '@features/detailReview/detailReviewSlice';
+import paymentSlice from '@features/payment/paymentSlice';
 // import modalSlice from '@features/modal/modalSlice';
 import pgSlice from '@features/pg/pgSlice';
 import userSlice from '@features/user/userSlice';
@@ -15,6 +16,7 @@ export function makeStore() {
       // [modalSlice.name]: modalSlice.reducer,
       [pgSlice.name]: pgSlice.reducer,
       [detailReviewsSlice.name]: detailReviewsSlice.reducer,
+      [paymentSlice.name]: paymentSlice.reducer,
     },
   });
 }
