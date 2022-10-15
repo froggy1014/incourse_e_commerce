@@ -5,11 +5,11 @@ import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { Box, CloseButton, HStack, Image, Stack, Text } from '@chakra-ui/react';
 
 import {
-  decPaymentState,
-  emptyPaymentState,
-  incPaymentState,
-  initPaymentState,
-} from '@features/payment/paymentSlice';
+  decCartState,
+  delCartState,
+  incCartState,
+  initCartState,
+} from '@features/cart/cartSlice';
 
 import { Loading } from '@components/common';
 import { QtyMinusIcon, QtyPlusIcon } from '@components/common/@Icons/UI';
@@ -37,12 +37,7 @@ interface CartCardProps extends CartItemType {}
 function CartCard({ cartItem }: CartCardProps) {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
-  const {
-    count,
-    totalPrice,
-    id: idx,
-  } = useSelector((state: RootStateOrAny) => state.PAYMENT);
-  const [index, setIndex] = useState(0);
+  const state = useSelector((state: RootStateOrAny) => state.CART);
   const [counting, setCounting] = useState({
     id: cartItem.id,
     count: cartItem.count,
@@ -57,12 +52,12 @@ function CartCard({ cartItem }: CartCardProps) {
         setCounting((counting) => {
           return { ...counting, count: counting.count - 1 };
         });
-        dispatch(decPaymentState({ id: cartItem.id }));
+        dispatch(decCartState({ id: cartItem.id }));
       } else if (name === 'plus') {
         setCounting((counting) => {
           return { ...counting, count: counting.count + 1 };
         });
-        dispatch(incPaymentState({ id: cartItem.id }));
+        dispatch(incCartState({ id: cartItem.id }));
       }
     }
     await calculate();
@@ -73,7 +68,7 @@ function CartCard({ cartItem }: CartCardProps) {
   const { mutate: patchItem } = usePatchCartItem(counting, onSuccess);
   const { data: product, isLoading } = useGetItemInfo(cartItem.productId);
   const cartDelete = () => {
-    dispatch(emptyPaymentState(cartItem.id));
+    dispatch(delCartState(cartItem.id));
     mutate(cartItem.id),
       {
         onSuccess,
@@ -88,14 +83,15 @@ function CartCard({ cartItem }: CartCardProps) {
 
   useEffect(() => {
     dispatch(
-      initPaymentState({
+      initCartState({
         id: cartItem.id,
-        price: product?.price,
+        product: product,
         count: cartItem.count,
+        productId: cartItem.productId,
       }),
     );
-    setIndex(idx.indexOf(cartItem.id));
-  }, [product, count]);
+  }, [product, state.count]);
+
   if (isLoading) return <Loading />;
 
   return (
@@ -143,22 +139,35 @@ function CartCard({ cartItem }: CartCardProps) {
               bg="white"
               color="gray.800"
             >
-              {count[index]}
+              {state[state.findIndex((e: any) => e.id === cartItem.id)]?.count}
             </Text>
             <Box>
               <QtyPlusIcon onClick={() => handleClick('plus')} />
             </Box>
           </HStack>
           <Text variant="bold16gray" color="gray.600">
-            {intComma(totalPrice[index])}원
+            {intComma(
+              state[state.findIndex((e: any) => e.id === cartItem.id)]
+                ?.totalPrice,
+            )}
+            원
           </Text>
         </HStack>
       </Stack>
       <HStack w="100%" justify="space-between" py="10px">
         <Text>
-          {totalPrice[index] >= 30000 ? '배송비무료' : '배송비 2500원'}
+          {state[state.findIndex((e: any) => e.id === cartItem.id)]
+            ?.totalPrice >= 30000
+            ? '배송비 무료'
+            : '배송비 2500원'}
         </Text>
-        <Text variant="boldcommerse">{intComma(totalPrice[index])}원</Text>
+        <Text variant="boldcommerse">
+          {intComma(
+            state[state.findIndex((e: any) => e.id === cartItem.id)]
+              ?.totalPrice,
+          )}
+          원
+        </Text>
       </HStack>
     </Stack>
   );

@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
+import { useQueryClient } from 'react-query';
+import { RootStateOrAny, useSelector } from 'react-redux';
+
+import axios from 'axios';
+import { count } from 'console';
 
 import {
   Box,
@@ -19,8 +24,12 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
+import { useGetItemInfo } from '@components/CartPage/_hook/useCartData';
 import { FormHelper, SubmitButton } from '@components/common';
 import { CardPayIcon } from '@components/common/@Icons/UI';
+
+import { axiosInstance } from '@utils/axios';
+import { intComma } from '@utils/format';
 
 import AddressModal from './_fragment/AddressModal';
 import { FormDataType } from './_hooks/useFormValidate';
@@ -46,10 +55,16 @@ const FormPageView = ({
   userInfo,
   ...basisProps
 }: FormPageProps) => {
+  const [prices, setPrices] = useState({
+    total: 0,
+    delivery: 0,
+  });
+  const [products, setProducts] = useState<any[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [btn, setBtn] = useState(true);
   const [copy, setCopy] = useState(true);
   const SearchTrigger = useRef<HTMLButtonElement>(null);
+  const state = useSelector((state: RootStateOrAny) => state.CART);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -63,27 +78,48 @@ const FormPageView = ({
       shouldValidate: true,
     });
   };
-
   useEffect(() => {
+    let price = 0;
+    let delivery = 0;
+    const productInfo: any[] = [];
+    state
+      .filter((obj: any) => obj.isChecked === true)
+      .map((item: any) => {
+        price += item.totalPrice;
+        delivery += item.deliveryFee;
+        productInfo.push({ ...item.product, count: item.count });
+      });
+    setProducts(productInfo);
+    setPrices({
+      total: price,
+      delivery: delivery,
+    });
     setValue('username', userInfo.name || '');
     setValue('phone', userInfo.phone || '');
   }, []);
+  console.log(products);
   return (
     <>
       <Box as="form" onSubmit={onSubmit} {...basisProps}>
         <Text variant="pageTitle">주문결제</Text>
         <Stack divider={<Divider variant="fullthin" />}>
           <Text fontWeight="bold">주문 상품</Text>
-          <HStack py="10px">
-            <Img boxSize="60px" src="/images/ReviewImage.png" />
-            <Box fontSize="12px">
-              <Text fontWeight="bold">바스 & 샴푸</Text>
-              <Text textColor="gray.600">바스 & 샴푸 | 120ml</Text>
-              <Text variant="boldcommerse" fontWeight="bold">
-                27,000원&nbsp;/&nbsp;1개
-              </Text>
-            </Box>
-          </HStack>
+          <Stack>
+            {products.map((product) => {
+              return (
+                <HStack w="100%" py="10px" key={product.id}>
+                  <Img boxSize="60px" src="/images/ReviewImage.png" />
+                  <Box fontSize="12px">
+                    <Text fontWeight="bold">{product.name}</Text>
+                    <Text textColor="gray.600">{`${product.name} | ${product.capacity}ml`}</Text>
+                    <Text variant="boldcommerse" fontWeight="bold">
+                      {`${product.price}원 ${product.count}개`}
+                    </Text>
+                  </Box>
+                </HStack>
+              );
+            })}
+          </Stack>
           {/* s: Form */}
           {/* s: 주문자 정보 */}
           <Box>
@@ -291,18 +327,20 @@ const FormPageView = ({
             <Flex textColor="gray.600" mt="2.5rem">
               <Text>총 상품금액</Text>
               <Spacer />
-              <Text>108,000 원</Text>
+              <Text>{intComma(prices.total)}원</Text>
             </Flex>
             <Flex textColor="gray.600" mt=".7rem" mb="1.3rem">
               <Text>총 배송비</Text>
               <Spacer />
-              <Text>0 원</Text>
+              <Text>{intComma(prices.delivery)}원</Text>
             </Flex>
           </Stack>
           <Flex my="1.3rem">
             <Text>결제금액</Text>
             <Spacer />
-            <Text variant="bold20commerse">108,000 원</Text>
+            <Text variant="bold20commerse">
+              {intComma(prices.total + prices.delivery)}원
+            </Text>
           </Flex>
           <Box mt="10px">
             <Controller

@@ -14,11 +14,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import {
-  allTogglePaymentState,
-  clearPaymentState,
-  togglePaymentState,
-} from '@features/payment/paymentSlice';
+import { clearUpCartState, toggleCartState } from '@features/cart/cartSlice';
 
 import { Loading, SubmitButton } from '@components/common';
 
@@ -40,13 +36,18 @@ interface CartType {
 function CartPage({ ...basisProps }: CartPageProps) {
   const router = useRouter();
   const dispatch = useDispatch();
-  const index: number[] = [];
-  const [delivery, setDelivery] = useState<number>(0);
-  const [total, setTotal] = useState<number>();
+  const [prices, setPrices] = useState({
+    total: 0,
+    delivery: 0,
+  });
 
-  const { count, totalPrice, deliveryFee, isChecked } = useSelector(
-    (state: RootStateOrAny) => state.PAYMENT,
-  );
+  // 처음들어왔을때, redux에 isChecked를 다 false로 초기화 시켜줌
+  useEffect(() => {
+    dispatch(clearUpCartState());
+    setPrices({ total: 0, delivery: 0 });
+  }, []);
+
+  const state = useSelector((state: RootStateOrAny) => state.CART);
 
   const { isLoading, data: cart } = useGetCart();
 
@@ -55,7 +56,7 @@ function CartPage({ ...basisProps }: CartPageProps) {
     Array(cart !== undefined ? cart.length : 0).fill(false),
   );
   // allChecked 버튼으로 일괄적 토글을 위한 변수
-  const allChecked = checkedItems.every((b) => b === true);
+  const allChecked = checkedItems.every(Boolean);
   // 하나라도 체크가 되어있다면 표시 되게끔 체크박스 아이콘이 바뀜
   const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
 
@@ -65,7 +66,7 @@ function CartPage({ ...basisProps }: CartPageProps) {
     cartItem: any,
   ) => {
     // 토글하게되면 해당되는 장바구니 아이템의 아이디를 넘겨서 isChecked를 true로 만들어줌
-    dispatch(togglePaymentState(cartItem.id));
+    dispatch(toggleCartState(cartItem.id));
 
     // 해당 인덱스에 해당되는 check배열을 toggle해줌
     const newArr = checkedItems.map((v, idx) =>
@@ -74,29 +75,21 @@ function CartPage({ ...basisProps }: CartPageProps) {
     setCheckedItems(newArr);
   };
 
-  // 처음들어왔을때, redux에 isChecked를 다 false로 초기화 시켜줌
-  useEffect(() => {
-    dispatch(clearPaymentState());
-  }, []);
-
   // 체크박스가 toggle되거나 count가 바뀌면 총 상품, 배송비 업데이트해줌
   useEffect(() => {
-    isChecked.map((v: boolean, i: number) => {
-      if (v === true) {
-        index.push(i);
-      } else if (v === false) {
-        if (index.indexOf(i) !== -1) index.filter((v) => v !== i);
-      }
-    });
     let price = 0;
     let delivery = 0;
-    for (const t of index) {
-      price += totalPrice[t];
-      delivery += deliveryFee[t];
-    }
-    setTotal(price);
-    setDelivery(delivery);
-  }, [isChecked, count]);
+    state
+      .filter((obj: any) => obj.isChecked === true)
+      .map((item: any) => {
+        price += item.totalPrice;
+        delivery += item.deliveryFee;
+      });
+    setPrices({
+      total: price,
+      delivery: delivery,
+    });
+  }, [state]);
 
   if (isLoading) return <Loading />;
   if (cart.length === 0) return <EmptyCart />;
@@ -112,10 +105,8 @@ function CartPage({ ...basisProps }: CartPageProps) {
             onChange={() => {
               if (checkedItems.every((b) => b === true)) {
                 setCheckedItems(cloneDeep(checkedItems.fill(false)));
-                dispatch(clearPaymentState());
               } else {
                 setCheckedItems(cloneDeep(checkedItems.fill(true)));
-                dispatch(allTogglePaymentState());
               }
             }}
           >
@@ -139,20 +130,21 @@ function CartPage({ ...basisProps }: CartPageProps) {
         <Stack h="auto" spacing="4" pb="70px">
           <HStack color="gray.600" justify="space-between">
             <Text>총 상품금액</Text>
-            <Text>{total && intComma(total)}원</Text>
+            <Text>{prices.total}원</Text>
           </HStack>
           <HStack color="gray.600" justify="space-between">
             <Text>총 배송비</Text>
-            <Text>{intComma(delivery)}원</Text>
+            <Text>{prices.delivery}원</Text>
           </HStack>
           <Divider />
           <HStack justify="space-between">
             <Text>결제금액</Text>
             <Text variant="boldcommerse">
-              {intComma(Number(total) + Number(delivery))}원
+              {intComma(prices.total + prices.delivery)}원
             </Text>
           </HStack>
           <SubmitButton
+            disabled={checkedItems.every((b) => b === false)}
             title="결제하기"
             size="btnlg"
             variant="btncommerse"
