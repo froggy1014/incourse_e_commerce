@@ -10,9 +10,6 @@ import { Controller, UseFormReturn } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 import { RootStateOrAny, useSelector } from 'react-redux';
 
-import axios from 'axios';
-import { count } from 'console';
-
 import {
   Box,
   BoxProps,
@@ -42,19 +39,16 @@ import AddressModal from './_fragment/AddressModal';
 import { FormDataType } from './_hooks/useFormValidate';
 import { useGetme } from './_hooks/useGetme';
 
-interface userInfoType {
-  name: string;
-  phone: string;
-}
 interface priceType {
   total: number;
   delivery: number;
 }
 interface FormPageProps extends BoxProps {
   formData: UseFormReturn<FormDataType>;
-  userInfo: userInfoType;
   prices: priceType;
   setPrices: Dispatch<SetStateAction<priceType>>;
+  products: any[];
+  setProducts: Dispatch<SetStateAction<any[]>>;
 }
 
 const FormPageView = ({
@@ -66,12 +60,12 @@ const FormPageView = ({
     getValues,
   },
   onSubmit,
-  userInfo,
   prices,
   setPrices,
+  products,
+  setProducts,
   ...basisProps
 }: FormPageProps) => {
-  const [products, setProducts] = useState<any[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [btn, setBtn] = useState(true);
   const [copy, setCopy] = useState(true);
@@ -105,8 +99,13 @@ const FormPageView = ({
     setProducts(productInfo);
     setPrices({ total: price, delivery: delivery });
     setValue('username', data?.name);
-    setValue('phone', addHyphenPhone(data?.phone));
+    setValue(
+      'phone',
+      data?.phone !== undefined ? addHyphenPhone(data.phone) : '010-1234-4567',
+    );
   }, [data]);
+
+  console.log(products);
 
   return (
     <>

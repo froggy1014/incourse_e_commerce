@@ -39,7 +39,7 @@ function AddressModal({
       }
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
-    setValue('address', fullAddress);
+    setValue('address', fullAddress + ' ' + data.zonecode);
     onClose();
   };
   return (

@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { getCookie, setCookies } from 'cookies-next';
 
 import {
   Box,
@@ -24,6 +26,12 @@ function CartOrderpageSuccessPage({
   ...basisProps
 }: CartOrderpageSuccessPageProps) {
   const router = useRouter();
+
+  useEffect(() => {
+    console.log(getCookie('orderData'));
+    console.log(getCookie('orderData'));
+  }, []);
+
   return (
     <Stack {...basisProps}>
       <Text variant="pageTitle">결제내역</Text>
