@@ -7,7 +7,10 @@ import { Logo } from '@icons/UI';
 
 import { SOCIAL } from '@constants/social';
 
-const SOCIAL_REDIRECT_URL = `http://localhost:3000/social_login/callback`;
+// const SOCIAL_REDIRECT_URL = process.env.SOCIAL_REDIRECT_URL;
+// const KAKAO_CLIENT_ID = process.env.KAKAO_CLIENT_ID;
+
+const SOCIAL_REDIRECT_URL = 'http://localhost:3000/social_login/callback';
 
 interface NewTyps {
   social: SocialType;

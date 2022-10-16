@@ -47,6 +47,7 @@
     "lodash": "^4.17.21",
     "ls-engines": "^0.7.0",
     "next": "^12.1.6",
+    "next-auth": "^4.14.0",
     "react": "^18.1.0",
     "react-cookie": "^4.1.1",
     "react-datepicker": "^4.8.0",
