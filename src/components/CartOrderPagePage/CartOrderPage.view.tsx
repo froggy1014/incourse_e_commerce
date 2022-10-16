@@ -1,4 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 import { RootStateOrAny, useSelector } from 'react-redux';
@@ -25,22 +32,29 @@ import {
 } from '@chakra-ui/react';
 
 import { useGetItemInfo } from '@components/CartPage/_hook/useCartData';
-import { FormHelper, SubmitButton } from '@components/common';
+import { FormHelper, Loading, SubmitButton } from '@components/common';
 import { CardPayIcon } from '@components/common/@Icons/UI';
 
 import { axiosInstance } from '@utils/axios';
-import { intComma } from '@utils/format';
+import { addHyphenPhone, intComma } from '@utils/format';
 
 import AddressModal from './_fragment/AddressModal';
 import { FormDataType } from './_hooks/useFormValidate';
+import { useGetme } from './_hooks/useGetme';
 
 interface userInfoType {
   name: string;
   phone: string;
 }
+interface priceType {
+  total: number;
+  delivery: number;
+}
 interface FormPageProps extends BoxProps {
   formData: UseFormReturn<FormDataType>;
   userInfo: userInfoType;
+  prices: priceType;
+  setPrices: Dispatch<SetStateAction<priceType>>;
 }
 
 const FormPageView = ({
@@ -53,18 +67,17 @@ const FormPageView = ({
   },
   onSubmit,
   userInfo,
+  prices,
+  setPrices,
   ...basisProps
 }: FormPageProps) => {
-  const [prices, setPrices] = useState({
-    total: 0,
-    delivery: 0,
-  });
   const [products, setProducts] = useState<any[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [btn, setBtn] = useState(true);
   const [copy, setCopy] = useState(true);
   const SearchTrigger = useRef<HTMLButtonElement>(null);
   const state = useSelector((state: RootStateOrAny) => state.CART);
+  const { data } = useGetme();
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -90,14 +103,11 @@ const FormPageView = ({
         productInfo.push({ ...item.product, count: item.count });
       });
     setProducts(productInfo);
-    setPrices({
-      total: price,
-      delivery: delivery,
-    });
-    setValue('username', userInfo.name || '');
-    setValue('phone', userInfo.phone || '');
-  }, []);
-  console.log(products);
+    setPrices({ total: price, delivery: delivery });
+    setValue('username', data?.name);
+    setValue('phone', addHyphenPhone(data?.phone));
+  }, [data]);
+
   return (
     <>
       <Box as="form" onSubmit={onSubmit} {...basisProps}>

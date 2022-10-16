@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 
-import { ROUTES } from '@constants/routes';
+import { getCookie } from 'cookies-next';
 
 import OrderPageView from './CartOrderPage.view';
 import useFormValidate from './_hooks/useFormValidate';
@@ -15,9 +15,13 @@ const userInfo = {
 
 const OrderPage = () => {
   const router = useRouter();
+  const [prices, setPrices] = useState({
+    total: 0,
+    delivery: 0,
+  });
   const formData = useFormValidate();
   const { handleSubmit } = formData;
-  console.log('formData: ', formData);
+  // console.log('formData: ', formData);
 
   const onSubmit = handleSubmit(
     ({
@@ -31,10 +35,19 @@ const OrderPage = () => {
       orderAddressDetail,
       orderRequest,
     }) => {
-      console.log(
-        `submitted: ${username},  ${phone}, ${address}, ${addressDetail}, ${orderUsername},  ${orderPhone}, ${orderAddress}, ${orderAddressDetail},${orderRequest}`,
-      );
-      router.push(ROUTES.PURCHASE.SUCCESS);
+      const data = {
+        userId: Number(getCookie('userId')),
+        price: prices.total + prices.delivery,
+        method: 'CARD',
+        userName: username,
+        userPhone: phone.split('-').join(''),
+        userAddr: address + ' ' + addressDetail,
+        shipName: orderUsername,
+        shipPhone: orderPhone.split('-').join(''),
+        shipAddr: orderAddress + ' ' + orderAddressDetail,
+        orderMessage: orderRequest,
+      };
+      console.log(data);
     },
   );
   return (
@@ -42,8 +55,12 @@ const OrderPage = () => {
       formData={formData}
       onSubmit={onSubmit}
       userInfo={userInfo}
+      prices={prices}
+      setPrices={setPrices}
     />
   );
 };
 
 export default OrderPage;
+
+// router.push(ROUTES.PURCHASE.SUCCESS);
