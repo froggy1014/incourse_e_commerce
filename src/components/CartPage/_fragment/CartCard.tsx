@@ -9,6 +9,7 @@ import {
   delCartState,
   incCartState,
   initCartState,
+  toggleCartState,
 } from '@features/cart/cartSlice';
 
 import { Loading } from '@components/common';
@@ -69,6 +70,7 @@ function CartCard({ cartItem }: CartCardProps) {
   const { data: product, isLoading } = useGetItemInfo(cartItem.productId);
   const cartDelete = () => {
     dispatch(delCartState(cartItem.id));
+    dispatch(toggleCartState('0'));
     mutate(cartItem.id),
       {
         onSuccess,

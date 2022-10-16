@@ -56,11 +56,29 @@ const cartSlice = createSlice({
       state.splice(idx, 1);
     },
     toggleCartState: (state, { payload }) => {
-      const idx = state.findIndex((e) => e.id === payload);
-      state[idx] = {
-        ...state[idx],
-        isChecked: !state[idx].isChecked,
-      };
+      if (payload !== '0') {
+        const idx = state.findIndex((e) => e.id === payload);
+        state[idx] = {
+          ...state[idx],
+          isChecked: !state[idx]?.isChecked,
+        };
+      } else {
+        if (state.every((b) => b.isChecked === true)) {
+          for (let i = 0; i < state.length; i++) {
+            state[i] = {
+              ...state[i],
+              isChecked: false,
+            };
+          }
+        } else {
+          for (let i = 0; i < state.length; i++) {
+            state[i] = {
+              ...state[i],
+              isChecked: true,
+            };
+          }
+        }
+      }
     },
     clearUpCartState: (state) => {
       for (let i = 0; i < state.length; i++) {

@@ -52,11 +52,9 @@ function CartPage({ ...basisProps }: CartPageProps) {
   const { isLoading, data: cart } = useGetCart();
 
   // 장바구니 아이템만큼의 Array를 만들어서 check 배열로 사용
-  const [checkedItems, setCheckedItems] = useState(
-    Array(cart !== undefined ? cart.length : 0).fill(false),
-  );
+  const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
   // allChecked 버튼으로 일괄적 토글을 위한 변수
-  const allChecked = checkedItems.every(Boolean);
+  const allChecked = checkedItems.every((b) => b === true);
   // 하나라도 체크가 되어있다면 표시 되게끔 체크박스 아이콘이 바뀜
   const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
 
@@ -74,6 +72,10 @@ function CartPage({ ...basisProps }: CartPageProps) {
     );
     setCheckedItems(newArr);
   };
+
+  useEffect(() => {
+    setCheckedItems(Array(cart !== undefined ? cart.length : 0).fill(false));
+  }, [cart]);
 
   // 체크박스가 toggle되거나 count가 바뀌면 총 상품, 배송비 업데이트해줌
   useEffect(() => {
@@ -99,15 +101,17 @@ function CartPage({ ...basisProps }: CartPageProps) {
       <Stack divider={<Divider bg="gray.200" h="10px" />}>
         <HStack color="gray.600" justify="space-between">
           <Checkbox
+            value={0}
             colorScheme="commerse"
             isChecked={allChecked}
             isIndeterminate={isIndeterminate}
-            onChange={() => {
+            onChange={(e) => {
               if (checkedItems.every((b) => b === true)) {
                 setCheckedItems(cloneDeep(checkedItems.fill(false)));
               } else {
                 setCheckedItems(cloneDeep(checkedItems.fill(true)));
               }
+              dispatch(toggleCartState(e.target.value));
             }}
           >
             모두선택
