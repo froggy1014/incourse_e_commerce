@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { RootStateOrAny, useSelector } from 'react-redux';
 
 import { getCookie, setCookies } from 'cookies-next';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,19 +9,27 @@ import { loadTossPayments } from '@tosspayments/payment-sdk';
 
 import OrderPageView from './CartOrderPage.view';
 import useFormValidate from './_hooks/useFormValidate';
+import { TossPayment, postOrderId, postOrderStatus } from './_hooks/useQueries';
 
-const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq';
+interface priceType {
+  total: number;
+  delivery: number;
+  productId: number[];
+  count: number[];
+}
 
-const OrderPage = () => {
+const OrderPage = ({ TOSS_KEY }: { TOSS_KEY: string }) => {
   const router = useRouter();
-  const [prices, setPrices] = useState({
+  const state = useSelector((state: RootStateOrAny) => state.CART);
+  const [prices, setPrices] = useState<priceType>({
     total: 0,
     delivery: 0,
+    productId: [],
+    count: [],
   });
   const [products, setProducts] = useState<any[]>([]);
   const formData = useFormValidate();
   const { handleSubmit } = formData;
-  // console.log('formData: ', formData);
 
   const onSubmit = handleSubmit(
     ({
@@ -40,26 +49,27 @@ const OrderPage = () => {
         method: 'CARD',
         userName: username,
         userPhone: phone.split('-').join(''),
-        userAddr: address + ' ' + addressDetail,
+        userAddrPost: address.split('-').pop(),
+        userAddrDetail: address.split('-').shift() + '' + addressDetail,
         shipName: orderUsername,
         shipPhone: orderPhone.split('-').join(''),
-        shipAddr: orderAddress + ' ' + orderAddressDetail,
-        orderMessage: orderRequest,
+        shipAddrPost: orderAddress.split('-').pop(),
+        shipAddrDetail:
+          orderAddress.split('-').shift() + '' + orderAddressDetail,
+        orderMessage: orderRequest === '' ? '없음' : orderRequest,
       };
-      console.log(data);
-      setCookies('orderData', data);
-      async function TossPayment() {
-        const tossPayments = await loadTossPayments(clientKey);
-        tossPayments.requestPayment('카드', {
-          amount: prices.total + prices.delivery,
-          orderId: uuidv4(),
-          orderName: '인코스런 주문',
-          customerName: '박토스',
-          successUrl: 'http://localhost:3000/orderpage/success',
-          failUrl: 'http://localhost:3000/fail',
-        });
+      async function apiCall() {
+        const response = await postOrderId(data);
+        for (let i = 0; i < prices.count.length; i++) {
+          const res = await postOrderStatus(
+            response.id,
+            prices.productId[i],
+            prices.count[i],
+          );
+        }
+        TossPayment(response.id, prices.total, prices.delivery, TOSS_KEY);
       }
-      TossPayment();
+      apiCall();
     },
   );
   return (
@@ -75,5 +85,3 @@ const OrderPage = () => {
 };
 
 export default OrderPage;
-
-// router.push(ROUTES.PURCHASE.SUCCESS);

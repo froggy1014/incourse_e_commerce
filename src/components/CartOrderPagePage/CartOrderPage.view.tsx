@@ -37,11 +37,13 @@ import { addHyphenPhone, intComma } from '@utils/format';
 
 import AddressModal from './_fragment/AddressModal';
 import { FormDataType } from './_hooks/useFormValidate';
-import { useGetme } from './_hooks/useGetme';
+import { useGetme } from './_hooks/useQueries';
 
 interface priceType {
   total: number;
   delivery: number;
+  productId: number[];
+  count: number[];
 }
 interface FormPageProps extends BoxProps {
   formData: UseFormReturn<FormDataType>;
@@ -76,7 +78,6 @@ const FormPageView = ({
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setCopy(!copy);
-    console.log(copy);
     const { username, phone, address, addressDetail } = getValues();
     setValue('orderUsername', copy ? username : '', { shouldValidate: true });
     setValue('orderPhone', copy ? phone : '', { shouldValidate: true });
@@ -88,24 +89,31 @@ const FormPageView = ({
   useEffect(() => {
     let price = 0;
     let delivery = 0;
+    const product: number[] = [];
+    const count: number[] = [];
     const productInfo: any[] = [];
     state
       .filter((obj: any) => obj.isChecked === true)
       .map((item: any) => {
         price += item.totalPrice;
         delivery += item.deliveryFee;
+        product.push(item.productId);
+        count.push(item.count);
         productInfo.push({ ...item.product, count: item.count });
       });
     setProducts(productInfo);
-    setPrices({ total: price, delivery: delivery });
+    setPrices({
+      total: price,
+      delivery: delivery,
+      productId: product,
+      count: count,
+    });
     setValue('username', data?.name);
     setValue(
       'phone',
       data?.phone !== undefined ? addHyphenPhone(data.phone) : '010-1234-4567',
     );
   }, [data]);
-
-  console.log(products);
 
   return (
     <>
