@@ -7,21 +7,23 @@ import { Logo } from '@icons/UI';
 
 import { SOCIAL } from '@constants/social';
 
-// const SOCIAL_REDIRECT_URL = process.env.SOCIAL_REDIRECT_URL;
-// const KAKAO_CLIENT_ID = process.env.KAKAO_CLIENT_ID;
-
-const SOCIAL_REDIRECT_URL = 'http://localhost:3000/social_login/callback';
-
-interface NewTyps {
-  social: SocialType;
-  link: string;
+interface socialInfo {
+  data: {
+    clientId: string;
+    redirectURL: string;
+  };
 }
 
-const social: NewTyps = {
-  social: 'kakao',
-  link: `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${SOCIAL.KAKAO_CLIENT_ID}&redirect_uri=${SOCIAL_REDIRECT_URL}&state=kakao`,
-};
-const LoginPage = () => {
+const LoginPage = ({ data }: socialInfo) => {
+  const { clientId: KAKAO_CLIENT_ID, redirectURL: SOCIAL_REDIRECT_URL } = data;
+  interface NewTyps {
+    social: SocialType;
+    link: string;
+  }
+  const social: NewTyps = {
+    social: 'kakao',
+    link: `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${SOCIAL_REDIRECT_URL}&state=kakao`,
+  };
   return (
     <Container
       w="375px"
