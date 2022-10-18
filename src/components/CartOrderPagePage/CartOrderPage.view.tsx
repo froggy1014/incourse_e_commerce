@@ -68,6 +68,7 @@ const FormPageView = ({
   setProducts,
   ...basisProps
 }: FormPageProps) => {
+  const checkBoxTrigger = useRef<HTMLInputElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [btn, setBtn] = useState(true);
   const [copy, setCopy] = useState(true);
@@ -75,8 +76,7 @@ const FormPageView = ({
   const state = useSelector((state: RootStateOrAny) => state.CART);
   const { data } = useGetme();
 
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const changeHandler = () => {
     setCopy(!copy);
     const { username, phone, address, addressDetail } = getValues();
     setValue('orderUsername', copy ? username : '', { shouldValidate: true });
@@ -94,7 +94,6 @@ const FormPageView = ({
     const productInfo: any[] = [];
     state.map((item: any) => {
       if (item.isChecked === true) {
-        console.log(item);
         price += item.totalPrice;
         delivery += item.deliveryFee;
         product.push(item.productId);
@@ -231,7 +230,7 @@ const FormPageView = ({
               <Checkbox
                 colorScheme="commerse"
                 color="gray.600"
-                onChange={(e) => changeHandler(e)}
+                onChange={changeHandler}
               >
                 주문자 정보와 동일
               </Checkbox>
@@ -366,19 +365,27 @@ const FormPageView = ({
               name="personalConsent"
               render={({ field: { onChange } }) => (
                 <FormHelper errorText={errors.personalConsent?.message}>
-                  <Checkbox
-                    colorScheme="commerse"
-                    size="lg"
-                    onChange={(e) => {
-                      e.preventDefault();
-                      onChange();
-                      setBtn(!btn);
-                    }}
-                  >
-                    <Text textColor="gray.600">
+                  <Flex>
+                    <Checkbox
+                      colorScheme="commerse"
+                      size="lg"
+                      mr="10px"
+                      ref={checkBoxTrigger}
+                      onChange={() => {
+                        onChange();
+                        setBtn(!btn);
+                      }}
+                    />
+                    <Text
+                      textColor="gray.600"
+                      onClick={() => {
+                        if (checkBoxTrigger.current !== null)
+                          checkBoxTrigger.current.click();
+                      }}
+                    >
                       개인정보 수집 이용 동의(필수)
                     </Text>
-                  </Checkbox>
+                  </Flex>
                 </FormHelper>
               )}
             />
