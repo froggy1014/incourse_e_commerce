@@ -1,11 +1,6 @@
-import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { RootStateOrAny, useSelector } from 'react-redux';
 
-import { getCookie, setCookies } from 'cookies-next';
-import { v4 as uuidv4 } from 'uuid';
-
-import { loadTossPayments } from '@tosspayments/payment-sdk';
+import { getCookie } from 'cookies-next';
 
 import OrderPageView from './CartOrderPage.view';
 import useFormValidate from './_hooks/useFormValidate';
@@ -18,9 +13,13 @@ interface priceType {
   count: number[];
 }
 
-const OrderPage = ({ TOSS_KEY }: { TOSS_KEY: string }) => {
-  const router = useRouter();
-  const state = useSelector((state: RootStateOrAny) => state.CART);
+const OrderPage = ({
+  TOSS_KEY,
+  payingItems,
+}: {
+  TOSS_KEY: string;
+  payingItems: string[];
+}) => {
   const [prices, setPrices] = useState<priceType>({
     total: 0,
     delivery: 0,
@@ -67,7 +66,13 @@ const OrderPage = ({ TOSS_KEY }: { TOSS_KEY: string }) => {
             prices.count[i],
           );
         }
-        TossPayment(response.id, prices.total, prices.delivery, TOSS_KEY);
+        TossPayment(
+          response.id,
+          prices.total,
+          prices.delivery,
+          TOSS_KEY,
+          payingItems,
+        );
       }
       apiCall();
     },

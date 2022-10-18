@@ -1,5 +1,3 @@
-import { StatHelpText } from '@chakra-ui/react';
-
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface UserStateType {
@@ -10,6 +8,7 @@ export interface UserStateType {
   product: any;
   isChecked: boolean | null;
   productId: number;
+  cartId: number;
 }
 
 const initialState: UserStateType[] = [];
@@ -20,15 +19,17 @@ const cartSlice = createSlice({
   reducers: {
     initCartState: (state, { payload }) => {
       if (payload.product === undefined) return;
-      const idx = state.findIndex((e) => e.id === payload.id);
+      const idx = state.findIndex((e) => e.id === payload.cartItem.id);
       const data = {
-        count: payload.count,
-        id: payload.id,
-        deliveryFee: payload.product.price * payload.count >= 30000 ? 0 : 2500,
+        count: payload.cartItem.count,
+        id: payload.cartItem.id,
+        deliveryFee:
+          payload.product.price * payload.cartItem.count >= 30000 ? 0 : 2500,
         product: payload.product,
         isChecked: false,
-        totalPrice: payload.product.price * payload.count,
-        productId: payload.productId,
+        totalPrice: payload.product.price * payload.cartItem.count,
+        productId: payload.cartItem.productId,
+        cartId: payload.cartItem.cartId,
       };
       if (idx === -1) state.push(data);
       else state[idx] = data;

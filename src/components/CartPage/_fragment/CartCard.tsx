@@ -92,10 +92,8 @@ function CartCard({ cartItem, checkedItems, setCheckedItems }: CartCardProps) {
   useEffect(() => {
     dispatch(
       initCartState({
-        id: cartItem.id,
+        cartItem: cartItem,
         product: product,
-        count: cartItem.count,
-        productId: cartItem.productId,
       }),
     );
   }, [product]);

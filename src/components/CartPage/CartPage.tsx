@@ -155,7 +155,14 @@ function CartPage({ ...basisProps }: CartPageProps) {
             title="결제하기"
             size="btnlg"
             variant="btncommerse"
-            onClick={() => router.push(ROUTES.PURCHASE.MAIN)}
+            onClick={() => {
+              const cartItems = state
+                .map((item: any, i: number) => {
+                  if (item.isChecked === true) return state[i].id;
+                })
+                .filter((v: boolean | undefined) => v !== undefined);
+              router.push(ROUTES.PURCHASE.MAIN + `/?items=${cartItems}`);
+            }}
           />
         </Stack>
       </Stack>

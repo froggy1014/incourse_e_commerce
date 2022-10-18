@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 
 import axios from 'axios';
 
@@ -43,6 +43,7 @@ export async function TossPayment(
   total: number,
   delivery: number,
   Toss_Key: string,
+  payingItems: string[],
 ) {
   const tossPayments = await loadTossPayments(Toss_Key);
   tossPayments.requestPayment('카드', {
@@ -50,7 +51,7 @@ export async function TossPayment(
     orderId: orderId,
     orderName: '인코스런 주문',
     customerName: '박토스',
-    successUrl: 'http://localhost:3000/orderpage/success',
+    successUrl: `http://localhost:3000/orderpage/success?items=${payingItems}`,
     failUrl: 'http://localhost:3000/fail',
   });
 }

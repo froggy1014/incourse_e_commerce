@@ -30,10 +30,8 @@ function CartOrderpageSuccessPage({
   ...basisProps
 }: CartOrderpageSuccessPageProps) {
   const { data: info, isLoading } = useProductInfoQuery(orderedProduct);
-
   if (isLoading) return <Loading />;
 
-  console.log(orderedProduct);
   return (
     <Stack {...basisProps}>
       <Text variant="pageTitle">결제내역</Text>

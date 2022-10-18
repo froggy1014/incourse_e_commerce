@@ -9,6 +9,8 @@ import MobileLayout from '@components/common/@Layout/MobileLayout';
 import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
 import MainHeader from '@components/common/@Layout/MobileLayout/_fragments/MainHeader';
 
+import { axiosInstance } from '@utils/axios';
+
 export interface IPaidProduct {
   id: number;
   orderId: string;
@@ -25,10 +27,17 @@ export interface IUserInfo {
 function CartOrderpageSuccess({
   userInfo,
   orderedProduct,
+  cartItemIds,
 }: {
   userInfo: IUserInfo;
   orderedProduct: IPaidProduct[];
+  cartItemIds: string[];
 }) {
+  cartItemIds.map(async (item) => {
+    await axiosInstance
+      .delete(`cart/item/${item}/`)
+      .then((res) => console.log(res.data));
+  });
   return (
     <>
       <Head>
@@ -54,10 +63,9 @@ export const getServerSideProps: GetServerSideProps = async ({
   res,
   req,
 }) => {
-  const accessToken = getCookie('access', { res, req });
-  const refreshToken = getCookie('refresh', { res, req });
   const userId = getCookie('userId', { res, req });
   async function APICall() {
+    const cartItemIds = String(query.items).split(',');
     const response = await axios(`order/${query.orderId}/
     `).then((res) => res.data);
     const body = {
@@ -84,7 +92,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     const orderedProduct = datas.filter(
       (data: any) => data.orderId === resp.id,
     );
-    return { userInfo: resp, orderedProduct };
+    return { userInfo: resp, orderedProduct, cartItemIds };
   }
   const data = await APICall();
   return {
