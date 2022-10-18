@@ -1,11 +1,7 @@
-import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
-
-import { getCookie, setCookies } from 'cookies-next';
+import Link from 'next/link';
 
 import {
   Box,
-  Button,
   ChakraProps,
   Divider,
   Flex,
@@ -15,76 +11,93 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import { SubmitButton } from '@components/common';
+import { Loading, SubmitButton } from '@components/common';
 
-import { ROUTES } from '@constants/routes';
-import { intComma } from '@utils/format';
+import { addHyphenPhone, formatDateDash, intComma } from '@utils/format';
 
-interface CartOrderpageSuccessPageProps extends ChakraProps {}
+import { useProductInfoQuery } from './_hook/useProductInfoQuery';
+
+import { IPaidProduct, IUserInfo } from 'pages/orderpage/success';
+
+interface CartOrderpageSuccessPageProps extends ChakraProps {
+  userInfo: IUserInfo;
+  orderedProduct: IPaidProduct[];
+}
 
 function CartOrderpageSuccessPage({
+  userInfo,
+  orderedProduct,
   ...basisProps
 }: CartOrderpageSuccessPageProps) {
-  const router = useRouter();
+  const { data: info, isLoading } = useProductInfoQuery(orderedProduct);
 
-  useEffect(() => {
-    console.log(getCookie('orderData'));
-    console.log(getCookie('orderData'));
-  }, []);
+  if (isLoading) return <Loading />;
 
+  console.log(orderedProduct);
   return (
     <Stack {...basisProps}>
       <Text variant="pageTitle">결제내역</Text>
 
       <Stack divider={<Divider variant="fullthick" />}>
-        <Stack>
+        <Box>
           <Divider variant="fullthin" />
           <Text fontWeight="bold" py="10px">
-            [2021 - 04 - 01]
+            {formatDateDash(orderedProduct[0].created)}
           </Text>
-          <Divider variant="fullthin" />
-          <HStack justify="space-between">
-            <HStack>
-              <Image
-                boxSize="60px"
-                src="/images/orderHistory.png"
-                bg="gray.100"
-                rounded="5px"
-              />
-              <Box>
-                <Text fontWeight="bold">샴푸 & 바디</Text>
-                <Text variant="normal12gray">샴푸 & 바디 | 300ml</Text>
-                <Text variant="boldcommerse">27,000원 / 1개</Text>
-              </Box>
-            </HStack>
-            <Text variant="boldcommerse">결제완료</Text>
-          </HStack>
-        </Stack>
-        <Box py="14px">
+          <Divider variant="fullthin" mb="10px" />
+          {info?.map((product: any, i: number) => {
+            return (
+              <Stack key={product.id} mb="10px">
+                <HStack justify="space-between">
+                  <HStack>
+                    <Image
+                      boxSize="60px"
+                      src="/images/orderHistory.png"
+                      bg="gray.100"
+                      rounded="5px"
+                    />
+                    <Box>
+                      <Text fontWeight="bold">{product.name}</Text>
+                      <Text variant="normal12gray">
+                        {product.name} | {product.capacity}ml
+                      </Text>
+                      <Text variant="boldcommerse">
+                        {product.price}원 / {orderedProduct[i].count}개
+                      </Text>
+                    </Box>
+                  </HStack>
+                  <Text variant="boldcommerse">결제완료</Text>
+                </HStack>
+              </Stack>
+            );
+          })}
+        </Box>
+        <Box py="10px">
           <Text fontWeight="bold">배송지정보</Text>
+          <Divider variant="fullthin" my="10px" />
           <HStack>
             <Stack>
               <HStack justify="flex-start">
                 <Text minW="92px">이름</Text>
-                <Text color="gray.700">김인코스런</Text>
+                <Text color="gray.700">{userInfo.shipName}</Text>
               </HStack>
               <HStack justify="flex-start">
                 <Text minW="92px">핸드폰 번호</Text>
-                <Text color="gray.700">010-1234-1234</Text>
-              </HStack>
-              <HStack justify="flex-start">
-                <Text minW="92px">우편번호</Text>
-                <Text color="gray.700">31125</Text>
-              </HStack>
-              <HStack justify="flex-start">
-                <Text minW="92px">주소</Text>
                 <Text color="gray.700">
-                  서울특별시 마포구 성산동 123-3 성산빌딩 B동 302호
+                  {addHyphenPhone(String(userInfo.shipPhone))}
                 </Text>
               </HStack>
               <HStack justify="flex-start">
+                <Text minW="92px">우편번호</Text>
+                <Text color="gray.700">{userInfo.userAddrPost}</Text>
+              </HStack>
+              <HStack justify="flex-start">
+                <Text minW="92px">주소</Text>
+                <Text color="gray.700">{userInfo.userAddrDetail}</Text>
+              </HStack>
+              <HStack justify="flex-start">
                 <Text minW="92px">배송요청사항</Text>
-                <Text color="gray.700">문앞에 두고 가주세요</Text>
+                <Text color="gray.700">{userInfo.orderMessage}</Text>
               </HStack>
             </Stack>
           </HStack>
@@ -96,11 +109,11 @@ function CartOrderpageSuccessPage({
             <Stack>
               <HStack color="gray.600" justify="space-between">
                 <Text>총 상품금액</Text>
-                <Text>{intComma(108000)}</Text>
+                <Text>{intComma(userInfo.price)} 원</Text>
               </HStack>
               <HStack color="gray.600" justify="space-between">
                 <Text>총 배송비</Text>
-                <Text>{intComma(0)}원</Text>
+                <Text>{intComma(userInfo.shippingPrice)} 원</Text>
               </HStack>
               <HStack color="gray.600" justify="space-between">
                 <Text>결제수단</Text>
@@ -112,23 +125,29 @@ function CartOrderpageSuccessPage({
             <Divider variant="fullthin" />
             <HStack justify="space-between">
               <Text>결제금액</Text>
-              <Text variant="boldcommerse">{intComma(108000)}원</Text>
+              <Text variant="boldcommerse">{intComma(userInfo.amount)} 원</Text>
             </HStack>
             <Flex justify="space-between" pt="34px">
-              <SubmitButton
-                title="메인화면 이동"
-                size="btnsm"
-                variant="btnwhite"
-                w="165px"
-                onClick={() => router.push(ROUTES.MAIN)}
-              />
-              <SubmitButton
-                title="주문내역 이동"
-                size="btnsm"
-                variant="btncommerse"
-                w="165px"
-                onClick={() => router.push(ROUTES.MYPAGE.ORDERHISTORY)}
-              />
+              <Link href="/">
+                <a>
+                  <SubmitButton
+                    title="메인화면 이동"
+                    size="btnsm"
+                    variant="btnwhite"
+                    w="165px"
+                  />
+                </a>
+              </Link>
+              <Link href="/">
+                <a>
+                  <SubmitButton
+                    title="주문내역 이동"
+                    size="btnsm"
+                    variant="btncommerse"
+                    w="165px"
+                  />
+                </a>
+              </Link>
             </Flex>
           </Stack>
         </Box>

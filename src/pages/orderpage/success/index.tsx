@@ -1,11 +1,34 @@
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+
+import axios from 'axios';
+import { getCookie } from 'cookies-next';
 
 import CartOrderpageSuccessPage from '@components/CartOrderpageSuccessPage';
 import MobileLayout from '@components/common/@Layout/MobileLayout';
 import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
 import MainHeader from '@components/common/@Layout/MobileLayout/_fragments/MainHeader';
 
-function CartOrderpageSuccess() {
+export interface IPaidProduct {
+  id: number;
+  orderId: string;
+  productId: number;
+  count: number;
+  shippingStatus: string;
+  created: string;
+}
+
+export interface IUserInfo {
+  [key: string]: string | number;
+}
+
+function CartOrderpageSuccess({
+  userInfo,
+  orderedProduct,
+}: {
+  userInfo: IUserInfo;
+  orderedProduct: IPaidProduct[];
+}) {
   return (
     <>
       <Head>
@@ -14,11 +37,59 @@ function CartOrderpageSuccess() {
       </Head>
       <MobileLayout
         header={<MainHeader />}
-        content={<CartOrderpageSuccessPage />}
+        content={
+          <CartOrderpageSuccessPage
+            userInfo={userInfo}
+            orderedProduct={orderedProduct}
+          />
+        }
         footer={<Footer />}
       />
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  res,
+  req,
+}) => {
+  const accessToken = getCookie('access', { res, req });
+  const refreshToken = getCookie('refresh', { res, req });
+  const userId = getCookie('userId', { res, req });
+  async function APICall() {
+    const response = await axios(`order/${query.orderId}/
+    `).then((res) => res.data);
+    const body = {
+      price: 47500,
+      paymentKey: query.paymentKey,
+      method: 'CARD',
+      userName: response.userName,
+      userPhone: response.userPhone,
+      userAddrPost: response.userAddrPost,
+      userAddrDetail: response.userAddrDetail,
+      shipName: response.shipName,
+      shipPhone: response.shipPhone,
+      shipAddrPost: response.shipAddPost,
+      shipAddrDetail: response.shipAddrDetail,
+      orderMessage: response.orderMessage,
+    };
+    const resp = await axios
+      .patch(`order/${query.orderId}/`, body)
+      .then((res) => res.data);
+    const datas = await axios(
+      `order/status/?user_id=${userId}
+      `,
+    ).then((res) => res.data.results);
+    const orderedProduct = datas.filter(
+      (data: any) => data.orderId === resp.id,
+    );
+    return { userInfo: resp, orderedProduct };
+  }
+  const data = await APICall();
+  return {
+    props: data,
+  };
+};
 
 export default CartOrderpageSuccess;

@@ -3,6 +3,8 @@ import { getCookie, hasCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import jwt_decode from 'jwt-decode';
 
+import { refresh } from './../../apis/_axios/refresh';
+
 interface JWTType {
   exp: number;
   iat: number;
@@ -23,6 +25,12 @@ export const getProduct = async ({ pageParam = null }) => {
   if (!pageParam) response = await axios.get('/product/');
   else response = await axios.get(`/product/?cursor=${pageParam}`);
   return response.data;
+};
+
+export const refreshTokenFun = async (refresh: string) => {
+  return await axios
+    .post('user/refresh/', { refresh: refresh })
+    .then((res) => res.data);
 };
 
 export const refreshReq = axios.create({});
