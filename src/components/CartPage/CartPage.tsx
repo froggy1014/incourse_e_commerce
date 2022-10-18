@@ -90,7 +90,7 @@ function CartPage({ ...basisProps }: CartPageProps) {
       total: price,
       delivery: delivery,
     });
-  }, [state]);
+  }, [state, checkedItems.length]);
 
   if (isLoading) return <Loading />;
   if (cart.length === 0) return <EmptyCart />;
@@ -126,7 +126,11 @@ function CartPage({ ...basisProps }: CartPageProps) {
                 colorScheme="commerse"
                 onChange={(e) => handleChange(e, cartItem)}
               ></Checkbox>
-              <CartCard cartItem={cartItem} />
+              <CartCard
+                cartItem={cartItem}
+                checkedItems={checkedItems}
+                setCheckedItems={setCheckedItems}
+              />
             </HStack>
           );
         })}

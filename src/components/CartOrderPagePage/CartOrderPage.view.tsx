@@ -92,15 +92,16 @@ const FormPageView = ({
     const product: number[] = [];
     const count: number[] = [];
     const productInfo: any[] = [];
-    state
-      .filter((obj: any) => obj.isChecked === true)
-      .map((item: any) => {
+    state.map((item: any) => {
+      if (item.isChecked === true) {
+        console.log(item);
         price += item.totalPrice;
         delivery += item.deliveryFee;
         product.push(item.productId);
         count.push(item.count);
         productInfo.push({ ...item.product, count: item.count });
-      });
+      }
+    });
     setProducts(productInfo);
     setPrices({
       total: price,

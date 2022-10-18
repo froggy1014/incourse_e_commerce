@@ -1,3 +1,5 @@
+import { StatHelpText } from '@chakra-ui/react';
+
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface UserStateType {
@@ -6,7 +8,7 @@ export interface UserStateType {
   id: number;
   deliveryFee: number;
   product: any;
-  isChecked: boolean;
+  isChecked: boolean | null;
   productId: number;
 }
 
@@ -52,29 +54,36 @@ const cartSlice = createSlice({
       };
     },
     delCartState: (state, { payload }) => {
-      const idx = state.findIndex((e) => e.id === payload.id);
-      state.splice(idx, 1);
+      const idx = state.findIndex((e) => e.id === payload);
+      state[idx] = {
+        ...state[idx],
+        isChecked: null,
+        totalPrice: 0,
+        deliveryFee: 0,
+        count: 0,
+      };
     },
     toggleCartState: (state, { payload }) => {
+      console.log(payload);
       if (payload !== '0') {
-        const idx = state.findIndex((e) => e.id === payload);
+        const idx = state.findIndex((e) => e.id === Number(payload));
         state[idx] = {
           ...state[idx],
           isChecked: !state[idx]?.isChecked,
         };
       } else {
-        if (state.every((b) => b.isChecked === true)) {
+        if (state.every((b) => b.isChecked === false)) {
           for (let i = 0; i < state.length; i++) {
             state[i] = {
               ...state[i],
-              isChecked: false,
+              isChecked: true,
             };
           }
         } else {
           for (let i = 0; i < state.length; i++) {
             state[i] = {
               ...state[i],
-              isChecked: true,
+              isChecked: false,
             };
           }
         }

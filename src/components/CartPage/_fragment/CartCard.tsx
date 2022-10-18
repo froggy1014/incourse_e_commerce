@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+
+import { cloneDeep } from 'lodash';
 
 import { Box, CloseButton, HStack, Image, Stack, Text } from '@chakra-ui/react';
 
@@ -33,9 +35,12 @@ interface CartItemType {
 }
 
 // interface CartCardProps extends ChakraProps {}
-interface CartCardProps extends CartItemType {}
+interface CartCardProps extends CartItemType {
+  checkedItems: boolean[];
+  setCheckedItems: Dispatch<SetStateAction<boolean[]>>;
+}
 
-function CartCard({ cartItem }: CartCardProps) {
+function CartCard({ cartItem, checkedItems, setCheckedItems }: CartCardProps) {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const state = useSelector((state: RootStateOrAny) => state.CART);
@@ -69,8 +74,9 @@ function CartCard({ cartItem }: CartCardProps) {
   const { mutate: patchItem } = usePatchCartItem(counting, onSuccess);
   const { data: product, isLoading } = useGetItemInfo(cartItem.productId);
   const cartDelete = () => {
-    dispatch(delCartState(cartItem.id));
     dispatch(toggleCartState('0'));
+    setCheckedItems(cloneDeep(checkedItems.fill(false)));
+    dispatch(delCartState(cartItem.id));
     mutate(cartItem.id),
       {
         onSuccess,
@@ -92,7 +98,7 @@ function CartCard({ cartItem }: CartCardProps) {
         productId: cartItem.productId,
       }),
     );
-  }, [product, state.count]);
+  }, [product]);
 
   if (isLoading) return <Loading />;
 
