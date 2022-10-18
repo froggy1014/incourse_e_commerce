@@ -47,8 +47,9 @@ function CartPage({ ...basisProps }: CartPageProps) {
     setPrices({ total: 0, delivery: 0 });
   }, []);
 
+  // Redux Store
   const state = useSelector((state: RootStateOrAny) => state.CART);
-
+  // Cart 아이템 Get Hook
   const { isLoading, data: cart } = useGetCart();
 
   // 장바구니 아이템만큼의 Array를 만들어서 check 배열로 사용
@@ -59,26 +60,24 @@ function CartPage({ ...basisProps }: CartPageProps) {
   const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
 
   // 체크박스 이벤트
+  // 토글하게되면 해당되는 장바구니 Slice에 아이디를 넘겨서 isChecked를 true로 만들어줌
+  // 해당 인덱스에 해당되는 check배열을 toggle해줌
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     cartItem: any,
   ) => {
-    // 토글하게되면 해당되는 장바구니 아이템의 아이디를 넘겨서 isChecked를 true로 만들어줌
     dispatch(toggleCartState(cartItem.id));
-
-    // 해당 인덱스에 해당되는 check배열을 toggle해줌
     const newArr = checkedItems.map((v, idx) =>
       idx === Number(e.target.value) ? !v : v,
     );
     setCheckedItems(newArr);
   };
 
-  useEffect(() => {
-    setCheckedItems(Array(cart !== undefined ? cart.length : 0).fill(false));
-  }, [cart]);
-
   // 체크박스가 toggle되거나 count가 바뀌면 총 상품, 배송비 업데이트해줌
   useEffect(() => {
+    if (cart && checkedItems.length === 0) {
+      setCheckedItems(Array(cart.length).fill(false));
+    }
     let price = 0;
     let delivery = 0;
     state
