@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     const response = await axios(`order/${query.orderId}/
     `).then((res) => res.data);
     const body = {
-      price: 47500,
+      price: query.amount,
       paymentKey: query.paymentKey,
       method: 'CARD',
       userName: response.userName,
