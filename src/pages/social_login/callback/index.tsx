@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 import { setCookie } from 'cookies-next';
 
@@ -13,23 +14,25 @@ import { axiosInstance, socialLoginReq } from '@utils/axios';
 function SocialloginCallback({ code, state }: { code: string; state: string }) {
   const router = useRouter();
   const social = { code: code, state: state };
-  setCookie('socialToken', code);
-  socialLoginReq.post('/user/social_login/', social).then((response) => {
-    if (!response.data.isRegister) {
-      router.push('/sign-up');
-    } else {
-      setCookie('access', response.data.access);
-      setCookie('refresh', response.data.refresh);
-      axiosInstance('user/me/')
-        .then((res) => res.data)
-        .then((data) => {
-          axiosInstance(`cart/?user_id=${data.id}`).then((res) =>
-            setCookie('cartId', res.data[0].id),
-          );
-          setCookie('userId', data.id);
-        })
-        .then(() => router.push('/'));
-    }
+  useEffect(() => {
+    setCookie('socialToken', code);
+    socialLoginReq.post('/user/social_login/', social).then((response) => {
+      if (!response.data.isRegister) {
+        router.push('/sign-up');
+      } else {
+        setCookie('access', response.data.access);
+        setCookie('refresh', response.data.refresh);
+        axiosInstance('user/me/')
+          .then((res) => res.data)
+          .then((data) => {
+            axiosInstance(`cart/?user_id=${data.id}`).then((res) =>
+              setCookie('cartId', res.data[0].id),
+            );
+            setCookie('userId', data.id);
+          })
+          .then(() => router.push('/'));
+      }
+    });
   });
   return (
     <>
