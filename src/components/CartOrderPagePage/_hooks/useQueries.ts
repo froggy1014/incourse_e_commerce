@@ -42,6 +42,7 @@ export async function TossPayment(
   orderId: string,
   total: number,
   delivery: number,
+  userName: string,
   Toss_Key: string,
   payingItems: string[],
 ) {
@@ -50,7 +51,7 @@ export async function TossPayment(
     amount: total + delivery,
     orderId: orderId,
     orderName: '인코스런 주문',
-    customerName: '박토스',
+    customerName: userName,
     successUrl: `http://localhost:3000/orderpage/success?items=${payingItems}`,
     failUrl: 'http://localhost:3000/fail',
   });
