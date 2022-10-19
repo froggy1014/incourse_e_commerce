@@ -1,9 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
-
-import { axiosInstance } from '@utils/axios';
 
 axios.defaults.baseURL = 'https://api.commerce.incourse.run/v1/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';

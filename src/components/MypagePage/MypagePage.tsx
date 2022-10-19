@@ -1,18 +1,7 @@
-import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { StringIterator } from 'lodash';
-
-import {
-  Box,
-  ChakraProps,
-  Divider,
-  HStack,
-  Stack,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Divider, HStack, Stack, Text, VStack } from '@chakra-ui/react';
 
 import {
   ListArrowRight,
@@ -21,7 +10,6 @@ import {
   UserInfoEditIcon,
 } from '@icons/UI';
 
-import { ROUTES } from '@constants/routes';
 import { getQueryString } from '@utils/format';
 
 import LogoutModal from './_fragment/LogoutModal';
@@ -43,7 +31,6 @@ interface InfoType {
 }
 
 function MypagePage({ UserInfo }: InfoType) {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const queryString = getQueryString(UserInfo);
   return (

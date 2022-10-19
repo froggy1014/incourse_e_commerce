@@ -31,7 +31,6 @@ const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {
   const { handleSubmit } = formData;
   const onSubmit = handleSubmit(
     ({ name, nickname, phone, email, gender, ages }) => {
-      console.log(router.pathname);
       if (router.pathname === '/mypage/modifyprofile') {
         const data = {
           email: email,

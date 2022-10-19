@@ -75,7 +75,6 @@ const detailReviewsSlice = createSlice({
           );
           break;
         case '':
-          console.log(optionTwo);
           if (optionTwo !== '')
             _state.reviewList = _state.tempArray.filter(
               (item) => item.reviewimageSet.length > 0,

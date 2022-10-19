@@ -24,10 +24,10 @@ export const ROUTES = {
       S3_FILE_INPUT: '/starter-docs/examples/file-input',
     },
   },
+  MAIN: '/',
   LOGIN: '/login',
   CART: '/cart',
   SIGNUP: '/sign-up',
-  MAIN: '/',
   PRODUCT: '/product',
   PURCHASE: {
     MAIN: '/orderpage',
