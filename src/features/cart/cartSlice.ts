@@ -56,13 +56,8 @@ const cartSlice = createSlice({
     },
     delCartState: (state, { payload }) => {
       const idx = state.findIndex((e) => e.id === payload);
-      state[idx] = {
-        ...state[idx],
-        isChecked: null,
-        totalPrice: 0,
-        deliveryFee: 0,
-        count: 0,
-      };
+      const newState = state.filter((v, i) => i !== idx);
+      return (state = newState);
     },
     toggleCartState: (state, { payload }) => {
       if (payload !== '0') {

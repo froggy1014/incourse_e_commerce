@@ -77,6 +77,10 @@ function CartPage({ ...basisProps }: CartPageProps) {
   useEffect(() => {
     if (cart && checkedItems.length !== cart.length) {
       setCheckedItems(Array(cart.length).fill(false));
+      state.map((v: any, i: number) => {
+        if (v.isChecked === true)
+          setCheckedItems([...checkedItems, (checkedItems[i] = true)]);
+      });
     }
     let price = 0;
     let delivery = 0;
@@ -90,7 +94,7 @@ function CartPage({ ...basisProps }: CartPageProps) {
       total: price,
       delivery: delivery,
     });
-  }, [state, checkedItems.length, cart.length]);
+  }, [state, cart]);
 
   if (isLoading) return <Loading />;
   if (cart.length === 0) return <EmptyCart />;

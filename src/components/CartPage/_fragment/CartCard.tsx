@@ -7,12 +7,10 @@ import { cloneDeep } from 'lodash';
 import { Box, CloseButton, HStack, Image, Stack, Text } from '@chakra-ui/react';
 
 import {
-  clearUpCartState,
   decCartState,
   delCartState,
   incCartState,
   initCartState,
-  toggleCartState,
 } from '@features/cart/cartSlice';
 
 import { Loading } from '@components/common';
@@ -41,7 +39,7 @@ interface CartCardProps extends CartItemType {
   setCheckedItems: Dispatch<SetStateAction<boolean[]>>;
 }
 
-function CartCard({ cartItem, checkedItems, setCheckedItems }: CartCardProps) {
+function CartCard({ cartItem }: CartCardProps) {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const state = useSelector((state: RootStateOrAny) => state.CART);
@@ -75,8 +73,6 @@ function CartCard({ cartItem, checkedItems, setCheckedItems }: CartCardProps) {
   const { mutate: patchItem } = usePatchCartItem(counting, onSuccess);
   const { data: product, isLoading } = useGetItemInfo(cartItem.productId);
   const cartDelete = () => {
-    dispatch(clearUpCartState());
-    setCheckedItems(cloneDeep(checkedItems.fill(false)));
     dispatch(delCartState(cartItem.id));
     mutate(cartItem.id),
       {
