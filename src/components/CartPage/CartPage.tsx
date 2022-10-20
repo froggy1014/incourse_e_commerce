@@ -75,7 +75,7 @@ function CartPage({ ...basisProps }: CartPageProps) {
 
   // 체크박스가 toggle되거나 count가 바뀌면 총 상품, 배송비 업데이트해줌
   useEffect(() => {
-    if (cart && checkedItems.length === 0) {
+    if (cart && checkedItems.length !== cart.length) {
       setCheckedItems(Array(cart.length).fill(false));
     }
     let price = 0;
@@ -90,7 +90,7 @@ function CartPage({ ...basisProps }: CartPageProps) {
       total: price,
       delivery: delivery,
     });
-  }, [state, checkedItems.length]);
+  }, [state, checkedItems.length, cart.length]);
 
   if (isLoading) return <Loading />;
   if (cart.length === 0) return <EmptyCart />;

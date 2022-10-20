@@ -65,7 +65,6 @@ const cartSlice = createSlice({
       };
     },
     toggleCartState: (state, { payload }) => {
-      console.log(payload);
       if (payload !== '0') {
         const idx = state.findIndex((e) => e.id === Number(payload));
         state[idx] = {

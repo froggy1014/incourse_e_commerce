@@ -7,6 +7,7 @@ import { cloneDeep } from 'lodash';
 import { Box, CloseButton, HStack, Image, Stack, Text } from '@chakra-ui/react';
 
 import {
+  clearUpCartState,
   decCartState,
   delCartState,
   incCartState,
@@ -74,7 +75,7 @@ function CartCard({ cartItem, checkedItems, setCheckedItems }: CartCardProps) {
   const { mutate: patchItem } = usePatchCartItem(counting, onSuccess);
   const { data: product, isLoading } = useGetItemInfo(cartItem.productId);
   const cartDelete = () => {
-    dispatch(toggleCartState('0'));
+    dispatch(clearUpCartState());
     setCheckedItems(cloneDeep(checkedItems.fill(false)));
     dispatch(delCartState(cartItem.id));
     mutate(cartItem.id),
