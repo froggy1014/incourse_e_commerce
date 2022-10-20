@@ -87,34 +87,25 @@ const FormPageView = ({
     });
   };
   useEffect(() => {
-    let price = 0;
-    let delivery = 0;
-    const product: number[] = [];
-    const count: number[] = [];
-    const productInfo: any[] = [];
-    state.map((item: any) => {
-      if (item.isChecked === true) {
-        price += item.totalPrice;
-        delivery += item.deliveryFee;
-        product.push(item.productId);
-        count.push(item.count);
-        productInfo.push({ ...item.product, count: item.count });
-      }
-    });
-    setProducts(productInfo);
-    setPrices({
-      total: price,
-      delivery: delivery,
-      productId: product,
-      count: count,
-    });
-    setValue('username', data?.name);
-    setValue(
-      'phone',
-      data?.phone !== undefined ? addHyphenPhone(data.phone) : '010-1234-4567',
-    );
+    if (data) {
+      state.map((item: any) => {
+        if (item.isChecked === true) {
+          setPrices((prices) => ({
+            total: prices.total + item.totalPrice,
+            delivery: prices.delivery + item.deliveryFee,
+            productId: [...prices.productId, item.productId],
+            count: [...prices.count, item.count],
+          }));
+          const newProduct = { ...item.product, count: item.count };
+          setProducts((products) => [...products, newProduct]);
+        }
+        setValue('username', data?.name);
+        setValue('phone', addHyphenPhone(data.phone));
+      });
+    }
   }, [data]);
 
+  if (!products) return <Loading />;
   return (
     <>
       <Box as="form" onSubmit={onSubmit} {...basisProps}>
@@ -123,6 +114,7 @@ const FormPageView = ({
           <Text fontWeight="bold">주문 상품</Text>
           <Stack>
             {products.map((product) => {
+              console.log(product);
               return (
                 <HStack w="100%" py="10px" key={product.id}>
                   <Img boxSize="60px" src="/images/ReviewImage.png" />
