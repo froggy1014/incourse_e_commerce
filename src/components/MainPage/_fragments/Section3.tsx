@@ -29,15 +29,19 @@ const Section3 = ({ results }: AllReviewTypes) => {
       {/* <SingleCarousel /> */}
       <Box overflowX="hidden" maxW="375px" h="auto" mb="100px">
         <Slider {...settings}>
-          {value !== 0
-            ? results
-                .filter((result) => result.productId === value)
+          {value === 0
+            ? results.map((result) => {
+                return result.reviewList.map((review) => {
+                  return <ReviewCard key={review.id} data={review} />;
+                });
+              })
+            : results
+                .filter((v) => v.id === value)
                 .map((result) => {
-                  return <ReviewCard key={result.id} data={result} />;
-                })
-            : results.map((result) => {
-                return <ReviewCard key={result.id} data={result} />;
-              })}
+                  return result.reviewList.map((review) => {
+                    return <ReviewCard key={review.id} data={review} />;
+                  });
+                })}
         </Slider>
       </Box>
       <FloatingActionIcon />

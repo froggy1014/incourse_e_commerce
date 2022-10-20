@@ -64,8 +64,19 @@ function ButtonCarousel({
             <Button
               value={3}
               variant="review"
+              w="83px"
               onClick={(e) => handleClick(e)}
               isActive={value === 3}
+            >
+              파우더 로션
+            </Button>
+          </Box>
+          <Box>
+            <Button
+              value={5}
+              variant="review"
+              onClick={(e) => handleClick(e)}
+              isActive={value === 5}
             >
               로션
             </Button>
@@ -78,17 +89,6 @@ function ButtonCarousel({
               isActive={value === 1}
             >
               크림
-            </Button>
-          </Box>
-          <Box>
-            <Button
-              value={5}
-              variant="review"
-              w="83px"
-              onClick={(e) => handleClick(e)}
-              isActive={value === 5}
-            >
-              파우더 로션
             </Button>
           </Box>
         </Slider>

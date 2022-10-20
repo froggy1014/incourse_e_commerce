@@ -14,7 +14,7 @@ import { EmptyRatingIcon, RatingIcon } from '@components/common/@Icons/UI';
 
 import { formatDate } from '@utils/format';
 
-import { ReviewTypes } from '../data';
+import { IReviewList } from '../data';
 
 interface ReviewCardType extends ChakraProps {}
 
@@ -22,7 +22,7 @@ const ReviewCard = ({
   data,
   ...Props
 }: {
-  data: ReviewTypes;
+  data: IReviewList;
   Props?: ReviewCardType;
 }) => {
   const { created, rate, content, reviewimageSet } = data;

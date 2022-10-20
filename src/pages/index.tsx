@@ -1,30 +1,25 @@
 import { InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 
+import axios from 'axios';
+
 import MainPage from '@components/MainPage';
 import MobileLayout from '@components/common/@Layout/MobileLayout';
 import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
 
-import { reviewFetch } from '@utils/axios';
-
 function Main({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { results } = data;
-
   return (
     <>
       <Head>
         <title>main</title>
       </Head>
-      <MobileLayout
-        content={<MainPage results={results} />}
-        footer={<Footer />}
-      />
+      <MobileLayout content={<MainPage results={data} />} footer={<Footer />} />
     </>
   );
 }
 
 export async function getStaticProps() {
-  const response = await reviewFetch('/review/');
+  const response = await axios('product/tag/?tag_id=1');
   const data = await response.data;
   return {
     props: {

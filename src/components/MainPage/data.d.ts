@@ -1,17 +1,13 @@
 type ImageType = {
+  id: number;
   reviewId: number;
   url: string;
 };
 
 export interface ReviewTypes {
-  content: string;
-  created: string;
   id: number;
-  orderItemId: number;
-  productId: number;
-  rate: number5;
-  reviewimageSet: ImageType[];
-  userId: number;
+  name: string;
+  reviewList: reviewList[];
 }
 
 export interface AllReviewTypes {
@@ -19,4 +15,23 @@ export interface AllReviewTypes {
   next?: null;
   previous?: null;
   results: ReviewTypes[];
+}
+
+export interface IReviewList {
+  content: string;
+  created: string;
+  id: number;
+  nickname: string;
+  rate: number;
+  reviewimageSet: ImageType[];
+  reviewreplySet: IReviewReplySet[];
+  userId: number;
+}
+
+export interface IReviewReplySet {
+  content: string;
+  created: string;
+  id: number;
+  replyUserNickname: string;
+  reviewId: number;
 }
