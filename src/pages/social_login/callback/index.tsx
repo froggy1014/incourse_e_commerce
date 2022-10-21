@@ -25,10 +25,10 @@ function SocialloginCallback({ code, state }: { code: string; state: string }) {
         axiosInstance('user/me/')
           .then((res) => res.data)
           .then((data) => {
-            axiosInstance(`cart/?user_id=${data.id}`).then((res) =>
-              setCookie('cartId', res.data[0].id),
-            );
-            setCookie('userId', data.id);
+            axiosInstance.post(`cart/`, { userId: data.id }).then((res) => {
+              setCookie('cartId', res.data.id);
+              setCookie('userId', res.data.userId);
+            });
           })
           .then(() => router.push('/'));
       }
