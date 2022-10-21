@@ -88,6 +88,7 @@ const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {
         linkTo="back"
         isOpen={open}
         onClose={() => setOpen(!open)}
+        setOpen={setOpen}
       />
     </>
   );

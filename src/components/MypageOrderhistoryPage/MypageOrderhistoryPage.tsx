@@ -1,9 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 
-import axios from 'axios';
-import { getCookie } from 'cookies-next';
-
 import { Box, ChakraProps, Divider, Stack, Text } from '@chakra-ui/react';
 
 import { Loading } from '@components/common';
@@ -11,6 +8,7 @@ import { Loading } from '@components/common';
 import { formatDateDash } from '@utils/format';
 
 import { IOrderHistory } from './OrderHistory';
+import { getMyOrders } from './_Hooks/useGetOrderQuery';
 import HistoryCard from './_fragment/HistoryCard';
 
 interface MypageOrderhistoryPageProps extends ChakraProps {}
@@ -18,16 +16,6 @@ interface MypageOrderhistoryPageProps extends ChakraProps {}
 function MypageOrderhistoryPage({
   ...basisProps
 }: MypageOrderhistoryPageProps) {
-  async function getMyOrders() {
-    return await axios(
-      `https://api.commerce.incourse.run/v1/order/?user_id=${getCookie(
-        'userId',
-      )}`,
-    )
-      .then((res) => res.data)
-      .catch((error) => console.log(error));
-  }
-
   const { data, isLoading } = useQuery(['MyOrders'], getMyOrders);
 
   if (isLoading) return <Loading />;

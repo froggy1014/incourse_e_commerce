@@ -165,7 +165,8 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
         title="리뷰작성이 완료되었습니다."
         linkTo="back"
         isOpen={open}
-        onClose={() => modalHandler()}
+        onClose={() => setOpen(!open)}
+        setOpen={setOpen}
       />
     </form>
   );

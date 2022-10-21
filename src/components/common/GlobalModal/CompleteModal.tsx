@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import {
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalOverlay,
   ModalProps,
@@ -19,8 +18,14 @@ import { SubmitButton } from '../SubmitButton/SubmitButton';
 interface ModalExampleProps extends Omit<ModalProps, 'children'> {
   title: string;
   linkTo?: string;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }
-function CompleteModal({ title, linkTo, ...props }: ModalExampleProps) {
+function CompleteModal({
+  title,
+  linkTo,
+  setOpen,
+  ...props
+}: ModalExampleProps) {
   const [destination, setDestination] = useState(linkTo);
   const [trigger, setTrigger] = useState(0);
   const router = useRouter();
@@ -49,7 +54,7 @@ function CompleteModal({ title, linkTo, ...props }: ModalExampleProps) {
               title="확인"
               variant="btncommerse"
               size="btnmd"
-              onClick={() => props.onClose()}
+              onClick={() => setOpen(false)}
             />
           </Stack>
         </ModalBody>

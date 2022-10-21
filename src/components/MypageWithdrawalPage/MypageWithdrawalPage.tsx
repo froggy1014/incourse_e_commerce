@@ -226,6 +226,7 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
         linkTo="MAIN"
         isOpen={open}
         onClose={() => setOpen(!open)}
+        setOpen={setOpen}
       />
     </Stack>
   );

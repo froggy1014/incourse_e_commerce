@@ -3,18 +3,15 @@ import { getCookie } from 'cookies-next';
 
 import { IOrderDetails, IOrderHistory } from '../OrderHistory';
 
-async function getMyOrders() {
-  return await axios(`https://api.commerce.incourse.run/v1/order/`)
-    .then((res) => res.data)
-    .then((data) =>
-      data.filter(
-        (v: IOrderHistory) => v.userId === Number(getCookie('userId')),
-      ),
-    )
+export async function getMyOrders() {
+  return await axios(
+    `https://api.commerce.incourse.run/v1/order/?limit=2&offset=1&user_id=${getCookie(
+      'userId',
+    )}`,
+  )
+    .then((res) => res.data.results)
     .catch((error) => console.log(error));
 }
-
-// export const useGetOrderQuery = () => {};
 
 export async function getOrderDetail(orderId: string) {
   return await axios(
