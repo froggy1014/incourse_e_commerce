@@ -57,18 +57,16 @@ const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {
           phone: phone.split('-').join(''),
           name: name,
           nickname: nickname,
-          profile: 'https://www.naver.com/',
+          profilePath: 'www.naver.com',
           gender: gender,
           age: ages,
           marketingAdAgree: true,
         };
         try {
           signupReq.post('user/register/', data).then((response) => {
-            if (response.status === 201) {
-              setCookie('access', response.data.access);
-              setCookie('refresh', response.data.refresh);
-              router.push('/');
-            }
+            setCookie('access', response.data.access);
+            setCookie('refresh', response.data.refresh);
+            router.push('/');
           });
         } catch (error: any) {
           console.log(error);

@@ -15,8 +15,8 @@ function SocialloginCallback({ code, state }: { code: string; state: string }) {
   const router = useRouter();
   const social = { code: code, state: state };
   useEffect(() => {
-    setCookie('socialToken', code);
     socialLoginReq.post('/user/social_login/', social).then((response) => {
+      setCookie('socialToken', response.data.socialToken);
       if (!response.data.isRegister) {
         router.push('/sign-up');
       } else {
@@ -58,7 +58,6 @@ function SocialloginCallback({ code, state }: { code: string; state: string }) {
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { code, state } = query;
-
   return {
     props: { code: code, state: state },
   };
