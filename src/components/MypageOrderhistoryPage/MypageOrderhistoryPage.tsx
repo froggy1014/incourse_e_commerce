@@ -1,84 +1,51 @@
 import React from 'react';
+import { useQuery } from 'react-query';
 
-import {
-  Box,
-  Button,
-  ChakraProps,
-  Flex,
-  HStack,
-  Image,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import axios from 'axios';
+import { getCookie } from 'cookies-next';
 
+import { Box, ChakraProps, Divider, Stack, Text } from '@chakra-ui/react';
+
+import { Loading } from '@components/common';
+
+import { formatDateDash } from '@utils/format';
+
+import { IOrderHistory } from './OrderHistory';
 import HistoryCard from './_fragment/HistoryCard';
 
 interface MypageOrderhistoryPageProps extends ChakraProps {}
 
-const orderProducts = [
-  {
-    id: 0,
-    order: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-    product: [
-      {
-        name: '샴푸 & 바디',
-        price: 27000,
-        image: '/images/orderHistory.png',
-        volume: 300,
-      },
-    ],
-    count: 1,
-    shippingStatus: 'PAID',
-    created: '2022-09-28T08:55:42.431Z',
-  },
-  {
-    id: 1,
-    order: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-    product: [
-      {
-        name: '로션',
-        price: 20000,
-        image: '/images/orderHistory.png',
-        volume: 200,
-      },
-      {
-        name: '오일',
-        price: 13000,
-        image: '/images/orderHistory.png',
-        volume: 300,
-      },
-    ],
-    count: 2,
-    shippingStatus: 'AWAIT',
-    created: '2022-09-27T08:55:42.431Z',
-  },
-  {
-    id: 2,
-    order: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-    product: [
-      {
-        name: '크림',
-        price: 30000,
-        image: '/images/orderHistory.png',
-        volume: 100,
-      },
-    ],
-    count: 5,
-    shippingStatus: 'DONE',
-    created: '2022-09-26T08:55:42.431Z',
-  },
-];
-
 function MypageOrderhistoryPage({
   ...basisProps
 }: MypageOrderhistoryPageProps) {
+  async function getMyOrders() {
+    return await axios(
+      `https://api.commerce.incourse.run/v1/order/?user_id=${getCookie(
+        'userId',
+      )}`,
+    )
+      .then((res) => res.data)
+      .catch((error) => console.log(error));
+  }
+
+  const { data, isLoading } = useQuery(['MyOrders'], getMyOrders);
+
+  if (isLoading) return <Loading />;
+
   return (
     <Box {...basisProps}>
       <Text variant="pageTitle">주문내역</Text>
-      {orderProducts.map((product) => {
-        return <HistoryCard key={product.id} orderProducts={product} />;
+      {data.map((order: IOrderHistory) => {
+        return (
+          <Stack key={order.id} divider={<Divider variant="fullthin" />}>
+            <Text py="8px" fontWeight="bold">
+              [{formatDateDash(order.created)}]
+            </Text>
+            <HistoryCard orderId={order.id} />
+          </Stack>
+        );
       })}
-      <Stack></Stack>
+      <Stack p="50px"></Stack>
     </Box>
   );
 }
