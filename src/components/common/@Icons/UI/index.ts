@@ -24,3 +24,4 @@ export * from './AddPhotoIcon';
 export * from './DeletePhotoIcon';
 export * from './CardPayIcon';
 export * from './AddProfile';
+export * from './ListArrowLeft';
