@@ -7,9 +7,10 @@ export const ListArrowLeft = (props: IconProps) => (
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <path
-      d="M8.52299 14.8781L1.5 7.92981L8.52299 1.50012"
+      d="M15.523 18.8781L8.5 11.9298L15.523 5.50012"
       stroke="#1A1A1A"
       strokeWidth="2"
       strokeLinecap="round"
