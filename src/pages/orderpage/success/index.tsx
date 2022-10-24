@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import { useEffect } from 'react';
 
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
@@ -9,7 +10,8 @@ import MobileLayout from '@components/common/@Layout/MobileLayout';
 import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
 import MainHeader from '@components/common/@Layout/MobileLayout/_fragments/MainHeader';
 
-import { axiosInstance } from '@utils/axios';
+axios.defaults.baseURL = 'https://api.commerce.incourse.run/v1/';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export interface IPaidProduct {
   id: number;
@@ -33,15 +35,19 @@ function CartOrderpageSuccess({
   orderedProduct: IPaidProduct[];
   cartItemIds: string[];
 }) {
-  cartItemIds.map(async (item) => {
-    await axiosInstance
-      .delete(`cart/item/${item}/`)
-      .then((res) => console.log(res.data));
-  });
+  useEffect(() => {
+    cartItemIds.map((item) => {
+      try {
+        axios.delete(`cart/item/${item}/`).then((res) => console.log(res));
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  }, []);
+
   return (
     <>
       <Head>
-        {/* ex) Your App Name | Page Name */}
         <title>결제완료</title>
       </Head>
       <MobileLayout
