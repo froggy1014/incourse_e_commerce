@@ -1,22 +1,18 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 
 import { Box, HStack, Image, Stack, Text } from '@chakra-ui/react';
 
-import { Loading } from '@components/common';
-
 import { intComma } from '@utils/format';
 
-import { IItem } from '../OrderHistory';
-import { getProductDetail } from '../_Hooks/useGetOrderQuery';
+import { IProductDetail } from '../OrderHistory';
 
-const ItemCard = ({ item }: { item: IItem }) => {
-  const { data, isLoading } = useQuery(['productDetail', item.productId], () =>
-    getProductDetail(item.productId),
-  );
-
-  if (isLoading) return <Loading />;
-
+const ItemCard = ({
+  item,
+  count,
+}: {
+  item: IProductDetail;
+  count: number | undefined;
+}) => {
   return (
     <HStack fontSize="12px" justify="space-between">
       <HStack>
@@ -27,20 +23,20 @@ const ItemCard = ({ item }: { item: IItem }) => {
           rounded="5px"
         />
         <Box>
-          <Text fontWeight="bold">{data.name}</Text>
+          <Text fontWeight="bold">{item?.name}</Text>
           <Text variant="normal12gray">
-            {data.name} | {data.capacity}ml
+            {item?.name} | {item?.capacity}ml
           </Text>
           <Text variant="boldcommerse">
-            {intComma(data.price)}원/ {item.count}개
+            {intComma(item?.price)}원/ {count}개
           </Text>
         </Box>
       </HStack>
       <Stack align="end" spacing="0">
         <Text variant="boldcommerse">결제완료</Text>
-        {/* <Text>
-          {price * count >= 30000 ? '무료배송' : '배송비 2,500원'}
-        </Text> */}
+        <Text>
+          {item?.price * count! >= 30000 ? '무료배송' : '배송비 2,500원'}
+        </Text>
       </Stack>
     </HStack>
   );

@@ -1,40 +1,69 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
-import { Box, ChakraProps, Divider, Stack, Text } from '@chakra-ui/react';
+import { ChakraProps, Container, Stack, Text } from '@chakra-ui/react';
+
+import { getMyOrders } from '@apis/_axios/axiosReqs';
 
 import { Loading } from '@components/common';
 
+import { divideArraybyuuid } from '@utils/array';
 import { formatDateDash } from '@utils/format';
 
-import { IOrderHistory } from './OrderHistory';
-import { getMyOrders } from './_Hooks/useGetOrderQuery';
+import { IItem } from './OrderHistory';
 import HistoryCard from './_fragment/HistoryCard';
+import OrderButton from './_fragment/OrderButton';
+import PageBar from './_fragment/PageBar';
 
 interface MypageOrderhistoryPageProps extends ChakraProps {}
 
 function MypageOrderhistoryPage({
   ...basisProps
 }: MypageOrderhistoryPageProps) {
-  const { data, isLoading } = useQuery(['MyOrders'], getMyOrders);
+  const [open, setOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState<number[]>([]);
+  const [uuidGroup, setUuidGroup] = useState<(IItem | undefined)[][]>([]);
 
-  if (isLoading) return <Loading />;
+  const { data, isLoading } = useQuery(['Orders', page], () =>
+    getMyOrders(page),
+  );
+
+  useEffect(() => {
+    if (data && !total.length) {
+      setTotal(Array(Math.ceil(data.count / 4)).fill(0));
+    }
+    if (data) setUuidGroup(divideArraybyuuid(data.results));
+  }, [data]);
+
+  if (isLoading && !uuidGroup) return <Loading />;
 
   return (
-    <Box {...basisProps}>
-      <Text variant="pageTitle">주문내역</Text>
-      {data.map((order: IOrderHistory) => {
+    <Stack justify="center" align="center">
+      {uuidGroup.map((uuid, i) => {
         return (
-          <Stack key={order.id} divider={<Divider variant="fullthin" />}>
-            <Text py="8px" fontWeight="bold">
-              [{formatDateDash(order.created)}]
+          <Container key={i}>
+            <Text fontWeight="bold" my="20px">
+              [{formatDateDash(uuid[0]?.created)}]
             </Text>
-            <HistoryCard orderId={order.id} />
-          </Stack>
+            <HistoryCard items={uuid} />
+            <OrderButton
+              status={uuid[0]?.shippingStatus}
+              setOpen={setOpen}
+              open={open}
+              float="right"
+            />
+            {/* <CompleteModal
+        title="주문취소가 완료되었습니다."
+        isOpen={open}
+        onClose={() => setOpen(!open)}
+        setOpen={setOpen}
+      /> */}
+          </Container>
         );
       })}
-      <Stack p="50px"></Stack>
-    </Box>
+      <PageBar page={page} setPage={setPage} total={total} />
+    </Stack>
   );
 }
 
