@@ -35,3 +35,16 @@ export interface IItem {
   productId: number;
   shippingStatus: string;
 }
+
+export interface IProductDetail {
+  avgRate: null | number;
+  capacity: number;
+  description: string;
+  detail: string;
+  id: number;
+  name: string;
+  photo: string;
+  price: number;
+  reviewCount: number;
+  reviewList: any[];
+}

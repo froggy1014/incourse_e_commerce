@@ -3,7 +3,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { Button, ButtonProps } from '@chakra-ui/react';
 
 interface CartOrderpageSuccessPageProps extends ButtonProps {
-  status: string;
+  status: string | undefined;
   setOpen: Dispatch<SetStateAction<boolean>>;
   open: boolean;
 }
