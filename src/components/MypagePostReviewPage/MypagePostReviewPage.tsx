@@ -1,8 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { useQuery } from 'react-query';
 
 import {
   Box,
   ChakraProps,
+  Divider,
   Flex,
   HStack,
   Image,
@@ -11,7 +14,9 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 
-import { SubmitButton } from '@components/common';
+import { getProductDetail } from '@apis/_axios/axiosReqs';
+
+import { Loading, SubmitButton } from '@components/common';
 import {
   AddPhotoIcon,
   DeletePhotoIcon,
@@ -19,34 +24,44 @@ import {
 } from '@components/common/@Icons/UI';
 import CompleteModal from '@components/common/GlobalModal/CompleteModal';
 
+import { QUERY_KEY } from '@constants/query-keys';
 import { bytesToMB, fileToBase64, isBase64Img, isOverSize } from '@utils/file';
-import { intComma } from '@utils/format';
+import { formatDateDash, intComma } from '@utils/format';
+
+import { usePostReview } from './_hook/usePostReview';
+import { usePresignedUrl } from './_hook/usePresignedUrl';
 
 interface MypagePostReviewPageProps extends ChakraProps {}
 
 function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const fileTrigger = useRef<HTMLInputElement>(null);
-  const [files, setFiles] = React.useState<File[]>([]);
-  const [currentFile, setCurrentFile] = React.useState<File | null>(null);
-  const [currentFileBase64, setCurrentFileBase64] = React.useState<
+  const [content, setContent] = useState<string>('');
+  // const [files, setFiles] = useState<File | undefined>();
+
+  const [currentFile, setCurrentFile] = useState<File | null>(null);
+  const [currentFileBase64, setCurrentFileBase64] = useState<
     string | ArrayBuffer | null
   >();
   const [base64Files, setBase64Files] = useState<string[] | unknown[]>([]);
 
-  const modalHandler = async () => {
-    setOpen(!open);
-  };
+  const { presignedUrl, setFiles, files, urls } = usePresignedUrl();
+  const { postingReview, setBody, body } = usePostReview();
 
-  const fileSelectedHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file !== undefined) {
-      setCurrentFile(file);
-      setFiles((files) => [...files, file]);
+  /*--------------------------------------------------------------*/
+  // onChange 핸들로
+  const fileSelectedHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const storedFile = e.target.files?.[0];
+    if (storedFile !== undefined) {
+      setCurrentFile(storedFile);
+      setFiles(storedFile);
     }
   };
-
+  /*--------------------------------------------------------------*/
+  // 현재 업로드된 사진을 base64로 바꾸고 변환하고 배열로 넣음.
+  // base64로 변환한 문자열을 배열에 담기
   useEffect(() => {
     async function setter() {
       if (!currentFile) return;
@@ -60,34 +75,58 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
       setBase64Files((base64Files) => [...base64Files, currentFileBase64]);
   }, [currentFileBase64]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  /*--------------------------------------------------------------*/
+  // 재품 상세 정보 가져오기 위한 useQuery
+  const { data: productDetail, isLoading } = useQuery(
+    [`${QUERY_KEY.PRODUCT}`, router.query.productId],
+    () => getProductDetail(Number(router.query.productId)),
+  );
+  /*--------------------------------------------------------------*/
+
+  // 리뷰 작성 Submit
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    modalHandler();
+    postingReview();
   };
+
+  useEffect(() => {
+    setBody({
+      ...body,
+      rate: rating,
+      content: content,
+      reviewimagePath: urls,
+    });
+  }, [rating, content, urls]);
+  /*--------------------------------------------------------------*/
+  if (isLoading) return <Loading />;
 
   return (
     <form onSubmit={handleSubmit}>
       <Text variant="pageTitle">리뷰작성</Text>
       <Text fontWeight="bold" mb="18px">
-        [2021 - 04 - 01]
+        [{formatDateDash(router.query.date)}]
       </Text>
-      <HStack fontSize="12px" justify="space-between">
-        <HStack>
-          <Image
-            boxSize="60px"
-            src="/images/orderHistory.png"
-            bg="gray.100"
-            rounded="5px"
-          />
-          <Box>
-            <Text fontWeight="bold">샴푸 & 바디</Text>
-            <Text variant="normal12gray">샴푸 & 바디 | 300ml</Text>
-            <Text variant="boldcommerse">{intComma(27000)}원/ 1개</Text>
-          </Box>
-        </HStack>
+      <HStack fontSize="12px">
+        <Image
+          boxSize="60px"
+          src={`${productDetail?.photo}`}
+          bg="gray.100"
+          rounded="5px"
+        />
+        <Box>
+          <Text fontWeight="bold">{`${productDetail?.name}`}</Text>
+          <Text variant="normal12gray">
+            {`${productDetail?.name}`} | {`${productDetail?.capacity}`}ml
+          </Text>
+          <Text variant="boldcommerse">
+            {intComma(`${productDetail?.price}`)}원/ {router.query.count}개
+          </Text>
+        </Box>
       </HStack>
-      <Stack>
-        <Text py="10px">별점</Text>
+      <Divider my="20px" variant="fullthick" />
+      <Box>
+        <Text>별점</Text>
         <Flex justify="center" py="20px">
           {[...Array(5)].map((star, i) => {
             const ratingValue = i;
@@ -102,21 +141,27 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
             );
           })}
         </Flex>
-      </Stack>
-      <Stack>
-        <Text>내용</Text>
+      </Box>
+      <Divider my="20px" variant="fullthin" />
+      <Box>
+        <Text mb="20px">내용</Text>
         <Textarea
           placeholder="내용을 입력하세요."
           resize="none"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
           h="200px"
           required
         ></Textarea>
-      </Stack>
-      <Text pt="20px">사진첨부 ({base64Files.length}/3)</Text>
+      </Box>
+
+      <Divider my="20px" variant="fullthin" />
+
+      <Text>사진첨부 ({base64Files.length}/3)</Text>
       <Stack my="20px">
         <Flex flexWrap="wrap" justify="flex-start">
           {base64Files.length !== 3 && (
-            <Box m="10px">
+            <Box mb="80px">
               <input
                 style={{ display: 'none' }}
                 type="file"
@@ -134,7 +179,7 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
           {base64Files.map((file, i) => {
             if (typeof file === 'string') {
               return (
-                <Box key={i} m="10px" position="relative">
+                <Box key={i} ml="20px" position="relative">
                   <Image
                     boxSize="80px"
                     objectFit="cover"
@@ -161,13 +206,13 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
         </Flex>
       </Stack>
       <SubmitButton title="작성하기" size="btnlg" variant="btncommerse" />
-      <CompleteModal
+      {/* <CompleteModal
         title="리뷰작성이 완료되었습니다."
         linkTo="back"
         isOpen={open}
         onClose={() => setOpen(!open)}
         setOpen={setOpen}
-      />
+      /> */}
     </form>
   );
 }
