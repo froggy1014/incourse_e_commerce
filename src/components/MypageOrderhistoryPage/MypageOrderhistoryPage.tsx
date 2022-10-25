@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
@@ -8,7 +7,6 @@ import { getMyOrders } from '@apis/_axios/axiosReqs';
 
 import { Loading } from '@components/common';
 
-import { ROUTES } from '@constants/routes';
 import { divideArraybyuuid } from '@utils/array';
 import { formatDateDash } from '@utils/format';
 
@@ -43,7 +41,6 @@ function MypageOrderhistoryPage({
   return (
     <Stack justify="center" align="center">
       {uuidGroup.map((uuid, i) => {
-        console.log(uuid);
         return (
           <Container key={i}>
             <Text fontWeight="bold" my="20px">
@@ -60,17 +57,14 @@ function MypageOrderhistoryPage({
         );
       })}
       <PageBar page={page} setPage={setPage} total={total} />
+      {/* <CompleteModal
+              title="주문취소가 완료되었습니다."
+              isOpen={open}
+              onClose={() => setOpen(!open)}
+              setOpen={setOpen}
+            /> */}
     </Stack>
   );
 }
 
 export default MypageOrderhistoryPage;
-
-{
-  /* <CompleteModal
-        title="주문취소가 완료되었습니다."
-        isOpen={open}
-        onClose={() => setOpen(!open)}
-        setOpen={setOpen}
-      /> */
-}
