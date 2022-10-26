@@ -11,7 +11,7 @@ import { EmptyRatingIcon, RatingIcon } from '../@Icons/UI';
 export const MyReviewCard = ({ review }: { review: IMyReviews }) => {
   const rateArr = Array(5).fill(0);
   return (
-    <Box py="25px">
+    <Box py="15px">
       <Box w="100%" fontSize="12px">
         <Flex w="100%" justify="space-between">
           <Text fontWeight="bold">{review.nickname}</Text>

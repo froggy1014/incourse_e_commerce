@@ -56,7 +56,7 @@ function MypageOrderhistoryPage({
           </Container>
         );
       })}
-      <PageBar page={page} setPage={setPage} total={total} />
+      {/* <PageBar page={page} setPage={setPage} total={total} /> */}
       {/* <CompleteModal
               title="주문취소가 완료되었습니다."
               isOpen={open}

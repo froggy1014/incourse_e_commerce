@@ -1,6 +1,6 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 
-import { Button, ChakraProps, HStack } from '@chakra-ui/react';
+import { Button, ChakraProps, Flex, HStack } from '@chakra-ui/react';
 
 import { ListArrowLeft, ListArrowRight } from '@components/common/@Icons/UI';
 
@@ -8,49 +8,54 @@ interface PageBarInterface extends ChakraProps {
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
   total: number[];
+  max: number;
 }
 
-const PageBar = ({ page, setPage, total, ...basisProps }: PageBarInterface) => {
+const PageBar = ({
+  page,
+  setPage,
+  total,
+  max,
+  ...basisProps
+}: PageBarInterface) => {
   return (
-    <HStack p="50px" justify="space-between" align="center" {...basisProps}>
+    <Flex px="30px" py="50px" align="center" {...basisProps}>
       <Button
         bg="white"
         disabled={page === 1}
         onClick={() => {
-          setPage(page + 1);
+          setPage(page - 1);
         }}
       >
         <ListArrowLeft />
       </Button>
-      <HStack>
-        {total.map((_v, i) => {
-          return (
-            <Button
-              fontSize="16px"
-              key={i}
-              isActive={page === i + 1}
-              bg="white"
-              color="gray.400"
-              _active={{ color: 'black', bg: 'white' }}
-              onClick={() => {
-                setPage(i + 1);
-              }}
-            >
-              {i + 1}
-            </Button>
-          );
-        })}
-      </HStack>
+      {total.map((v, i) => {
+        return (
+          <Button
+            fontSize="16px"
+            key={i}
+            isActive={page === v}
+            bg="white"
+            color="gray.400"
+            _active={{ color: 'black', bg: 'white' }}
+            onClick={() => {
+              setPage(v);
+            }}
+          >
+            {v}
+          </Button>
+        );
+      })}
       <Button
         bg="white"
-        disabled={page === total.length}
+        disabled={page === Math.ceil(max / 4)}
         onClick={() => {
           setPage(page + 1);
         }}
       >
         <ListArrowRight />
       </Button>
-    </HStack>
+    </Flex>
   );
 };
 
