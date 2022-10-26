@@ -1,53 +1,40 @@
 import React from 'react';
 
-import { Box, BoxProps, Flex, HStack, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react';
+
+import { IMyReviews } from '@components/MypageMyreviewsPage/MyReviews';
 
 import { formatDate } from '@utils/format';
 
 import { EmptyRatingIcon, RatingIcon } from '../@Icons/UI';
 
-interface SummaryCardProps extends Omit<BoxProps, 'title'> {
-  title: string | JSX.Element;
-  description: string | JSX.Element;
-  rate: number;
-  date: string;
-  imgUrl?: string[];
-}
-
-export const MyReviewCard = ({
-  title,
-  description,
-  rate,
-  date,
-  imgUrl,
-  ...basisProps
-}: SummaryCardProps) => {
+export const MyReviewCard = ({ review }: { review: IMyReviews }) => {
   const rateArr = Array(5).fill(0);
   return (
-    <Box py="25px" {...basisProps}>
+    <Box py="25px">
       <Box w="100%" fontSize="12px">
         <Flex w="100%" justify="space-between">
-          <Text fontWeight="bold">{title}</Text>
+          <Text fontWeight="bold">{review.nickname}</Text>
           <HStack spacing="1">
             {rateArr.map((arr, i) => {
-              if (i <= rate - 1) return <RatingIcon key={i} />;
+              if (i <= review.rate - 1) return <RatingIcon key={i} />;
               else return <EmptyRatingIcon key={i} />;
             })}
           </HStack>
         </Flex>
-        <Text color="gray.600">{formatDate(date)}</Text>
+        <Text color="gray.600">{formatDate(review.created)}</Text>
       </Box>
       <Text mt="15px" mb="10px">
-        {description}
+        {review.content}
       </Text>
       <HStack>
-        {imgUrl?.map((url, i) => {
+        {review.reviewimageSet?.map((url, i) => {
           return (
             <Image
-              key={i}
-              src={url}
+              key={url.reviewId}
+              src={url.url}
               boxSize="80px"
-              alt="reviewImg"
+              alt="Image"
               objectFit="cover"
             />
           );
