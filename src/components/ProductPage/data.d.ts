@@ -10,7 +10,7 @@ export interface dataType {
   price: number;
   capacity: number;
   thumbnail: string;
-  tags: tagType[];
+  tag: tagType[];
   avgRate: number;
   reviewCount: number;
 }

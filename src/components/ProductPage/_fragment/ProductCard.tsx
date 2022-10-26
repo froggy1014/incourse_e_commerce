@@ -22,7 +22,7 @@ interface productInfo {
 const ProductCard = ({ onOpen, product, ...props }: productInfo) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { id, thumbnail, name, capacity, price, avgRate, reviewCount, tags } =
+  const { id, thumbnail, name, capacity, price, avgRate, reviewCount, tag } =
     product;
 
   //** 클릭 액션 */}
@@ -67,7 +67,7 @@ const ProductCard = ({ onOpen, product, ...props }: productInfo) => {
             </HStack>
           </VStack>
           <HStack spacing="2">
-            {tags.map((tag) => {
+            {tag.map((tag: { id: number; name: string }) => {
               return (
                 <Text key={tag.id} variant="normal16gray">
                   # {tag.name}
