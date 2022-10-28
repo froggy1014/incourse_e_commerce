@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import { getCookie } from 'cookies-next';
+import { postOrderId, userId } from '@apis/_axios/request';
 
 import OrderPageView from './CartOrderPage.view';
 import useFormValidate from './_hooks/useFormValidate';
-import { TossPayment, postOrderId, postOrderStatus } from './_hooks/useQueries';
+import { TossPayment, postOrderStatus } from './_hooks/useQueries';
 
 interface priceType {
   total: number;
@@ -43,18 +43,19 @@ const OrderPage = ({
       orderRequest,
     }) => {
       const data = {
-        userId: Number(getCookie('userId')),
+        userId: userId,
         price: prices.total + prices.delivery,
         method: 'CARD',
         userName: username,
         userPhone: phone.split('-').join(''),
         userAddrPost: address.split('-').pop(),
-        userAddrDetail: address.split('-').shift() + '' + addressDetail,
+        userAddr: address.split('-').shift(),
+        userAddrDetail: addressDetail,
         shipName: orderUsername,
         shipPhone: orderPhone.split('-').join(''),
         shipAddrPost: orderAddress.split('-').pop(),
-        shipAddrDetail:
-          orderAddress.split('-').shift() + '' + orderAddressDetail,
+        shipAddr: orderAddress.split('-').shift(),
+        shipAddrDetail: orderAddressDetail,
         orderMessage: orderRequest === '' ? '없음' : orderRequest,
       };
       async function apiCall() {
