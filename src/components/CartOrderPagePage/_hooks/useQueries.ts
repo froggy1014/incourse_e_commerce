@@ -13,14 +13,6 @@ export const useGetme = () => {
   return useQuery(['getMe'], fetchMyInfo);
 };
 
-export const postOrderId = async (data: any) => {
-  try {
-    return await axios.post('order/', data).then((res) => res.data);
-  } catch (error) {
-    return error;
-  }
-};
-
 export const postOrderStatus = async (
   orderId: string,
   productId: number,
