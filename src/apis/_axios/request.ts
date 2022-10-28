@@ -19,6 +19,13 @@ export async function getProductDetail(productId: number | undefined) {
     .catch((error) => console.log(error));
 }
 
+export async function getMyReviews(page: number) {
+  return await request
+    .get(`review/?page=${page}&page_size=4&user_id=${userId}`)
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
+}
+
 export async function postOrderId(data: IPostOrder): Promise<IPostReturn> {
   return await request
     .post('order/', data)

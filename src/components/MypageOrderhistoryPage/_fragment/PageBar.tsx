@@ -14,16 +14,9 @@ interface PageBarInterface extends ChakraProps {
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
   total: number;
-  max?: number;
 }
 
-const PageBar = ({
-  page,
-  setPage,
-  total,
-  max,
-  ...basisProps
-}: PageBarInterface) => {
+const PageBar = ({ page, setPage, total, ...basisProps }: PageBarInterface) => {
   const [pageNum, setPageNum] = useState<number[]>([]);
 
   const pagenation = useCallback(
