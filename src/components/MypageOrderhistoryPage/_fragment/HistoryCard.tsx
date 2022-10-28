@@ -4,7 +4,7 @@ import { useQueries } from 'react-query';
 
 import { Box, Button, Divider, Stack } from '@chakra-ui/react';
 
-import { getProductDetail } from '@apis/_axios/axiosReqs';
+import { getProductDetail } from '@apis/_axios/request';
 
 import { Loading } from '@components/common';
 

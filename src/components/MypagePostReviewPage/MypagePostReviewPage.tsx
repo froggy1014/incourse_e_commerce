@@ -14,7 +14,7 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 
-import { getProductDetail } from '@apis/_axios/axiosReqs';
+import { getProductDetail } from '@apis/_axios/request';
 
 import { Loading, SubmitButton } from '@components/common';
 import {

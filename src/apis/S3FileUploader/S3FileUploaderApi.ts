@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 
-import instance from '@apis/_axios/instance';
+import instance from '@apis/_axios/tempinstance';
 import { RequestFnReturn } from '@apis/type';
 
 import { bytesToMB, isOverSize, mbToBytes } from '@utils/file';

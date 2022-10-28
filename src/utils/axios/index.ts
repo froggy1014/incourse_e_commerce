@@ -3,7 +3,7 @@ import { getCookie, hasCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import jwt_decode from 'jwt-decode';
 
-import { refresh } from './../../apis/_axios/refresh';
+import { refresh } from '../../apis/_axios/temprefresh';
 
 interface JWTType {
   exp: number;
