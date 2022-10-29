@@ -34,8 +34,6 @@ const MainHeader = ({ px }: MainHeaderType) => {
         align="center"
         position="fixed"
         top="0"
-        left="50%"
-        transform="translateX(-50%)"
         boxSizing="border-box"
         maxW="375px"
         px={`${px} | '0px' `}

@@ -45,7 +45,7 @@ const ProductCard = ({ onOpen, product, ...props }: productInfo) => {
           direction="column"
           w="100%"
           h="178px"
-          mx="30px"
+          pl="30px"
           mb="20px"
           justify="space-between"
         >

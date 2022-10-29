@@ -56,47 +56,45 @@ function ProductPage({ ...props }: ProductPageType) {
 
   /* -------------------------------------- */
   return (
-    <>
-      <Box>
-        {data?.pages.map((page, i) => (
-          <React.Fragment key={i}>
-            {page.results.map((result: any, i: number) => {
-              if (page.results.length === i + 1) {
-                return (
-                  <Box key={result.id} ref={lastElementRef}>
-                    <ProductCard product={result} onOpen={onOpen} />
-                  </Box>
-                );
-              } else {
-                return (
-                  <Box key={result.id}>
-                    <ProductCard
-                      key={result.id}
-                      product={result}
-                      onOpen={onOpen}
-                    />
-                  </Box>
-                );
-              }
-            })}
-          </React.Fragment>
-        ))}
-        {/** Fetch 진행 시 스피너  */}
-        {isFetching && !isFetchingNextPage ? (
-          <HStack w="100%" h="100%" justify="center">
-            <Spinner
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="gray.200"
-              color="commerse.500"
-              size="xl"
-            />
-          </HStack>
-        ) : null}
-        {/** PG 모달 컴포넌트 */}
-        <PurchaseModal isOpen={isOpen} onClose={onClose} />
-      </Box>
-    </>
+    <Box w="100%">
+      {data?.pages.map((page, i) => (
+        <React.Fragment key={i}>
+          {page.results.map((result: any, i: number) => {
+            if (page.results.length === i + 1) {
+              return (
+                <Box key={result.id} ref={lastElementRef}>
+                  <ProductCard product={result} onOpen={onOpen} />
+                </Box>
+              );
+            } else {
+              return (
+                <Box key={result.id}>
+                  <ProductCard
+                    key={result.id}
+                    product={result}
+                    onOpen={onOpen}
+                  />
+                </Box>
+              );
+            }
+          })}
+        </React.Fragment>
+      ))}
+      {/** Fetch 진행 시 스피너  */}
+      {isFetching && !isFetchingNextPage ? (
+        <HStack w="100%" h="100%" justify="center">
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="commerse.500"
+            size="xl"
+          />
+        </HStack>
+      ) : null}
+      {/** PG 모달 컴포넌트 */}
+      <PurchaseModal isOpen={isOpen} onClose={onClose} />
+    </Box>
   );
 }
 
