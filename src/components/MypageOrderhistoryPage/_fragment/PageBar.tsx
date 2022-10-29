@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 
-import { Button, ChakraProps, Flex, HStack } from '@chakra-ui/react';
+import { Button, ChakraProps, Flex } from '@chakra-ui/react';
 
 import { ListArrowLeft, ListArrowRight } from '@components/common/@Icons/UI';
 

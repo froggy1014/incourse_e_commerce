@@ -21,6 +21,7 @@ function MypageMyreviewsPage({ ...basisProps }: MypageMyreviewsPageProps) {
   const { data: pageInfo, isLoading } = useQuery(
     [QUERY_KEY.MYREVIEWS, page],
     () => getMyReviews(page),
+    { keepPreviousData: true },
   );
 
   useEffect(() => {
