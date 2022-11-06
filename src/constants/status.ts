@@ -1,0 +1,7 @@
+export const STATUS = {
+  PAID: ['PAID', 'WAIT', 'INPROGRESS'],
+  WAIT: 'WAIT',
+  INPROGRESS: 'INPROGRESS',
+  DONE: 'DONE',
+  CANCELED: 'CANCELED',
+};
