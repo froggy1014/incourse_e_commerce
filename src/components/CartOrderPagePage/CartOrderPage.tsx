@@ -44,7 +44,8 @@ const OrderPage = ({
     }) => {
       const data = {
         userId: userId,
-        price: prices.total + prices.delivery,
+        price: prices.total,
+        amount: prices.total + prices.delivery,
         method: 'CARD',
         userName: username,
         userPhone: phone.split('-').join(''),
@@ -53,6 +54,7 @@ const OrderPage = ({
         userAddrDetail: addressDetail,
         shipName: orderUsername,
         shipPhone: orderPhone.split('-').join(''),
+        shippingPrice: prices.delivery,
         shipAddrPost: orderAddress.split('-').pop(),
         shipAddr: orderAddress.split('-').shift(),
         shipAddrDetail: orderAddressDetail,
