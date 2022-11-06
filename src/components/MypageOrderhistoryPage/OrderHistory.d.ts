@@ -33,7 +33,6 @@ export interface IItem {
   id: number;
   orderId: string;
   productId: number;
-  shippingStatus: string;
 }
 
 export interface IProductDetail {

@@ -3,23 +3,26 @@ import { useQuery } from 'react-query';
 
 import { Box, ChakraProps, Stack, Text } from '@chakra-ui/react';
 
-import { getMyOrders } from '@apis/_axios/request';
+import { getMyOrders, getOrderStatus } from '@apis/_axios/request';
 
 import { Loading } from '@components/common';
 
 import { QUERY_KEY } from '@constants/query-keys';
+import { STATUS } from '@constants/status';
 import { divideArraybyuuid } from '@utils/array';
 import { formatDateDash } from '@utils/format';
 
 import { IItem } from './OrderHistory';
+import CancelButton from './_fragment/CancelButton';
 import HistoryCard from './_fragment/HistoryCard';
-import OrderButton from './_fragment/OrderButton';
 import PageBar from './_fragment/PageBar';
+import ReviewButton from './_fragment/ReviewButton';
 
 function MypageOrderhistoryPage() {
   const [open, setOpen] = useState(false);
   const [total, setTotal] = useState<number>(0);
-  const [uuidGroup, setUuidGroup] = useState<(IItem | undefined)[][]>([]);
+  const [uuidGroup, setUuidGroup] = useState<IItem[][]>([]);
+  const [status, setStatus] = useState<string[]>([]);
   const [page, setPage] = useState(1);
 
   const { data: PageInfo, isLoading } = useQuery(
@@ -33,7 +36,17 @@ function MypageOrderhistoryPage() {
     if (PageInfo) setUuidGroup(divideArraybyuuid(PageInfo.results));
   }, [PageInfo]);
 
+  useEffect(() => {
+    if (uuidGroup.length) {
+      const getStatus = async () => {
+        const res = await getOrderStatus(uuidGroup);
+        setStatus(res);
+      };
+      getStatus();
+    }
+  }, [uuidGroup]);
   if (isLoading && !uuidGroup) return <Loading />;
+
   return (
     <Box w="100%">
       <Text variant="pageTitle">내 상품 리뷰</Text>
@@ -46,12 +59,15 @@ function MypageOrderhistoryPage() {
                   [{formatDateDash(uuid[0]?.created)}]
                 </Text>
                 <HistoryCard items={uuid} />
-                <OrderButton
-                  status={uuid[0]?.shippingStatus}
-                  setOpen={setOpen}
-                  open={open}
-                  float="right"
-                />
+                {STATUS.PAID.includes(status[i]) && (
+                  <CancelButton
+                    status={status[i]}
+                    setOpen={setOpen}
+                    open={open}
+                    float="right"
+                  />
+                )}
+                {STATUS.DONE === status[i] && <ReviewButton float="right" />}
               </Box>
             );
           })}

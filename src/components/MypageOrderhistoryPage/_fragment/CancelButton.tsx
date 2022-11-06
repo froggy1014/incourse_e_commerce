@@ -2,13 +2,15 @@ import React, { Dispatch, SetStateAction } from 'react';
 
 import { Button, ButtonProps } from '@chakra-ui/react';
 
+import { STATUS } from '@constants/status';
+
 interface CartOrderpageSuccessPageProps extends ButtonProps {
-  status: string | undefined;
+  status: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
   open: boolean;
 }
 
-const OrderButton = ({
+const CancelButton = ({
   status,
   setOpen,
   open,
@@ -16,15 +18,16 @@ const OrderButton = ({
 }: CartOrderpageSuccessPageProps) => {
   return (
     <Button
-      colorScheme={status === 'PAID' ? 'commerse' : 'white'}
+      colorScheme={STATUS.PAID.includes(status) ? 'commerse' : 'white'}
       w="140px"
-      color={status === 'PAID' ? 'white' : 'commerse'}
+      color={STATUS.PAID.includes(status) ? 'white' : 'commerse.500'}
+      borderColor="commerse.500"
       onClick={() => setOpen(!open)}
       {...basisProps}
     >
-      주문취소
+      {STATUS.PAID.includes(status) ? '주문취소' : '리뷰작성'}
     </Button>
   );
 };
 
-export default OrderButton;
+export default CancelButton;
