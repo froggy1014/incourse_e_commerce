@@ -24,7 +24,11 @@ const HistoryCard = ({ items, status }: { items: IItem[]; status: string }) => {
   if (data[items.length - 1].isLoading) return <Loading />;
 
   return (
-    <Stack mb="10px" divider={<Divider variant="fullthin" />}>
+    <Stack
+      mb="10px"
+      divider={<Divider variant="fullthin" />}
+      filter={status === 'CANCELED' ? 'grayscale(90%)' : 'null'}
+    >
       {data?.map((item, i) => {
         return (
           <HStack w="100" justify="space-between" key={i}>
