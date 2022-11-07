@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { postOrderId, userId } from '@apis/_axios/request';
+import { userId } from '@apis/_axios/axiosGet';
+import { postOrderId } from '@apis/_axios/request';
 
 import OrderPageView from './CartOrderPage.view';
 import useFormValidate from './_hooks/useFormValidate';

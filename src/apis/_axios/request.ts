@@ -1,27 +1,9 @@
-import { getCookie } from 'cookies-next';
-
 import request from './core';
 import { IPostOrder, IPostReturn } from './sharedType';
 
-export const userId = Number(getCookie('userId'));
-
-export async function getMyOrders(pageParam: Number) {
+export async function get(url: string) {
   return await request
-    .get(`order/status/?page=${pageParam}&page_size=4&user_id=${userId}`)
-    .then((res) => res.data)
-    .catch((error) => console.log(error));
-}
-
-export async function getProductDetail(productId: number | undefined) {
-  return await request
-    .get(`product/${productId}/`)
-    .then((res) => res.data)
-    .catch((error) => console.log(error));
-}
-
-export async function getMyReviews(page: number) {
-  return await request
-    .get(`review/?page=${page}&page_size=4&user_id=${userId}`)
+    .get(url)
     .then((res) => res.data)
     .catch((error) => console.log(error));
 }

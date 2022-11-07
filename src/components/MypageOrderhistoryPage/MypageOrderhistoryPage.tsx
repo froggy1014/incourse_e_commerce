@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 
 import { Box, ChakraProps, Stack, Text } from '@chakra-ui/react';
 
-import { getMyOrders, getOrderStatus } from '@apis/_axios/request';
+import { getMyOrders, getOrderStatus } from '@apis/_axios/axiosGet';
 
 import { Loading } from '@components/common';
 
