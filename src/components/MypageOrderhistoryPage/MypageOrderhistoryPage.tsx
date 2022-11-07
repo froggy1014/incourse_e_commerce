@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQueries, useQuery } from 'react-query';
 
-import { Box, ChakraProps, Stack, Text } from '@chakra-ui/react';
+import { Box, Stack, Text } from '@chakra-ui/react';
 
 import { getMyOrders, getOrderStatus } from '@apis/_axios/axiosGet';
 
@@ -22,13 +22,22 @@ function MypageOrderhistoryPage() {
   const [open, setOpen] = useState(false);
   const [total, setTotal] = useState<number>(0);
   const [uuidGroup, setUuidGroup] = useState<IItem[][]>([]);
-  const [status, setStatus] = useState<string[]>([]);
   const [page, setPage] = useState(1);
 
-  const { data: PageInfo, isLoading } = useQuery(
+  const { data: PageInfo } = useQuery(
     [QUERY_KEY.MYORDERS, page],
     () => getMyOrders(page),
     { keepPreviousData: true },
+  );
+
+  const data = useQueries(
+    uuidGroup.map((group: IItem[]) => {
+      const oid = group[0].orderId;
+      return {
+        queryKey: [QUERY_KEY.MYORDERSSTATUS, oid, page],
+        queryFn: async () => await getOrderStatus(oid),
+      };
+    }),
   );
 
   useEffect(() => {
@@ -36,45 +45,34 @@ function MypageOrderhistoryPage() {
     if (PageInfo) setUuidGroup(divideArraybyuuid(PageInfo.results));
   }, [PageInfo]);
 
-  useEffect(() => {
-    if (uuidGroup.length) {
-      const getStatus = async () => {
-        const res = await getOrderStatus(uuidGroup);
-        setStatus(res);
-      };
-      getStatus();
-    }
-  }, [uuidGroup]);
-  if (isLoading && !uuidGroup) return <Loading />;
-
-  if (status.length === 0) return <Loading />;
+  if (data.length === 0 || data.some((d) => d.isLoading === true))
+    return <Loading />;
 
   return (
     <Box w="100%">
       <Text variant="pageTitle">내 상품 리뷰</Text>
       <Stack justify="center" align="center">
-        {uuidGroup &&
-          uuidGroup.map((uuid, i) => {
-            return (
-              <Box key={i} w="100%">
-                <Text fontWeight="bold" my="20px">
-                  [{formatDateDash(uuid[0]?.created)}]
-                </Text>
-                <HistoryCard items={uuid} />
-                {STATUS.PAID.includes(status[i]) && (
-                  <CancelButton
-                    status={status[i]}
-                    setOpen={setOpen}
-                    open={open}
-                    float="right"
-                  />
-                )}
-                {STATUS.DONE === status[i] && (
-                  <ReviewButton orderId={uuid[0].orderId} float="right" />
-                )}
-              </Box>
-            );
-          })}
+        {uuidGroup.map((uuid, i) => {
+          return (
+            <Box key={i} w="100%">
+              <Text fontWeight="bold" my="20px">
+                [{formatDateDash(uuid[0]?.created)}]
+              </Text>
+              <HistoryCard items={uuid} status={data[i].data.shippingStatus} />
+              {STATUS.NOTARRIVCE.includes(data[i].data.shippingStatus) && (
+                <CancelButton
+                  status={data[i].data.shippingStatus}
+                  setOpen={setOpen}
+                  open={open}
+                  float="right"
+                />
+              )}
+              {STATUS.DONE === data[i].data.shippingStatus && (
+                <ReviewButton orderId={uuid[0].orderId} float="right" />
+              )}
+            </Box>
+          );
+        })}
       </Stack>
       <PageBar page={page} setPage={setPage} total={total} />
       {/* <CompleteModal

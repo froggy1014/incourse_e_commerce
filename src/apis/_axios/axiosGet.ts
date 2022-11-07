@@ -22,17 +22,8 @@ export async function getMyReviews(page: number) {
   return await get(`review/?page=${page}&page_size=4&user_id=${userId}`);
 }
 
-export async function getOrderStatus(uuidGroup: IItem[][]) {
-  const orderIds = uuidGroup.map((uuid: IItem[]) => uuid[0].orderId);
-  return axios.all(
-    orderIds.map((orderId: string) =>
-      request
-        .get(`order/${orderId}/`)
-        .then((res) => res.data)
-        .then((data) => data.shippingStatus)
-        .catch((error) => console.log(error)),
-    ),
-  );
+export async function getOrderStatus(oid: string) {
+  return get(`order/${oid}/`);
 }
 
 /*************************ServerSide********************************/

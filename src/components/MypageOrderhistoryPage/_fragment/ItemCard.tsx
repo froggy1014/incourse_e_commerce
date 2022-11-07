@@ -32,12 +32,6 @@ const ItemCard = ({
           </Text>
         </Box>
       </HStack>
-      <Stack align="end" spacing="0">
-        <Text variant="boldcommerse">결제완료</Text>
-        <Text>
-          {item?.price * count! >= 30000 ? '무료배송' : '배송비 2,500원'}
-        </Text>
-      </Stack>
     </HStack>
   );
 };
