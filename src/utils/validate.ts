@@ -1,3 +1,5 @@
+import { STATUS } from '@constants/status';
+
 export const emailValidate = {
   confirm: (value: string) => {
     const reg =
@@ -23,4 +25,12 @@ export const passwordValidate = {
   length: (value: string) => {
     return value.length > 8 ? true : '8자리 이상이어야 합니다.';
   },
+};
+
+export const shippingStatus = (status: string) => {
+  if (STATUS.PAID === status) return '결제완료';
+  if (STATUS.WAIT === status) return '상품준비중';
+  if (STATUS.INPROGRESS === status) return '배송중';
+  if (STATUS.DONE === status) return '배송완료';
+  if (STATUS.CANCELED === status) return '결제취소';
 };

@@ -1,5 +1,6 @@
 export const STATUS = {
-  PAID: ['PAID', 'WAIT', 'INPROGRESS'],
+  NOTARRIVCE: ['PAID', 'WAIT', 'INPROGRESS'],
+  PAID: 'PAID',
   WAIT: 'WAIT',
   INPROGRESS: 'INPROGRESS',
   DONE: 'DONE',

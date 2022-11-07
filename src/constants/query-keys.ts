@@ -3,4 +3,5 @@ export const QUERY_KEY = {
   PRODUCT: 'product',
   MYREVIEWS: 'my-reviews',
   MYORDERS: 'my-orders',
+  MYORDERSSTATUS: 'my-orders-status',
 };
