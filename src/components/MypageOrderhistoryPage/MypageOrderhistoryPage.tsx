@@ -17,6 +17,7 @@ import CancelButton from './_fragment/CancelButton';
 import HistoryCard from './_fragment/HistoryCard';
 import PageBar from './_fragment/PageBar';
 import ReviewButton from './_fragment/ReviewButton';
+import StatusMenu from './_fragment/StatusMenu';
 
 function MypageOrderhistoryPage() {
   const [open, setOpen] = useState(false);
@@ -61,6 +62,7 @@ function MypageOrderhistoryPage() {
                 [{formatDateDash(uuid[0]?.created)}]
               </Text>
               <HistoryCard items={uuid} status={data[i].data.shippingStatus} />
+              <StatusMenu orderId={uuid[0].orderId} />
               {STATUS.NOTARRIVCE.includes(data[i].data.shippingStatus) && (
                 <CancelButton
                   status={data[i].data.shippingStatus}

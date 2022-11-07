@@ -22,9 +22,9 @@ const CancelButton = ({
 }: CartOrderpageSuccessPageProps) => {
   return (
     <Button
-      colorScheme={STATUS.PAID.includes(status) ? 'commerse' : 'white'}
+      colorScheme={STATUS.NOTARRIVCE.includes(status) ? 'commerse' : 'white'}
       w="140px"
-      color={STATUS.PAID.includes(status) ? 'white' : 'commerse.500'}
+      color={STATUS.NOTARRIVCE.includes(status) ? 'white' : 'commerse.500'}
       borderColor="commerse.500"
       onClick={() => {
         setOrderId(oid);
@@ -32,7 +32,7 @@ const CancelButton = ({
       }}
       {...basisProps}
     >
-      {STATUS.PAID.includes(status) ? '주문취소' : '리뷰작성'}
+      {STATUS.NOTARRIVCE.includes(status) ? '주문취소' : '리뷰작성'}
     </Button>
   );
 };
