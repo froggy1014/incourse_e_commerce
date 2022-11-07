@@ -18,8 +18,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import { SubmitButton } from '@components/common';
-import CompleteModal from '@components/common/GlobalModal/CompleteModal';
+import { CompleteModal, SubmitButton } from '@components/common';
 
 import { axiosInstance } from '@utils/axios';
 

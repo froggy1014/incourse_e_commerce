@@ -20,13 +20,13 @@ interface ModalExampleProps extends Omit<ModalProps, 'children'> {
   linkTo?: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
-function CompleteModal({
+export const CompleteModal = ({
   title,
   linkTo,
   setOpen,
   ...props
-}: ModalExampleProps) {
-  const [destination, setDestination] = useState(linkTo);
+}: ModalExampleProps) => {
+  const [destination] = useState(linkTo);
   const [trigger, setTrigger] = useState(0);
   const router = useRouter();
 
@@ -61,6 +61,4 @@ function CompleteModal({
       </ModalContent>
     </Modal>
   );
-}
-
-export default CompleteModal;
+};

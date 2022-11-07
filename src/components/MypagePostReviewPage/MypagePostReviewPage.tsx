@@ -16,13 +16,13 @@ import {
 
 import { getProductDetail } from '@apis/_axios/axiosGet';
 
+import { CompleteModal } from '@components/common';
 import { Loading, SubmitButton } from '@components/common';
 import {
   AddPhotoIcon,
   DeletePhotoIcon,
   EmptyBigRatingIcon,
 } from '@components/common/@Icons/UI';
-import CompleteModal from '@components/common/GlobalModal/CompleteModal';
 
 import { QUERY_KEY } from '@constants/query-keys';
 import { bytesToMB, fileToBase64, isBase64Img, isOverSize } from '@utils/file';

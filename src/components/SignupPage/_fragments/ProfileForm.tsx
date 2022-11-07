@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import { getCookie, setCookie } from 'cookies-next';
 
-import CompleteModal from '@components/common/GlobalModal/CompleteModal';
+import { CompleteModal } from '@components/common';
 
 import { axiosInstance, signupReq } from '@utils/axios';
 
