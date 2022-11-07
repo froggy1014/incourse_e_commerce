@@ -8,6 +8,13 @@ export async function get(url: string) {
     .catch((error) => console.log(error));
 }
 
+export async function patch(url: string, body: any) {
+  return await request
+    .patch(url, body)
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
+}
+
 export async function postOrderId(data: IPostOrder): Promise<IPostReturn> {
   return await request
     .post('order/', data)
