@@ -6,14 +6,18 @@ import { STATUS } from '@constants/status';
 
 interface CartOrderpageSuccessPageProps extends ButtonProps {
   status: string;
+  oid: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  setOrderId: Dispatch<SetStateAction<string>>;
   open: boolean;
 }
 
 const CancelButton = ({
   status,
   setOpen,
+  setOrderId,
   open,
+  oid,
   ...basisProps
 }: CartOrderpageSuccessPageProps) => {
   return (
@@ -22,7 +26,10 @@ const CancelButton = ({
       w="140px"
       color={STATUS.PAID.includes(status) ? 'white' : 'commerse.500'}
       borderColor="commerse.500"
-      onClick={() => setOpen(!open)}
+      onClick={() => {
+        setOrderId(oid);
+        setOpen(!open);
+      }}
       {...basisProps}
     >
       {STATUS.PAID.includes(status) ? '주문취소' : '리뷰작성'}

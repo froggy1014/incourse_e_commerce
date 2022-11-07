@@ -5,7 +5,7 @@ import { Box, Stack, Text } from '@chakra-ui/react';
 
 import { getMyOrders, getOrderStatus } from '@apis/_axios/axiosGet';
 
-import { Loading } from '@components/common';
+import { AskModal, CompleteModal, Loading } from '@components/common';
 
 import { QUERY_KEY } from '@constants/query-keys';
 import { STATUS } from '@constants/status';
@@ -20,6 +20,8 @@ import ReviewButton from './_fragment/ReviewButton';
 
 function MypageOrderhistoryPage() {
   const [open, setOpen] = useState(false);
+  const [canceled, setCanceled] = useState(false);
+  const [orderId, setOrderId] = useState<string>('');
   const [total, setTotal] = useState<number>(0);
   const [uuidGroup, setUuidGroup] = useState<IItem[][]>([]);
   const [page, setPage] = useState(1);
@@ -65,6 +67,8 @@ function MypageOrderhistoryPage() {
                   setOpen={setOpen}
                   open={open}
                   float="right"
+                  oid={uuid[0].orderId}
+                  setOrderId={setOrderId}
                 />
               )}
               {STATUS.DONE === data[i].data.shippingStatus && (
@@ -75,12 +79,20 @@ function MypageOrderhistoryPage() {
         })}
       </Stack>
       <PageBar page={page} setPage={setPage} total={total} />
-      {/* <CompleteModal
-                title="주문취소가 완료되었습니다."
-                isOpen={open}
-                onClose={() => setOpen(!open)}
-                setOpen={setOpen}
-              /> */}
+      <AskModal
+        title="주문취소 하시겠습니까?"
+        isOpen={open}
+        onClose={() => setOpen(!open)}
+        setOpen={setOpen}
+        setCanceled={setCanceled}
+        orderId={orderId}
+      />
+      <CompleteModal
+        title="주문취소가 완료되었습니다."
+        isOpen={canceled}
+        onClose={() => setCanceled(!canceled)}
+        setOpen={setCanceled}
+      />
     </Box>
   );
 }
