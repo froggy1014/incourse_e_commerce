@@ -94,7 +94,7 @@ function MypagePostReviewPage({
   const data = useQueries(
     productIds.map((pid: number) => {
       return {
-        queryKey: ['QUERY_KEY.PRODUCT', pid],
+        queryKey: [QUERY_KEY.PRODUCT, pid],
         queryFn: async () => await getProductDetail(pid),
       };
     }),
