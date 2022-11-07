@@ -10,13 +10,7 @@ interface CartOrderpageSuccessPageProps extends ButtonProps {}
 const ReviewButton = ({ ...basisProps }: CartOrderpageSuccessPageProps) => {
   return (
     <Link href={`${ROUTES.MYPAGE.POSTREVIEW}?random=random`}>
-      <Button
-        colorScheme="white"
-        w="140px"
-        color="commerse.500"
-        borderColor="commerse.500"
-        {...basisProps}
-      >
+      <Button w="140px" variant="btnwhite" {...basisProps}>
         리뷰작성
       </Button>
     </Link>

@@ -47,6 +47,8 @@ function MypageOrderhistoryPage() {
   }, [uuidGroup]);
   if (isLoading && !uuidGroup) return <Loading />;
 
+  if (status.length === 0) return <Loading />;
+
   return (
     <Box w="100%">
       <Text variant="pageTitle">내 상품 리뷰</Text>

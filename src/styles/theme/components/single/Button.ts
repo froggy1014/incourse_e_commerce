@@ -77,7 +77,7 @@ const variantSolid: StyleObjectOrFn = (props) => {
     borderWidth: 1,
     borderColor: borderColor,
     _hover: {
-      transform: 'scale(1.02)',
+      transform: 'scale(1.1)',
       bg: `${c}`,
       borderColor: hoverBg,
       _disabled: {
@@ -114,7 +114,7 @@ export const Button: ComponentSingleStyleConfig = {
       bg: 'commerse.500',
       color: 'white',
       _hover: {
-        transform: 'scale(1.02)',
+        transform: 'scale(1.1)',
         _disabled: {
           transform: 'scale(1.00)',
           bg: 'commerse.500',
@@ -124,8 +124,10 @@ export const Button: ComponentSingleStyleConfig = {
     btnwhite: {
       bg: 'white',
       color: 'commerse.500',
+      border: 'solid 1px',
+      borderColor: 'commerse.500',
       _hover: {
-        transform: 'scale(1.02)',
+        transform: 'scale(1.1)',
         _disabled: {
           transform: 'scale(1.00)',
           bg: 'white',
