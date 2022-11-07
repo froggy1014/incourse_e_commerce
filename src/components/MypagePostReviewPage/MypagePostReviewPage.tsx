@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQueries } from 'react-query';
 
 import {
   Box,
@@ -31,9 +31,18 @@ import { formatDateDash, intComma } from '@utils/format';
 import { usePostReview } from './_hook/usePostReview';
 import { usePresignedUrl } from './_hook/usePresignedUrl';
 
-interface MypagePostReviewPageProps extends ChakraProps {}
+interface MypagePostReviewPageProps extends ChakraProps {
+  count: number[];
+  productIds: number[];
+  date: string;
+}
 
-function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
+function MypagePostReviewPage({
+  count,
+  productIds,
+  date,
+  ...basisProps
+}: MypagePostReviewPageProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
@@ -77,9 +86,18 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
 
   /*--------------------------------------------------------------*/
   // 재품 상세 정보 가져오기 위한 useQuery
-  const { data: productDetail, isLoading } = useQuery(
-    [`${QUERY_KEY.PRODUCT}`, router.query.productId],
-    () => getProductDetail(Number(router.query.productId)),
+  // const { data: productDetail, isLoading } = useQuery(
+  //   [`${QUERY_KEY.PRODUCT}`, router.query.productId],
+  //   () => getProductDetail(Number(router.query.productId)),
+  // );
+
+  const data = useQueries(
+    productIds.map((pid: number) => {
+      return {
+        queryKey: ['QUERY_KEY.PRODUCT', pid],
+        queryFn: async () => await getProductDetail(pid),
+      };
+    }),
   );
   /*--------------------------------------------------------------*/
 
@@ -99,31 +117,37 @@ function MypagePostReviewPage({ ...basisProps }: MypagePostReviewPageProps) {
     });
   }, [rating, content, urls]);
   /*--------------------------------------------------------------*/
-  if (isLoading) return <Loading />;
+  if (data[productIds.length - 1].isLoading) return <Loading />;
 
   return (
     <form onSubmit={handleSubmit}>
       <Text variant="pageTitle">리뷰작성</Text>
       <Text fontWeight="bold" mb="18px">
-        [{formatDateDash(router.query.date)}]
+        [{formatDateDash(date)}]
       </Text>
-      <HStack fontSize="12px">
-        <Image
-          boxSize="60px"
-          src={`${productDetail?.photo}`}
-          bg="gray.100"
-          rounded="5px"
-        />
-        <Box>
-          <Text fontWeight="bold">{`${productDetail?.name}`}</Text>
-          <Text variant="normal12gray">
-            {`${productDetail?.name}`} | {`${productDetail?.capacity}`}ml
-          </Text>
-          <Text variant="boldcommerse">
-            {intComma(`${productDetail?.price}`)}원/ {router.query.count}개
-          </Text>
-        </Box>
-      </HStack>
+      <Stack>
+        {data.map((product, i) => {
+          return (
+            <HStack fontSize="12px" key={product.data.id}>
+              <Image
+                boxSize="60px"
+                src={`${product.data.photo}`}
+                bg="gray.100"
+                rounded="5px"
+              />
+              <Box>
+                <Text fontWeight="bold">{`${product.data.name}`}</Text>
+                <Text variant="normal12gray">
+                  {`${product.data.name}`} | {`${product.data.capacity}`}ml
+                </Text>
+                <Text variant="boldcommerse">
+                  {intComma(`${product.data.price}`)}원/ {count[i]}개
+                </Text>
+              </Box>
+            </HStack>
+          );
+        })}
+      </Stack>
       <Divider my="20px" variant="fullthick" />
       <Box>
         <Text>별점</Text>

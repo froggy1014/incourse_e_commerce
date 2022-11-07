@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getCookie } from 'cookies-next';
+import { CookieValueTypes, getCookie } from 'cookies-next';
 
 import { IItem } from '@components/MypageOrderhistoryPage/OrderHistory';
 
@@ -33,4 +33,10 @@ export async function getOrderStatus(uuidGroup: IItem[][]) {
         .catch((error) => console.log(error)),
     ),
   );
+}
+
+/*************************ServerSide********************************/
+
+export async function getOrderList(userId: CookieValueTypes) {
+  return get(`order/status/?user_id=${userId}`);
 }

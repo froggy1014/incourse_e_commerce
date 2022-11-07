@@ -69,7 +69,9 @@ function MypageOrderhistoryPage() {
                     float="right"
                   />
                 )}
-                {STATUS.DONE === status[i] && <ReviewButton float="right" />}
+                {STATUS.DONE === status[i] && (
+                  <ReviewButton orderId={uuid[0].orderId} float="right" />
+                )}
               </Box>
             );
           })}
