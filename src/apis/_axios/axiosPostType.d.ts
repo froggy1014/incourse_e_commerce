@@ -6,3 +6,8 @@ export interface IPostReviewBody {
   content: string;
   reviewimagePath: string[];
 }
+
+export interface IRefreshTokenReturn {
+  access: string;
+  refresh: string;
+}
