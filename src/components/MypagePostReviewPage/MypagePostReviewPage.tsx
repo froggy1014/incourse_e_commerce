@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { useQueries } from 'react-query';
+import { useQuery } from 'react-query';
 
 import {
   Box,
-  ChakraProps,
   Divider,
   Flex,
   HStack,
@@ -31,18 +30,7 @@ import { formatDateDash, intComma } from '@utils/format';
 import { usePostReview } from './_hook/usePostReview';
 import { usePresignedUrl } from './_hook/usePresignedUrl';
 
-interface MypagePostReviewPageProps extends ChakraProps {
-  count: number[];
-  productIds: number[];
-  date: string;
-}
-
-function MypagePostReviewPage({
-  count,
-  productIds,
-  date,
-  ...basisProps
-}: MypagePostReviewPageProps) {
+function MypagePostReviewPage() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
@@ -57,7 +45,10 @@ function MypagePostReviewPage({
   const [base64Files, setBase64Files] = useState<string[] | unknown[]>([]);
 
   const { presignedUrl, setFiles, files, urls } = usePresignedUrl();
-  const { postingReview, setBody, body } = usePostReview();
+  const onSuccess = () => {
+    setOpen(true);
+  };
+  const { postingReview, setBody, body } = usePostReview(onSuccess);
 
   /*--------------------------------------------------------------*/
   // onChange 핸들로
@@ -86,23 +77,14 @@ function MypagePostReviewPage({
 
   /*--------------------------------------------------------------*/
   // 재품 상세 정보 가져오기 위한 useQuery
-  // const { data: productDetail, isLoading } = useQuery(
-  //   [`${QUERY_KEY.PRODUCT}`, router.query.productId],
-  //   () => getProductDetail(Number(router.query.productId)),
-  // );
-
-  const data = useQueries(
-    productIds.map((pid: number) => {
-      return {
-        queryKey: [QUERY_KEY.PRODUCT, pid],
-        queryFn: async () => await getProductDetail(pid),
-      };
-    }),
+  const { data: productDetail, isLoading } = useQuery(
+    [`${QUERY_KEY.PRODUCT}`, router.query.productId],
+    () => getProductDetail(Number(router.query.productId)),
   );
+
   /*--------------------------------------------------------------*/
 
   // 리뷰 작성 Submit
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     postingReview();
@@ -117,36 +99,33 @@ function MypagePostReviewPage({
     });
   }, [rating, content, urls]);
   /*--------------------------------------------------------------*/
-  if (data[productIds.length - 1].isLoading) return <Loading />;
+
+  if (isLoading) return <Loading />;
 
   return (
     <form onSubmit={handleSubmit}>
       <Text variant="pageTitle">리뷰작성</Text>
       <Text fontWeight="bold" mb="18px">
-        [{formatDateDash(date)}]
+        [{formatDateDash(router.query.created)}]
       </Text>
       <Stack>
-        {data.map((product, i) => {
-          return (
-            <HStack fontSize="12px" key={product.data.id}>
-              <Image
-                boxSize="60px"
-                src={`${product.data.photo}`}
-                bg="gray.100"
-                rounded="5px"
-              />
-              <Box>
-                <Text fontWeight="bold">{`${product.data.name}`}</Text>
-                <Text variant="normal12gray">
-                  {`${product.data.name}`} | {`${product.data.capacity}`}ml
-                </Text>
-                <Text variant="boldcommerse">
-                  {intComma(`${product.data.price}`)}원/ {count[i]}개
-                </Text>
-              </Box>
-            </HStack>
-          );
-        })}
+        <HStack fontSize="12px">
+          <Image
+            boxSize="60px"
+            src={productDetail?.photo}
+            bg="gray.100"
+            rounded="5px"
+          />
+          <Box>
+            <Text fontWeight="bold">{productDetail?.name}</Text>
+            <Text variant="normal12gray">
+              {productDetail?.name} | {productDetail?.capacity}ml
+            </Text>
+            <Text variant="boldcommerse">
+              {intComma(productDetail?.price)} 원/ {router.query.count}개
+            </Text>
+          </Box>
+        </HStack>
       </Stack>
       <Divider my="20px" variant="fullthick" />
       <Box>
@@ -230,13 +209,13 @@ function MypagePostReviewPage({
         </Flex>
       </Stack>
       <SubmitButton title="작성하기" size="btnlg" variant="btncommerse" />
-      {/* <CompleteModal
+      <CompleteModal
         title="리뷰작성이 완료되었습니다."
         linkTo="back"
         isOpen={open}
         onClose={() => setOpen(!open)}
         setOpen={setOpen}
-      /> */}
+      />
     </form>
   );
 }
