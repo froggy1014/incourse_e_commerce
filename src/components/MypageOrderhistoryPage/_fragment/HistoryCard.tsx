@@ -7,10 +7,12 @@ import { getProductDetail } from '@apis/_axios/axiosGet';
 
 import { Loading } from '@components/common';
 
+import { STATUS } from '@constants/status';
 import { shippingStatus } from '@utils/validate';
 
 import { IItem } from '../OrderHistory';
 import ItemCard from './ItemCard';
+import ReviewButton from './ReviewButton';
 
 const HistoryCard = ({ items, status }: { items: IItem[]; status: string }) => {
   const data = useQueries(
@@ -31,17 +33,24 @@ const HistoryCard = ({ items, status }: { items: IItem[]; status: string }) => {
     >
       {data?.map((item, i) => {
         return (
-          <HStack w="100" justify="space-between" key={i}>
-            <ItemCard item={item.data} count={items[i]?.count} />
-            <Stack align="end" spacing="0" fontSize="12px">
-              <Text variant="boldcommerse">{shippingStatus(status)}</Text>
-              <Text>
-                {item.data?.price * items[i]?.count >= 30000
-                  ? '무료배송'
-                  : '배송비 2,500원'}
-              </Text>
-            </Stack>
-          </HStack>
+          <Stack key={i}>
+            <HStack w="100" justify="space-between">
+              <ItemCard item={item.data} count={items[i]?.count} />
+              <Stack align="end" spacing="0" fontSize="12px">
+                <Text variant="boldcommerse">{shippingStatus(status)}</Text>
+                <Text>
+                  {item.data?.price * items[i]?.count >= 30000
+                    ? '무료배송'
+                    : '배송비 2,500원'}
+                </Text>
+              </Stack>
+            </HStack>
+            {STATUS.DONE === status && (
+              <HStack justify="right">
+                <ReviewButton orderInfo={items[i]} />
+              </HStack>
+            )}
+          </Stack>
         );
       })}
     </Stack>

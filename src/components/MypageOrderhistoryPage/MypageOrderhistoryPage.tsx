@@ -16,7 +16,6 @@ import { IItem } from './OrderHistory';
 import CancelButton from './_fragment/CancelButton';
 import HistoryCard from './_fragment/HistoryCard';
 import PageBar from './_fragment/PageBar';
-import ReviewButton from './_fragment/ReviewButton';
 import StatusMenu from './_fragment/StatusMenu';
 
 function MypageOrderhistoryPage() {
@@ -56,13 +55,14 @@ function MypageOrderhistoryPage() {
       <Text variant="pageTitle">내 상품 리뷰</Text>
       <Stack justify="center" align="center">
         {uuidGroup.map((uuid, i) => {
+          console.log(uuid);
           return (
             <Box key={i} w="100%">
               <Text fontWeight="bold" my="20px">
                 [{formatDateDash(uuid[0]?.created)}]
               </Text>
-              <HistoryCard items={uuid} status={data[i].data.shippingStatus} />
               <StatusMenu orderId={uuid[0].orderId} />
+              <HistoryCard items={uuid} status={data[i].data.shippingStatus} />
               {STATUS.NOTARRIVCE.includes(data[i].data.shippingStatus) && (
                 <CancelButton
                   status={data[i].data.shippingStatus}
@@ -72,9 +72,6 @@ function MypageOrderhistoryPage() {
                   oid={uuid[0].orderId}
                   setOrderId={setOrderId}
                 />
-              )}
-              {STATUS.DONE === data[i].data.shippingStatus && (
-                <ReviewButton orderId={uuid[0].orderId} float="right" />
               )}
             </Box>
           );
