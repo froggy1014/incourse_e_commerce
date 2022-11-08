@@ -24,6 +24,7 @@ const StatusMenu = ({ orderId }: { orderId: string }) => {
     <Menu autoSelect={false}>
       <MenuButton
         h="30px"
+        mb="10px"
         as={Button}
         rightIcon={<DownVerticalArrow stroke="commerse" />}
         variant="btnwhite"

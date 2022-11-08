@@ -13,6 +13,7 @@ import {
 
 import { Loading, SubmitButton } from '@components/common';
 
+import { ROUTES } from '@constants/routes';
 import { addHyphenPhone, formatDateDash, intComma } from '@utils/format';
 
 import { useProductInfoQuery } from './_hook/useProductInfoQuery';
@@ -136,7 +137,7 @@ function CartOrderpageSuccessPage({
                   />
                 </a>
               </Link>
-              <Link href="/">
+              <Link href={`/${ROUTES.MYPAGE.ORDERHISTORY}`}>
                 <a>
                   <SubmitButton
                     title="주문내역 이동"

@@ -4,17 +4,21 @@ import React from 'react';
 import { Button, ButtonProps } from '@chakra-ui/react';
 
 import { ROUTES } from '@constants/routes';
+import { getQueryString } from '@utils/format';
+
+import { IItem } from '../OrderHistory';
 
 interface CartOrderpageSuccessPageProps extends ButtonProps {
-  orderId: string;
+  orderInfo: IItem;
 }
 
 const ReviewButton = ({
-  orderId,
+  orderInfo,
   ...basisProps
 }: CartOrderpageSuccessPageProps) => {
+  const queryUrl = getQueryString(orderInfo);
   return (
-    <Link href={`${ROUTES.MYPAGE.POSTREVIEW}?orderId=${orderId}`}>
+    <Link href={`${ROUTES.MYPAGE.POSTREVIEW}?${queryUrl}`}>
       <Button w="140px" variant="btnwhite" {...basisProps}>
         리뷰작성
       </Button>
