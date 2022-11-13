@@ -12,34 +12,40 @@ import { postSocialToken } from '@apis/_axios/axiosPost';
 
 import MobileLayout from '@components/common/@Layout/MobileLayout';
 
+interface ICartInfo {
+  id: number;
+  cartitem: any;
+  userId: number;
+}
+
 function SocialloginCallback({ code, state }: { code: string; state: string }) {
   const router = useRouter();
   const social = { code: code, state: state };
 
   async function registerIds() {
     const myinfo = getMe();
-    Promise.resolve(myinfo).then((data) => {
-      const { id } = data;
-      setCookie('userId', id);
-      const cartInfo = getCartInfo(id);
-      Promise.resolve(cartInfo).then((data) => {
-        setCookie('cartId', data[0].id);
-        router.push('/');
-      });
+    myinfo.then((data) => {
+      setCookie('userId', data.id);
+      const cartInfo = getCartInfo(data.id);
+      registerCartId(cartInfo);
+    });
+  }
+
+  async function registerCartId(cartInfo: Promise<ICartInfo[]>) {
+    cartInfo.then((data: ICartInfo[]) => {
+      setCookie('cartId', data[0].id);
+      router.push('/');
     });
   }
 
   useEffect(() => {
     const data = postSocialToken(social);
-    Promise.resolve(data).then((data) => {
+    data.then((data) => {
       const { isRegister, access, refresh } = data;
       setCookie('access', access);
       setCookie('refresh', refresh);
-      if (isRegister) {
-        registerIds();
-      } else {
-        router.push('/sign-up');
-      }
+      if (isRegister) registerIds();
+      if (!isRegister) router.push('/sign-up');
     });
   }, []);
 
