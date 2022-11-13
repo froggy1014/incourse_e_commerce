@@ -32,7 +32,9 @@ request.interceptors.response.use(
     const refreshToken = getCookie('refresh');
     switch (error.response.status) {
       case 401:
-        if (!accessToken && !refreshToken) window.location.href = `/login`;
+        if (!accessToken && !refreshToken) {
+          window.location.href = `/login`;
+        }
 
         // access 토큰이 존재한다면 만료가 되었는지 확인 후 진행
         if (accessToken) {
@@ -50,6 +52,24 @@ request.interceptors.response.use(
 
         // access 토큰는 없는데 refresh 토큰이 있다면 토큰 재 요청
         if (refreshToken) {
+          // 만료가 되었으니까 refresh해달라고 요청을 한다.
+          const { access, refresh } = await postRequestToken();
+          // 새로 받은 토큰들 저장 후 기존 req 헤더에 넣어 재 요청
+          setCookie('access', access);
+          setCookie('refresh', refresh);
+          request.defaults.headers.common[
+            'Authorization'
+          ] = `Bearer ${getCookie('access')}`;
+          return request(originalRequest);
+        }
+        break;
+      case 404:
+        if (accessToken) {
+          request.defaults.headers.common[
+            'Authorization'
+          ] = `Bearer ${accessToken}`;
+          return request(originalRequest);
+        } else if (refreshToken) {
           // 만료가 되었으니까 refresh해달라고 요청을 한다.
           const { access, refresh } = await postRequestToken();
           // 새로 받은 토큰들 저장 후 기존 req 헤더에 넣어 재 요청

@@ -23,7 +23,15 @@ export async function getMyReviews(page: number) {
 }
 
 export async function getOrderStatus(oid: string) {
-  return get(`order/${oid}/`);
+  return await get(`order/${oid}/`);
+}
+
+export async function getMe() {
+  return await get('user/me/');
+}
+
+export async function getCartInfo(uid: number) {
+  return await get(`cart/?user_id=${uid}`);
 }
 
 /*************************ServerSide********************************/

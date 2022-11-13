@@ -7,33 +7,42 @@ import { setCookie } from 'cookies-next';
 
 import { Flex, Spinner } from '@chakra-ui/react';
 
-import MobileLayout from '@components/common/@Layout/MobileLayout';
+import { getCartInfo, getMe } from '@apis/_axios/axiosGet';
+import { postSocialToken } from '@apis/_axios/axiosPost';
 
-import { axiosInstance, socialLoginReq } from '@utils/axios';
+import MobileLayout from '@components/common/@Layout/MobileLayout';
 
 function SocialloginCallback({ code, state }: { code: string; state: string }) {
   const router = useRouter();
   const social = { code: code, state: state };
+
+  async function registerIds() {
+    const myinfo = getMe();
+    Promise.resolve(myinfo).then((data) => {
+      const { id } = data;
+      setCookie('userId', id);
+      const cartInfo = getCartInfo(id);
+      Promise.resolve(cartInfo).then((data) => {
+        setCookie('cartId', data[0].id);
+        router.push('/');
+      });
+    });
+  }
+
   useEffect(() => {
-    socialLoginReq.post('/user/social_login/', social).then((response) => {
-      setCookie('socialToken', response.data.socialToken);
-      if (!response.data.isRegister) {
-        router.push('/sign-up');
+    const data = postSocialToken(social);
+    Promise.resolve(data).then((data) => {
+      const { isRegister, access, refresh } = data;
+      setCookie('access', access);
+      setCookie('refresh', refresh);
+      if (isRegister) {
+        registerIds();
       } else {
-        setCookie('access', response.data.access);
-        setCookie('refresh', response.data.refresh);
-        axiosInstance('user/me/')
-          .then((res) => res.data)
-          .then((data) => {
-            axiosInstance.post(`cart/`, { userId: data.id }).then((res) => {
-              setCookie('cartId', res.data.id);
-              setCookie('userId', res.data.userId);
-            });
-          })
-          .then(() => router.push('/'));
+        router.push('/sign-up');
       }
     });
-  });
+  }, []);
+
   return (
     <>
       <Head>
