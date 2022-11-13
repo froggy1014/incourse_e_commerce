@@ -102,18 +102,36 @@ const ProfileFormView = ({
                   ref={fileTrigger}
                   onChange={fileSelectedHandler}
                 />
-                <Image
-                  cursor="pointer"
-                  boxSize="70px"
-                  rounded={'full'}
-                  objectFit="cover"
-                  alt="upload img"
-                  src={typeof profile === 'string' ? profile : undefined}
-                  onClick={() => {
-                    if (fileTrigger !== null && fileTrigger.current !== null)
-                      fileTrigger.current.click();
-                  }}
-                />
+                <Box>
+                  {profile === '' ? (
+                    <ProfileIcon
+                      cursor="pointer"
+                      onClick={() => {
+                        if (
+                          fileTrigger !== null &&
+                          fileTrigger.current !== null
+                        )
+                          fileTrigger.current.click();
+                      }}
+                    />
+                  ) : (
+                    <Image
+                      cursor="pointer"
+                      boxSize="70px"
+                      rounded={'full'}
+                      objectFit="cover"
+                      alt="upload img"
+                      src={typeof profile === 'string' ? profile : undefined}
+                      onClick={() => {
+                        if (
+                          fileTrigger !== null &&
+                          fileTrigger.current !== null
+                        )
+                          fileTrigger.current.click();
+                      }}
+                    />
+                  )}
+                </Box>
                 <AddProfile position="absolute" right="0" bottom="0" />
               </Box>
             </Flex>
