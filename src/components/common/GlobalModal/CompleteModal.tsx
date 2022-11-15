@@ -36,7 +36,7 @@ export const CompleteModal = ({
     if (trigger === 2) {
       if (destination === 'back') router.back();
       else if (destination !== undefined) {
-        router.push(`${ROUTES[destination as keyof typeof ROUTES]}`);
+        router.replace(`${ROUTES[destination as keyof typeof ROUTES]}`);
       }
     }
   }, [props.isOpen]);

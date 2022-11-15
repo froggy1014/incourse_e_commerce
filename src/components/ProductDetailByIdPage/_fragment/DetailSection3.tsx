@@ -38,7 +38,6 @@ const DetailSection3 = () => {
   );
 
     useEffect(() => {
-      // console.log(sorting);
       dispatch(filterReviews(sorting));
     }, [sorting])
 

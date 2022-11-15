@@ -11,6 +11,7 @@ import { Loading, MyReviewCard } from '@components/common';
 import { QUERY_KEY } from '@constants/query-keys';
 
 import { IMyReviews } from './MyReviews';
+import EmptyReview from './_fragments/EmptyReview';
 
 interface MypageMyreviewsPageProps extends ChakraProps {}
 
@@ -31,6 +32,8 @@ function MypageMyreviewsPage({ ...basisProps }: MypageMyreviewsPageProps) {
   if (isLoading) return <Loading />;
 
   console.log(pageInfo);
+
+  if (pageInfo.count === 0) return <EmptyReview />;
 
   return (
     <Box {...basisProps}>

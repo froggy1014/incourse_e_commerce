@@ -127,7 +127,7 @@ function CartOrderpageSuccessPage({
               <Text variant="boldcommerse">{intComma(userInfo.amount)} 원</Text>
             </HStack>
             <Flex justify="space-between" pt="34px">
-              <Link href="/">
+              <Link href="/" replace>
                 <a>
                   <SubmitButton
                     title="메인화면 이동"
@@ -137,7 +137,7 @@ function CartOrderpageSuccessPage({
                   />
                 </a>
               </Link>
-              <Link href={`/${ROUTES.MYPAGE.ORDERHISTORY}`}>
+              <Link href={ROUTES.MYPAGE.ORDERHISTORY} replace>
                 <a>
                   <SubmitButton
                     title="주문내역 이동"

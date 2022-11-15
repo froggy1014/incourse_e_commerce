@@ -14,6 +14,7 @@ import { formatDateDash } from '@utils/format';
 
 import { IItem } from './OrderHistory';
 import CancelButton from './_fragment/CancelButton';
+import EmptyOrder from './_fragment/EmptyOrder';
 import HistoryCard from './_fragment/HistoryCard';
 import PageBar from './_fragment/PageBar';
 import StatusMenu from './_fragment/StatusMenu';
@@ -47,8 +48,9 @@ function MypageOrderhistoryPage() {
     if (PageInfo) setUuidGroup(divideArraybyuuid(PageInfo.results));
   }, [PageInfo]);
 
-  if (data.length === 0 || data.some((d) => d.isLoading === true))
-    return <Loading />;
+  if (data.some((d) => d.isLoading === true)) return <Loading />;
+
+  if (data.length === 0) return <EmptyOrder />;
 
   return (
     <Box w="100%">

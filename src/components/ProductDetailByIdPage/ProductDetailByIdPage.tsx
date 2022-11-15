@@ -53,7 +53,6 @@ function ProductDetailByIdPage({
   const scrollToSection = (
     elementRef: React.MutableRefObject<HTMLButtonElement | null>,
   ) => {
-    console.log(elementRef.current);
     if (elementRef.current !== null) {
       const offset = elementRef.current.offsetTop;
       window.scrollTo({
