@@ -6,7 +6,7 @@ export const userId = getCookie('userId');
 
 export async function getMyOrders(pageParam: Number) {
   return await get(
-    `order/status/?page=${pageParam}&page_size=4&user_id=${userId}`,
+    `order/status/?page=${pageParam}&page_size=4&user_id=${String(userId)}`,
   );
 }
 
@@ -15,7 +15,9 @@ export async function getProductDetail(productId: number | undefined) {
 }
 
 export async function getMyReviews(page: number) {
-  return await get(`review/?page=${page}&page_size=4&user_id=${userId}`);
+  return await get(
+    `review/?page=${page}&page_size=4&user_id=${String(userId)}`,
+  );
 }
 
 export async function getOrderStatus(oid: string) {

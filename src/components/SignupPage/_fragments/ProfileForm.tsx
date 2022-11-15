@@ -3,8 +3,11 @@ import React, { useState } from 'react';
 
 import { getCookie, setCookie } from 'cookies-next';
 
+import { patchGetMe } from '@apis/_axios/axiosPatch';
+
 import { CompleteModal } from '@components/common';
 
+import { ROUTES } from '@constants/routes';
 import { axiosInstance, signupReq } from '@utils/axios';
 
 import useProfileForm from '../_hook/useProfieForm';
@@ -29,26 +32,21 @@ const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {
   const { handleSubmit } = formData;
   const onSubmit = handleSubmit(
     ({ name, nickname, phone, email, gender, ages }) => {
-      if (router.pathname === '/mypage/modifyprofile') {
+      if (router.pathname === ROUTES.MYPAGE.PROFILE) {
         const data = {
           email: email,
           phone: phone.split('-').join(''),
           name: name,
           nickname: nickname,
-          profile: 'https://www.naver.com/',
+          profilePath: 'https://www.naver.com/',
           gender: gender,
           age: ages,
         };
-        try {
-          axiosInstance.patch('user/me/', data).then((response) => {
-            if (response.status === 200) {
-              setOpen(!open);
-            }
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
+        patchGetMe(data).then((response) => {
+          if (response.status === 200) setOpen(!open);
+        });
+      }
+      if (router.pathname === ROUTES.SIGNUP) {
         const data = {
           socialToken: getCookie('socialToken'),
           email: email,
@@ -72,6 +70,7 @@ const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {
       }
     },
   );
+
   return (
     <>
       <ProfileFormContentView
