@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 
 import { patchGetMe } from '@apis/_axios/axiosPatch';
+import { postRegister } from '@apis/_axios/axiosPost';
 
 import { CompleteModal } from '@components/common';
 
 import { ROUTES } from '@constants/routes';
-import { axiosInstance, signupReq } from '@utils/axios';
+import RegisterIds from '@utils/RegisterIds';
 
 import useProfileForm from '../_hook/useProfieForm';
 import ProfileFormContentView from './ProfileForm.view';
@@ -29,6 +30,7 @@ const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {
   const [open, setOpen] = useState(false);
   const [profile, setProfile] = useState<string | ArrayBuffer | null>('');
   const formData = useProfileForm();
+
   const { handleSubmit } = formData;
   const onSubmit = handleSubmit(
     ({ name, nickname, phone, email, gender, ages }) => {
@@ -46,7 +48,7 @@ const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {
           if (response.status === 200) setOpen(!open);
         });
       }
-      if (router.pathname === ROUTES.SIGNUP) {
+      if (router.pathname === ROUTES.SIGNUP.MAIN) {
         const data = {
           socialToken: getCookie('socialToken'),
           email: email,
@@ -58,15 +60,12 @@ const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {
           age: ages,
           marketingAdAgree: true,
         };
-        try {
-          signupReq.post('user/register/', data).then((response) => {
-            setCookie('access', response.data.access);
-            setCookie('refresh', response.data.refresh);
-            router.push('/');
-          });
-        } catch (error: any) {
-          console.log(error);
-        }
+        postRegister(data).then((response) => {
+          setCookie('access', response.access);
+          setCookie('refresh', response.refresh);
+          RegisterIds();
+          router.replace(ROUTES.SIGNUP.SUCCESS);
+        });
       }
     },
   );

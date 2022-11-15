@@ -77,6 +77,8 @@ function MypageWithdrawalPage({ ...basisProps }: MypageWithdrawalPageProps) {
                   setOpen(!open);
                   deleteCookie('access');
                   deleteCookie('refresh');
+                  deleteCookie('userId');
+                  deleteCookie('cartId');
                 }
               });
           } catch (error) {

@@ -27,7 +27,10 @@ export const ROUTES = {
   MAIN: '/',
   LOGIN: '/login',
   CART: '/cart',
-  SIGNUP: '/sign-up',
+  SIGNUP: {
+    MAIN: '/sign-up',
+    SUCCESS: '/sign-up/success',
+  },
   PRODUCT: '/product',
   PURCHASE: {
     MAIN: '/orderpage',

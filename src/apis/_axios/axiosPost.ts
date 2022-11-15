@@ -1,8 +1,11 @@
 import { getCookie } from 'cookies-next';
 
 import {
+  ICreateCartReturn,
   IPostReviewBody,
   IRefreshTokenReturn,
+  IRegisterUser,
+  IRegisterUserReturn,
   ISocialLoginBody,
 } from './axiosPostType';
 import { post } from './request';
@@ -23,4 +26,14 @@ export async function postSocialToken(body: ISocialLoginBody) {
 
 export async function postCart(userId: number) {
   return await post('user/social_login/', userId);
+}
+
+export async function postRegister(
+  data: IRegisterUser,
+): Promise<IRegisterUserReturn> {
+  return await post('user/register/', data);
+}
+
+export async function postCreateCart(uid: number): Promise<ICreateCartReturn> {
+  return await post('cart/', { userId: uid });
 }

@@ -1,16 +1,20 @@
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 
 import { Box, ChakraProps, Flex, Heading, Text } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common/index';
 import { ClapIcon } from '@icons/UI';
 
+import { ROUTES } from '@constants/routes';
+
 interface SignUpSuccessPageProps extends ChakraProps {}
 
 function SignUpSuccessPage({ ...basisProps }: SignUpSuccessPageProps) {
+  const router = useRouter();
   const handleSubit = (e: React.FormEvent<HTMLDivElement>) => {
     e.preventDefault();
-    console.log('로긴 성공');
+    router.replace(ROUTES.MAIN);
   };
 
   return (
