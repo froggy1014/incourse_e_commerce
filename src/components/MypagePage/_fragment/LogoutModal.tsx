@@ -1,6 +1,3 @@
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-
 import { deleteCookie } from 'cookies-next';
 
 import {
@@ -17,16 +14,16 @@ import {
 
 import { SubmitButton } from '@components/common/';
 
+import { ROUTES } from '@constants/routes';
+
 interface ModalExampleProps extends Omit<ModalProps, 'children'> {}
 function LogoutModal({ ...props }: ModalExampleProps) {
-  const router = useRouter();
-
   const handleLogout = async () => {
-    console.log('click');
     deleteCookie('access');
     deleteCookie('refresh');
-    deleteCookie('socialToken');
-    router.push('/login');
+    deleteCookie('userId');
+    deleteCookie('cartId');
+    window.location.replace(ROUTES.MAIN);
   };
 
   return (

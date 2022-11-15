@@ -1,5 +1,5 @@
 export interface IPostOrder {
-  userId: number;
+  userId: CookieValueTypes;
   price: number;
   method: string;
   userName: string;

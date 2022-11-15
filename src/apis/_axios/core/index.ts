@@ -3,6 +3,8 @@ import { getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import jwt_decode from 'jwt-decode';
 
+import { ROUTES } from '@constants/routes';
+
 import { postRequestToken } from '../axiosPost';
 import { JWTType } from './core';
 
@@ -33,12 +35,13 @@ request.interceptors.response.use(
     switch (error.response.status) {
       case 401:
         if (!accessToken && !refreshToken) {
-          window.location.href = `/login`;
+          window.location.replace(ROUTES.LOGIN);
         }
 
         // access 토큰이 존재한다면 만료가 되었는지 확인 후 진행
         if (accessToken) {
           // jwt token 디코딩
+          console.log('accessToekn');
           const user: JWTType = jwt_decode(String(getCookie('access')));
           // 현재 시간과 해당 토큰의 expiration날짜를 비교해서 만료되었는지 boolean 반환
           const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
@@ -52,6 +55,7 @@ request.interceptors.response.use(
 
         // access 토큰는 없는데 refresh 토큰이 있다면 토큰 재 요청
         if (refreshToken) {
+          console.log('Toekn Refresh');
           // 만료가 되었으니까 refresh해달라고 요청을 한다.
           const { access, refresh } = await postRequestToken();
           // 새로 받은 토큰들 저장 후 기존 req 헤더에 넣어 재 요청

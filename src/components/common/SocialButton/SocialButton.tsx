@@ -25,7 +25,7 @@ const SocialButton = ({ data, size }: SocialButtonProps) => {
       h="45px"
       maxW={maxWidth}
       onClick={() => {
-        router.push(`${data.link}`);
+        router.replace(`${data.link}`);
       }}
       borderRadius="4px"
     >

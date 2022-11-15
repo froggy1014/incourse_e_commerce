@@ -12,6 +12,8 @@ import { postSocialToken } from '@apis/_axios/axiosPost';
 
 import MobileLayout from '@components/common/@Layout/MobileLayout';
 
+import { ROUTES } from '@constants/routes';
+
 interface ICartInfo {
   id: number;
   cartitem: any;
@@ -34,7 +36,7 @@ function SocialloginCallback({ code, state }: { code: string; state: string }) {
   async function registerCartId(cartInfo: Promise<ICartInfo[]>) {
     cartInfo.then((data: ICartInfo[]) => {
       setCookie('cartId', data[0].id);
-      router.push('/');
+      router.replace(ROUTES.MAIN);
     });
   }
 
@@ -45,7 +47,7 @@ function SocialloginCallback({ code, state }: { code: string; state: string }) {
       setCookie('access', access);
       setCookie('refresh', refresh);
       if (isRegister) registerIds();
-      if (!isRegister) router.push('/sign-up');
+      if (!isRegister) router.replace(ROUTES.SIGNUP);
     });
   }, []);
 

@@ -1,12 +1,8 @@
-import axios from 'axios';
 import { CookieValueTypes, getCookie } from 'cookies-next';
 
-import { IItem } from '@components/MypageOrderhistoryPage/OrderHistory';
-
-import request from './core';
 import { get } from './request';
 
-export const userId = Number(getCookie('userId'));
+export const userId = getCookie('userId');
 
 export async function getMyOrders(pageParam: Number) {
   return await get(
