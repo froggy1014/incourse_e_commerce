@@ -30,6 +30,7 @@ const MainHeader = ({ px }: MainHeaderType) => {
       <Flex
         w="100%"
         h="80px"
+        bg="rgba(255, 255, 255, 0.3)"
         justify="space-between"
         align="center"
         position="fixed"
