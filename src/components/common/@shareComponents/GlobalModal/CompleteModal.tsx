@@ -12,8 +12,7 @@ import {
 } from '@chakra-ui/react';
 
 import { ROUTES } from '@constants/routes';
-
-import { SubmitButton } from '../SubmitButton/SubmitButton';
+import { SubmitButton } from '@shareComponents/index';
 
 interface ModalExampleProps extends Omit<ModalProps, 'children'> {
   title: string;

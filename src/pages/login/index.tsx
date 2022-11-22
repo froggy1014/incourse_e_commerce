@@ -8,11 +8,6 @@ interface socialInfo {
     redirectURL: string;
   };
 }
-
-const Login = ({ data }: socialInfo) => {
-  return <LoginPage data={data} />;
-};
-
 export async function getStaticProps() {
   const data = {
     clientId: process.env.KAKAO_CLIENT_ID,
@@ -25,5 +20,9 @@ export async function getStaticProps() {
     },
   };
 }
+
+const Login = ({ data }: socialInfo) => {
+  return <LoginPage data={data} />;
+};
 
 export default Login;

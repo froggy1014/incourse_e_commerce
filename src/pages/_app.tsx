@@ -4,8 +4,6 @@ import { Provider } from 'react-redux';
 
 import { ThemeProvider, useColorMode, useTheme } from '@chakra-ui/react';
 
-import ToggleColorModeButton from '@components/common/ToggleColorModeButton';
-
 import { mode } from '@theme/foundations/colors';
 
 import store from '../features/store';
@@ -24,7 +22,6 @@ function MyApp({ Component, pageProps: { ...pageProps } }: any) {
       <ThemeProvider
         theme={{ ...theme, colors: { ...theme.colors, ...mode[colorMode] } }}
       >
-        <ToggleColorModeButton />
         <Provider store={store}>
           <Component {...pageProps} />
         </Provider>

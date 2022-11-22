@@ -18,9 +18,9 @@ import {
 
 import { decProduct, incProduct } from '@features/pg/pgSlice';
 
-import { SubmitButton } from '@components/common';
 import { QtyMinusIcon, QtyPlusIcon } from '@icons/index';
 
+import { SubmitButton } from '@shareComponents/index';
 import { axiosInstance } from '@utils/axios';
 import { intComma } from '@utils/format';
 

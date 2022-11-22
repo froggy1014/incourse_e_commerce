@@ -5,9 +5,8 @@ import { Box, Divider, HStack, Stack, Text, VStack } from '@chakra-ui/react';
 
 import { getProductDetail } from '@apis/_axios/axiosGet';
 
-import { Loading } from '@components/common';
-
 import { STATUS } from '@constants/status';
+import { Loading } from '@shareComponents/index';
 import { shippingStatus } from '@utils/validate';
 
 import { IItem } from '../OrderHistory';

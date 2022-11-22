@@ -12,6 +12,7 @@
       "@image": ["./generated/path/images.ts"],
       "@layout/*": ["./components/common/@Layout/*"],
       "@layout/components": ["./components/common/@Layout/MobileLayout/_fragments/index.ts"],
+      "@shareComponents/*": ["./components/common/@shareComponents/*"],
       "@config": ["../config.ts"]
     },
     "target": "es5",

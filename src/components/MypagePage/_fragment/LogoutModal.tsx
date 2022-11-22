@@ -12,9 +12,8 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import { SubmitButton } from '@components/common/';
-
 import { ROUTES } from '@constants/routes';
+import { SubmitButton } from '@shareComponents/index';
 
 interface ModalExampleProps extends Omit<ModalProps, 'children'> {}
 function LogoutModal({ ...props }: ModalExampleProps) {

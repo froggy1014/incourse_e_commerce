@@ -6,9 +6,8 @@ import { getCookie, setCookie } from 'cookies-next';
 import { patchGetMe } from '@apis/_axios/axiosPatch';
 import { postRegister } from '@apis/_axios/axiosPost';
 
-import { CompleteModal } from '@components/common';
-
 import { ROUTES } from '@constants/routes';
+import { CompleteModal } from '@shareComponents/index';
 import RegisterIds from '@utils/RegisterIds';
 
 import useProfileForm from '../_hook/useProfieForm';

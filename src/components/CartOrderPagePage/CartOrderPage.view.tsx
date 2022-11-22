@@ -7,7 +7,6 @@ import React, {
   useState,
 } from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
-import { useQueryClient } from 'react-query';
 import { RootStateOrAny, useSelector } from 'react-redux';
 
 import {
@@ -28,11 +27,9 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-import { useGetItemInfo } from '@components/CartPage/_hook/useCartData';
-import { FormHelper, Loading, SubmitButton } from '@components/common';
 import { CardPayIcon } from '@icons/index';
 
-import { axiosInstance } from '@utils/axios';
+import { FormHelper, Loading, SubmitButton } from '@shareComponents/index';
 import { addHyphenPhone, intComma } from '@utils/format';
 
 import AddressModal from './_fragment/AddressModal';

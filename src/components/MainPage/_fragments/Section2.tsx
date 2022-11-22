@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Box, Container, Image } from '@chakra-ui/react';
 
-import { SubmitButton } from '@components/common/index';
+import { SubmitButton } from '@shareComponents/index';
 
 const Section2 = () => {
   return (

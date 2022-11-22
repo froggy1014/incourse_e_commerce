@@ -15,7 +15,7 @@ import {
 
 import { usePatchStatus } from '@components/MypageOrderhistoryPage/_Hook/usePatchStatus';
 
-import { SubmitButton } from '../SubmitButton/SubmitButton';
+import { SubmitButton } from '@shareComponents/index';
 
 interface ModalExampleProps extends Omit<ModalProps, 'children'> {
   title: string;

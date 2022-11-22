@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { getMe } from '@apis/_axios/axiosGet';
 
 import MypagePage from '@components/MypagePage';
-import { Loading } from '@components/common';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';
+import { Loading } from '@shareComponents/index';
 
 function Mypage() {
   const [meinfo, setMeinfo] = useState();

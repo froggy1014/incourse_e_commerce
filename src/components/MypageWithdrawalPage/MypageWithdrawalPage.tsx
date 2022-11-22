@@ -18,8 +18,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import { CompleteModal, SubmitButton } from '@components/common';
-
+import { CompleteModal, SubmitButton } from '@shareComponents/index';
 import { axiosInstance } from '@utils/axios';
 
 interface MypageWithdrawalPageProps extends ChakraProps {}

@@ -13,9 +13,9 @@ import {
   initCartState,
 } from '@features/cart/cartSlice';
 
-import { Loading } from '@components/common';
 import { QtyMinusIcon, QtyPlusIcon } from '@icons/index';
 
+import { Loading } from '@shareComponents/index';
 import { intComma } from '@utils/format';
 
 import {

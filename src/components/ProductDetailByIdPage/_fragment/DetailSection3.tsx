@@ -17,8 +17,8 @@ import {
   filterReviews
 } from '@features/detailReview/detailReviewSlice';
 
-import { ReviewCard } from '@components/common';
 import { EmptyRatingIcon, HalfRatingIcon, RatingIcon } from '@icons/index';
+import { ReviewCard } from '@shareComponents/index';
 
 interface reviewListTypes {
   content: string;

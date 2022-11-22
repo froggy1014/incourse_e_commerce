@@ -6,12 +6,13 @@ import { Box, ChakraProps, Divider, Stack, Text } from '@chakra-ui/react';
 import { getMyReviews } from '@apis/_axios/axiosGet';
 
 import PageBar from '@components/MypageOrderhistoryPage/_fragment/PageBar';
-import { Loading, MyReviewCard } from '@components/common';
 
 import { QUERY_KEY } from '@constants/query-keys';
+import { Loading } from '@shareComponents/index';
 
 import { IMyReviews } from './MyReviews';
 import EmptyReview from './_fragments/EmptyReview';
+import MyReviewCard from './_fragments/MyReviewCard';
 
 interface MypageMyreviewsPageProps extends ChakraProps {}
 

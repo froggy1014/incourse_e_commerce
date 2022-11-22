@@ -5,10 +5,9 @@ import { Box, Stack, Text } from '@chakra-ui/react';
 
 import { getMyOrders, getOrderStatus } from '@apis/_axios/axiosGet';
 
-import { AskModal, CompleteModal, Loading } from '@components/common';
-
 import { QUERY_KEY } from '@constants/query-keys';
 import { STATUS } from '@constants/status';
+import { AskModal, CompleteModal, Loading } from '@shareComponents/index';
 import { divideArraybyuuid } from '@utils/array';
 import { formatDateDash } from '@utils/format';
 

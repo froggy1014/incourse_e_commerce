@@ -3,10 +3,10 @@ import React from 'react';
 
 import { Box, ChakraProps, Flex, Heading, Text } from '@chakra-ui/react';
 
-import { SubmitButton } from '@components/common/index';
 import { ClapIcon } from '@icons/index';
 
 import { ROUTES } from '@constants/routes';
+import { SubmitButton } from '@shareComponents/index';
 
 interface SignUpSuccessPageProps extends ChakraProps {}
 

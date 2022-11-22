@@ -3,7 +3,7 @@ import React from 'react';
 
 import { ChakraProps, Text, VStack } from '@chakra-ui/react';
 
-import { SubmitButton } from '@components/common';
+import { SubmitButton } from '@shareComponents/index';
 
 interface EmptyCartType extends ChakraProps {}
 

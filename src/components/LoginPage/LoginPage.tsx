@@ -2,8 +2,11 @@ import React from 'react';
 
 import { Container, Flex } from '@chakra-ui/react';
 
-import SocialButton, { SocialType } from '@components/common/SocialButton';
 import { Logo } from '@icons/index';
+
+import { SocialButton } from '@shareComponents/index';
+
+type SocialType = 'kakao' | 'naver' | 'facebook' | 'google' | 'apple';
 
 interface socialInfo {
   data: {

@@ -7,7 +7,7 @@ import { EmptyRatingIcon, RatingIcon } from '@icons/index';
 
 import { formatDate } from '@utils/format';
 
-export const MyReviewCard = ({ review }: { review: IMyReviews }) => {
+const MyReviewCard = ({ review }: { review: IMyReviews }) => {
   const rateArr = Array(5).fill(0);
   return (
     <Box py="15px">
@@ -42,3 +42,5 @@ export const MyReviewCard = ({ review }: { review: IMyReviews }) => {
     </Box>
   );
 };
+
+export default MyReviewCard;

@@ -1,12 +1,13 @@
 import React from 'react';
 
+import { CONFIG } from '@config';
+
 import { HStack, VStack } from '@chakra-ui/react';
 
-import SocialButton, { SocialType } from '@components/common/SocialButton';
-
-import { CONFIG } from '@config';
 import { SOCIAL } from '@constants/social';
+import { SocialButton } from '@shareComponents/index';
 
+type SocialType = 'kakao' | 'naver' | 'facebook' | 'google' | 'apple';
 const SOCIAL_REDIRECT_URL = `${CONFIG.DOMAIN}`;
 
 const SOCIAL_LIST: Array<{ social: SocialType; link: string }> = [

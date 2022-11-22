@@ -16,9 +16,8 @@ import {
 
 import { clearUpCartState, toggleCartState } from '@features/cart/cartSlice';
 
-import { Loading, SubmitButton } from '@components/common';
-
 import { ROUTES } from '@constants/routes';
+import { Loading, SubmitButton } from '@shareComponents/index';
 import { intComma } from '@utils/format';
 
 import CartCard from './_fragment/CartCard';

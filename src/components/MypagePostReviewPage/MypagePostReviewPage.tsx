@@ -15,8 +15,6 @@ import {
 
 import { getProductDetail } from '@apis/_axios/axiosGet';
 
-import { CompleteModal } from '@components/common';
-import { Loading, SubmitButton } from '@components/common';
 import {
   AddPhotoIcon,
   DeletePhotoIcon,
@@ -24,6 +22,8 @@ import {
 } from '@icons/index';
 
 import { QUERY_KEY } from '@constants/query-keys';
+import { CompleteModal } from '@shareComponents/index';
+import { Loading, SubmitButton } from '@shareComponents/index';
 import { bytesToMB, fileToBase64, isBase64Img, isOverSize } from '@utils/file';
 import { formatDateDash, intComma } from '@utils/format';
 

@@ -13,7 +13,7 @@ export interface SocialButtonProps {
   size: 'md' | 'sm';
 }
 
-const SocialButton = ({ data, size }: SocialButtonProps) => {
+export const SocialButton = ({ data, size }: SocialButtonProps) => {
   const width = size !== 'sm' ? '100%' : '45px';
   const maxWidth = size !== 'sm' ? '310px' : '45px';
   const left = size !== 'sm' ? '27px' : '9px';
@@ -47,5 +47,3 @@ const SocialButton = ({ data, size }: SocialButtonProps) => {
     </Button>
   );
 };
-
-export default SocialButton;

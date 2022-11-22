@@ -11,9 +11,8 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import { Loading, SubmitButton } from '@components/common';
-
 import { ROUTES } from '@constants/routes';
+import { Loading, SubmitButton } from '@shareComponents/index';
 import { addHyphenPhone, formatDateDash, intComma } from '@utils/format';
 
 import { useProductInfoQuery } from './_hook/useProductInfoQuery';
