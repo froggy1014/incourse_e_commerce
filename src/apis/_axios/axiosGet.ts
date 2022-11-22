@@ -32,6 +32,13 @@ export async function getCartInfo(uid: number) {
   return await get(`cart/?user_id=${uid}`);
 }
 
+export const getProduct = async ({ pageParam = null }) => {
+  let response;
+  if (!pageParam) response = await get('/product/');
+  else response = await get(`/product/?cursor=${pageParam}`);
+  return response;
+};
+
 /*************************ServerSide********************************/
 
 export async function getOrderList(userId: CookieValueTypes) {

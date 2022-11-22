@@ -1,18 +1,15 @@
 import React, { useCallback, useRef } from 'react';
 import { useInfiniteQuery } from 'react-query';
 
-import { Box, Button, HStack, Spinner, useDisclosure } from '@chakra-ui/react';
+import { Box, HStack, Spinner, useDisclosure } from '@chakra-ui/react';
 
-import { getProduct } from '@utils/axios';
+import { getProduct } from '@apis/_axios/axiosGet';
 
 import ProductCard from './_fragment/ProductCard';
 import PurchaseModal from './_fragment/PurchaseModal';
-import { ProductPageType } from './data';
 
-function ProductPage({ ...props }: ProductPageType) {
-  //** 모달창 컨트롤을 위한 useDisclosure 훅 from Chakra UI */
+function ProductPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  //** useInfiteQuery를 통해 scroll to fetch 구현 */
   const {
     data,
     fetchNextPage,
