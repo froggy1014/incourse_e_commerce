@@ -31,7 +31,7 @@ const Section4 = () => {
           <InstagramIcon /> min6_6b
         </a>
       </Text>
-      <UpwardIcon />
+      <UpwardIcon cursor="pointer" />
     </Flex>
   );
 };

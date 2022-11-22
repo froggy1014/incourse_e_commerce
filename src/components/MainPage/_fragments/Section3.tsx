@@ -27,7 +27,7 @@ const Section3 = ({ results }: AllReviewTypes) => {
       </Text>
       <ButtonCarousel setValue={setValue} value={value} />
       {/* <SingleCarousel /> */}
-      <Box overflowX="hidden" maxW="375px" h="auto" mb="100px">
+      <Box overflowX="hidden" maxW="375px" h="auto" mb="80px">
         <Slider {...settings}>
           {value === 0
             ? results.map((result) => {
@@ -44,7 +44,6 @@ const Section3 = ({ results }: AllReviewTypes) => {
                 })}
         </Slider>
       </Box>
-      <FloatingActionIcon />
     </Box>
   );
 };
