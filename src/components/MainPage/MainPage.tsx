@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container } from '@chakra-ui/react';
 
-import MainHeader from '@components/common/@Layout/MobileLayout/_fragments/MainHeader';
+import MainHeader from '@layout/MobileLayout/_fragments/MainHeader';
 
 import Section1 from './_fragments/Section1';
 import Section2 from './_fragments/Section2';

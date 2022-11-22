@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 
 import { Box, BoxProps, Button, Image, Text } from '@chakra-ui/react';
 
-import { DownVerticalArrow, UpVerticalArrow } from '@icons/UI';
+import { DownVerticalArrow, UpVerticalArrow } from '@icons/index';
 
 interface DetailSectionOne extends BoxProps {
   detail: string;

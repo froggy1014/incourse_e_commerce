@@ -3,10 +3,9 @@ import React from 'react';
 import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react';
 
 import { IMyReviews } from '@components/MypageMyreviewsPage/MyReviews';
+import { EmptyRatingIcon, RatingIcon } from '@icons/index';
 
 import { formatDate } from '@utils/format';
-
-import { EmptyRatingIcon, RatingIcon } from '../@Icons/UI';
 
 export const MyReviewCard = ({ review }: { review: IMyReviews }) => {
   const rateArr = Array(5).fill(0);

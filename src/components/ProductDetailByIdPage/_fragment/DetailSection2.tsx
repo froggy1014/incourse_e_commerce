@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Box, Button, Collapse, HStack, Text, VStack } from '@chakra-ui/react';
 
-import { DownVerticalArrow, UpVerticalArrow } from '@icons/UI';
+import { DownVerticalArrow, UpVerticalArrow } from '@icons/index';
 
 const DetailSection2 = () => {
   const [open, setOpen] = useState(true);

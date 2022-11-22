@@ -1,6 +1,6 @@
 import { Icon, IconProps } from '@chakra-ui/react';
 
-const CartIcon = ({ ...props }: IconProps) => {
+export const CartIcon = ({ ...props }: IconProps) => {
   return (
     <Icon w="24px" h="24px" viewBox="0 0 24 24" {...props}>
       <path
@@ -27,5 +27,3 @@ const CartIcon = ({ ...props }: IconProps) => {
     </Icon>
   );
 };
-
-export default CartIcon;

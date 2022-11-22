@@ -7,7 +7,7 @@ import { Box, Flex, HStack, Image, Text, VStack } from '@chakra-ui/react';
 import { focusProduct } from '@features/pg/pgSlice';
 
 import { SubmitButton } from '@components/common';
-import { RatingIcon } from '@icons/UI';
+import { RatingIcon } from '@icons/index';
 
 import { ROUTES } from '@constants/routes';
 import { intComma } from '@utils/format';

@@ -10,7 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import { EmptyRatingIcon, RatingIcon } from '@components/common/@Icons/UI';
+import { EmptyRatingIcon, RatingIcon } from '@icons/index';
 
 import { formatDate } from '@utils/format';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react';
 
-import { EmptyRatingIcon, RatingIcon } from '@icons/UI';
+import { EmptyRatingIcon, RatingIcon } from '@icons/index';
 
 import { formatDate } from '@utils/format';
 

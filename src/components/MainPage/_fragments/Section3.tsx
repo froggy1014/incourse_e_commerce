@@ -3,8 +3,6 @@ import Slider from 'react-slick';
 
 import { Box, Text } from '@chakra-ui/react';
 
-import { FloatingActionIcon } from '@icons/UI';
-
 import { AllReviewTypes } from '../data';
 import ButtonCarousel from './ButtonCarousel';
 import ReviewCard from './ReviewCard';

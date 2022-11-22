@@ -8,7 +8,7 @@ import React, {
 
 import { Button, ChakraProps, Flex } from '@chakra-ui/react';
 
-import { ListArrowLeft, ListArrowRight } from '@components/common/@Icons/UI';
+import { ListArrowLeft, ListArrowRight } from '@icons/index';
 
 interface PageBarInterface extends ChakraProps {
   page: number;

@@ -9,7 +9,7 @@ import {
   MenuList,
 } from '@chakra-ui/react';
 
-import { DownVerticalArrow } from '@icons/UI';
+import { DownVerticalArrow } from '@icons/index';
 
 import { usePatchStatus } from '../_Hook/usePatchStatus';
 

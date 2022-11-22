@@ -1,6 +1,6 @@
 import { Icon, IconProps } from '@chakra-ui/react';
 
-const ExitIcon = ({ ...props }: IconProps) => {
+export const ExitIcon = ({ ...props }: IconProps) => {
   return (
     <Icon w="6" h="6" viewBox="0 0 24 24" fill="none" {...props}>
       <path
@@ -27,5 +27,3 @@ const ExitIcon = ({ ...props }: IconProps) => {
     </Icon>
   );
 };
-
-export default ExitIcon;

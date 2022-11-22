@@ -8,7 +8,7 @@ import {
   MyReviewIcon,
   OrderListIcon,
   UserInfoEditIcon,
-} from '@icons/UI';
+} from '@icons/index';
 
 import { getQueryString } from '@utils/format';
 

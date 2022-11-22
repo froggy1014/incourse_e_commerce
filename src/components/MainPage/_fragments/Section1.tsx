@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { Container, Image, Text } from '@chakra-ui/react';
 
-import ArrowRightIcon from '@components/common/@Icons/System/ArrowRight';
 import { CompleteModal } from '@components/common/GlobalModal/CompleteModal';
+import { ArrowRightIcon } from '@icons/index';
 
 const Section1 = () => {
   const [open, setOpen] = useState(false);

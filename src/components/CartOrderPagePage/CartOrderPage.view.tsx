@@ -30,7 +30,7 @@ import {
 
 import { useGetItemInfo } from '@components/CartPage/_hook/useCartData';
 import { FormHelper, Loading, SubmitButton } from '@components/common';
-import { CardPayIcon } from '@components/common/@Icons/UI';
+import { CardPayIcon } from '@icons/index';
 
 import { axiosInstance } from '@utils/axios';
 import { addHyphenPhone, intComma } from '@utils/format';

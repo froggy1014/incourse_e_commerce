@@ -19,7 +19,7 @@ import {
 import { decProduct, incProduct } from '@features/pg/pgSlice';
 
 import { SubmitButton } from '@components/common';
-import { QtyMinusIcon, QtyPlusIcon } from '@icons/UI';
+import { QtyMinusIcon, QtyPlusIcon } from '@icons/index';
 
 import { axiosInstance } from '@utils/axios';
 import { intComma } from '@utils/format';

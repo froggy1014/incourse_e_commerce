@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Flex } from '@chakra-ui/react';
 
-import { Logo } from '@icons/UI';
+import { Logo } from '@icons/index';
 
 const SignupHeader = () => {
   return (

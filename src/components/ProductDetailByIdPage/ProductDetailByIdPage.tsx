@@ -16,7 +16,7 @@ import { storeReviews } from '@features/detailReview/detailReviewSlice';
 
 import PurchaseModal from '@components/ProductPage/_fragment/PurchaseModal';
 import { SubmitButton } from '@components/common';
-import { RatingIcon } from '@icons/UI';
+import { RatingIcon } from '@icons/index';
 
 import { intComma } from '@utils/format';
 

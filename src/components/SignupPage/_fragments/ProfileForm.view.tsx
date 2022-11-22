@@ -22,7 +22,7 @@ import {
 } from '@chakra-ui/react';
 
 import { FormHelper, SubmitButton } from '@components/common/index';
-import { AddProfile, ProfileIcon } from '@icons/UI';
+import { AddProfile, ProfileIcon } from '@icons/index';
 
 import { fileToBase64 } from '@utils/file';
 

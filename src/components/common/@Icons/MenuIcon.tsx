@@ -1,6 +1,6 @@
 import { Icon, IconProps } from '@chakra-ui/react';
 
-const MenuIcon = ({ ...props }: IconProps) => {
+export const MenuIcon = ({ ...props }: IconProps) => {
   return (
     <Icon w="24px" h="24px" viewBox="0 0 24 24" {...props}>
       <path d="M21 5H3V7.5H21V5Z" fill="currentColor" />
@@ -8,5 +8,3 @@ const MenuIcon = ({ ...props }: IconProps) => {
     </Icon>
   );
 };
-
-export default MenuIcon;

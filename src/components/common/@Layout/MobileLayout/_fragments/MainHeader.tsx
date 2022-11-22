@@ -18,10 +18,7 @@ import {
 } from '@chakra-ui/react';
 
 import LogoutModal from '@components/MypagePage/_fragment/LogoutModal';
-import CartIcon from '@components/common/@Icons/System/Cart';
-import ExitIcon from '@components/common/@Icons/System/Exit';
-import MenuIcon from '@components/common/@Icons/System/Menu';
-import { Logo } from '@icons/UI';
+import { CartIcon, ExitIcon, Logo, MenuIcon } from '@icons/index';
 
 import { ROUTES } from '@constants/routes';
 

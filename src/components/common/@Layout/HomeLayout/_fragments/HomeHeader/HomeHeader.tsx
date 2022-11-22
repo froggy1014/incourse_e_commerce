@@ -1,7 +1,7 @@
 import { Flex, IconButton, Image } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
 
-import MenuIcon from '@components/common/@Icons/System/Menu';
+import { MenuIcon } from '@icons/index';
 
 import { LAYOUT } from '@constants/layout';
 

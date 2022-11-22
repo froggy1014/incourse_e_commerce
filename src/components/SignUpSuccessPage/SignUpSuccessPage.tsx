@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Box, ChakraProps, Flex, Heading, Text } from '@chakra-ui/react';
 
 import { SubmitButton } from '@components/common/index';
-import { ClapIcon } from '@icons/UI';
+import { ClapIcon } from '@icons/index';
 
 import { ROUTES } from '@constants/routes';
 

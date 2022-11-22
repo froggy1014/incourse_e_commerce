@@ -10,6 +10,7 @@
       "@theme/*": ["./styles/theme/*"],
       "@icons/*": ["./components/common/@Icons/*"],
       "@image": ["./generated/path/images.ts"],
+      "@layout/*": ["./components/common/@Layout/*"],
       "@config": ["../config.ts"]
     },
     "target": "es5",

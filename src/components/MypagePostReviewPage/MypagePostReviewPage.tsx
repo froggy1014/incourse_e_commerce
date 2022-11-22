@@ -21,7 +21,7 @@ import {
   AddPhotoIcon,
   DeletePhotoIcon,
   EmptyBigRatingIcon,
-} from '@components/common/@Icons/UI';
+} from '@icons/index';
 
 import { QUERY_KEY } from '@constants/query-keys';
 import { bytesToMB, fileToBase64, isBase64Img, isOverSize } from '@utils/file';

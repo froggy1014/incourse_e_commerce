@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 
-import { InstagramIcon, UpwardIcon } from '@icons/UI';
+import { InstagramIcon, UpwardIcon } from '@icons/index';
 
 const Section4 = () => {
   return (
