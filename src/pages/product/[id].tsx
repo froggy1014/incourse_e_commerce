@@ -2,10 +2,9 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 
 import ProductDetailByIdPage from '@components/ProductDetailByIdPage';
-import MobileLayout from '@components/common/@Layout/MobileLayout';
-import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
-import MainHeader from '@components/common/@Layout/MobileLayout/_fragments/MainHeader';
 
+import MobileLayout from '@layout/MobileLayout';
+import { Footer, MainHeader } from '@layout/components';
 import { productFetch } from '@utils/axios';
 
 function ProductDetailById({

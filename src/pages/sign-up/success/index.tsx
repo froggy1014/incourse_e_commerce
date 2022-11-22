@@ -1,5 +1,6 @@
 import SignUpSuccessPage from '@components/SignUpSuccessPage';
-import MobileLayout from '@components/common/@Layout/MobileLayout';
+
+import MobileLayout from '@layout/MobileLayout';
 
 function SignUpSuccess() {
   return (

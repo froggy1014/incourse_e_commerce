@@ -11,6 +11,7 @@
       "@icons/*": ["./components/common/@Icons/*"],
       "@image": ["./generated/path/images.ts"],
       "@layout/*": ["./components/common/@Layout/*"],
+      "@layout/components": ["./components/common/@Layout/MobileLayout/_fragments/index.ts"],
       "@config": ["../config.ts"]
     },
     "target": "es5",

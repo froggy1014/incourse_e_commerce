@@ -2,9 +2,9 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 
 import CartOrderPage from '@components/CartOrderPagePage/CartOrderPage';
-import MobileLayout from '@components/common/@Layout/MobileLayout';
-import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
-import MainHeader from '@components/common/@Layout/MobileLayout/_fragments/MainHeader';
+
+import MobileLayout from '@layout/MobileLayout';
+import { Footer, MainHeader } from '@layout/components';
 
 function CartOrder({
   TOSS_KEY,

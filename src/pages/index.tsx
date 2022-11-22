@@ -4,8 +4,9 @@ import Head from 'next/head';
 import axios from 'axios';
 
 import MainPage from '@components/MainPage';
-import MobileLayout from '@components/common/@Layout/MobileLayout';
-import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
+
+import MobileLayout from '@layout/MobileLayout';
+import { Footer } from '@layout/components';
 
 function Main({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (

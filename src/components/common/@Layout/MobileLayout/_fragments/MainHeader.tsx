@@ -24,7 +24,7 @@ import { ROUTES } from '@constants/routes';
 
 type MainHeaderType = { px?: string };
 
-const MainHeader = ({ px }: MainHeaderType) => {
+export const MainHeader = ({ px }: MainHeaderType) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [open, setOpen] = useState(false);
   return (
@@ -106,5 +106,3 @@ const MainHeader = ({ px }: MainHeaderType) => {
     </>
   );
 };
-
-export default MainHeader;

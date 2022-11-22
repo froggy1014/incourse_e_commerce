@@ -7,12 +7,10 @@ import { setCookie } from 'cookies-next';
 
 import { Flex, Spinner } from '@chakra-ui/react';
 
-import { getCartInfo, getMe } from '@apis/_axios/axiosGet';
 import { postSocialToken } from '@apis/_axios/axiosPost';
 
-import MobileLayout from '@components/common/@Layout/MobileLayout';
-
 import { ROUTES } from '@constants/routes';
+import MobileLayout from '@layout/MobileLayout';
 import registerIds from '@utils/RegisterIds';
 
 function SocialloginCallback({ code, state }: { code: string; state: string }) {

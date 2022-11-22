@@ -4,10 +4,9 @@ import Head from 'next/head';
 import { getCookie, setCookie } from 'cookies-next';
 
 import CartPage from '@components/CartPage/CartPage';
-import MobileLayout from '@components/common/@Layout/MobileLayout';
-import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
-import MainHeader from '@components/common/@Layout/MobileLayout/_fragments/MainHeader';
 
+import MobileLayout from '@layout/MobileLayout';
+import { Footer, MainHeader } from '@layout/components';
 import { refreshTokenFun } from '@utils/axios';
 
 const Cart = () => {

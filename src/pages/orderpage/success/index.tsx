@@ -6,9 +6,9 @@ import axios from 'axios';
 import { getCookie } from 'cookies-next';
 
 import CartOrderpageSuccessPage from '@components/CartOrderpageSuccessPage';
-import MobileLayout from '@components/common/@Layout/MobileLayout';
-import Footer from '@components/common/@Layout/MobileLayout/_fragments/Footer';
-import MainHeader from '@components/common/@Layout/MobileLayout/_fragments/MainHeader';
+
+import MobileLayout from '@layout/MobileLayout';
+import { Footer, MainHeader } from '@layout/components';
 
 axios.defaults.baseURL = 'https://api.commerce.incourse.run/v1/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
