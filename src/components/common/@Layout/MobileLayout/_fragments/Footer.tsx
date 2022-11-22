@@ -26,11 +26,11 @@ const Footer = () => {
       >
         <Heading fontSize="16px">INCOURSE.RUN</Heading>
         <Flex direction="column" h="58px" justify="space-between">
-          <Text>팀명 | 인코스런</Text>
-          <Text>구성원 | 홍길동, 홍길동, 홍길동, 홍길동 </Text>
-          <Text>이메일 | incourse.run@gmail.com</Text>
+          <Text>팀명 | 인코스런 - 끝나지 않는 싸움</Text>
+          <Text>구성원 | 이정민 </Text>
+          <Text>이메일 | clcl6084@gmail.com</Text>
         </Flex>
-        <Text>ⓒINCOURSE.RUN All Right Reserved.</Text>
+        <Text>ⓒFroogy1014 All Right Reserved.</Text>
       </Flex>
     </Flex>
   );

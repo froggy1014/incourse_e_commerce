@@ -16,14 +16,20 @@ const Section4 = () => {
       position="relative"
     >
       <Text fontSize="20px" fontWeight="bold">
-        인코스런에 대해 더 궁금하신가요?
+        저에 대해 더 궁금하신가요?
       </Text>
       <Box my="10px" textAlign="center">
         <Text>인스타그램을 방문하시면 더욱 다양한</Text>
-        <Text>인코스런의 이야기를 확인하실 수 있어요!</Text>
+        <Text>저의 피드를 확인하실 수 있어요!</Text>
       </Box>
-      <Text fontWeight="bold">
-        <InstagramIcon /> INCOURSE.RUN
+      <Text fontWeight="bold" textAlign="center">
+        <a
+          href="https://www.instagram.com/min6_6b/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <InstagramIcon /> min6_6b
+        </a>
       </Text>
       <UpwardIcon />
     </Flex>
