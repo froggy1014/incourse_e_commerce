@@ -85,7 +85,11 @@ request.interceptors.response.use(
           return request(originalRequest);
         }
         break;
+      case 0:
+        window.location.replace(ROUTES.LOGIN);
+        break;
       default:
+        console.log('다없음');
         return Promise.reject(error);
     }
   },
