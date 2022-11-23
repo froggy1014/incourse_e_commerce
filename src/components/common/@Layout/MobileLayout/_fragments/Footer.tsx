@@ -30,7 +30,7 @@ export const Footer = () => {
           <Text>구성원 | 이정민 </Text>
           <Text>이메일 | clcl6084@gmail.com</Text>
         </Flex>
-        <Text>ⓒFroogy1014 All Right Reserved.</Text>
+        <Text>ⓒFroggy All Right Reserved.</Text>
       </Flex>
     </Flex>
   );

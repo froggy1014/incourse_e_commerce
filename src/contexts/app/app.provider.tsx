@@ -7,7 +7,7 @@ import store from '@features/store';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import Fonts from 'generated/fonts/fonts';
+import Fonts from 'styles/fonts/fonts';
 import theme from 'styles/theme';
 
 // Create a client
