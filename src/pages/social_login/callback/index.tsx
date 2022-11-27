@@ -7,7 +7,7 @@ import { setCookie } from 'cookies-next';
 
 import { Flex, Spinner } from '@chakra-ui/react';
 
-import { postSocialToken } from '@apis/_axios/axiosPost';
+import { postSocialToken } from '@apis/_axios/post/axiosPost';
 
 import { ROUTES } from '@constants/routes';
 import MobileLayout from '@layout/MobileLayout';

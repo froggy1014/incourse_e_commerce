@@ -2,8 +2,8 @@ import router from 'next/router';
 
 import { getCookie, setCookie } from 'cookies-next';
 
-import { getCartInfo, getMe } from '@apis/_axios/axiosGet';
-import { postCreateCart } from '@apis/_axios/axiosPost';
+import { getCartInfo, getMe } from '@apis/_axios/get/axiosGet';
+import { postCreateCart } from '@apis/_axios/post/axiosPost';
 
 import { ROUTES } from '@constants/routes';
 

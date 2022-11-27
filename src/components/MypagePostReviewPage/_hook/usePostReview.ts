@@ -4,8 +4,8 @@ import { UseMutateFunction, useMutation } from 'react-query';
 
 import { getCookie } from 'cookies-next';
 
-import { postReview } from '@apis/_axios/axiosPost';
-import { IPostReviewBody } from '@apis/_axios/axiosPostType';
+import { postReview } from '@apis/_axios/post/axiosPost';
+import { IPostReviewBody } from '@apis/_axios/post/axiosPostType';
 
 interface UsePostReview {
   postingReview: UseMutateFunction<void, unknown, void, unknown>;

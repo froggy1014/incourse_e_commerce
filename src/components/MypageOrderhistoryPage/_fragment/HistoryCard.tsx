@@ -3,7 +3,7 @@ import { useQueries } from 'react-query';
 
 import { Box, Divider, HStack, Stack, Text, VStack } from '@chakra-ui/react';
 
-import { getProductDetail } from '@apis/_axios/axiosGet';
+import { getProductDetail } from '@apis/_axios/get/axiosGet';
 
 import { STATUS } from '@constants/status';
 import { Loading } from '@shareComponents/index';

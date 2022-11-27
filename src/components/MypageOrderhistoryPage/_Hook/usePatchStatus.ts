@@ -1,6 +1,6 @@
 import { UseMutateFunction, useMutation, useQueryClient } from 'react-query';
 
-import { patchShipStatus } from '@apis/_axios/axiosPatch';
+import { patchShipStatus } from '@apis/_axios/patch/axiosPatch';
 
 import { QUERY_KEY } from '@constants/query-keys';
 

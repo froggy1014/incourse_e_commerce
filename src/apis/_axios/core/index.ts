@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode';
 
 import { ROUTES } from '@constants/routes';
 
-import { postRequestToken } from '../axiosPost';
+import { postRequestToken } from '../post/axiosPost';
 import { JWTType } from './core';
 
 const request = axios.create({

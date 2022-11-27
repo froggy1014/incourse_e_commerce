@@ -1,6 +1,6 @@
 import { CookieValueTypes, getCookie } from 'cookies-next';
 
-import { get } from './request';
+import { get } from '../request';
 
 export const userId = getCookie('userId');
 

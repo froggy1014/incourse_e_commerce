@@ -1,7 +1,7 @@
 import { getCookie } from 'cookies-next';
 
+import { patch } from '../request';
 import { IProfileInfo, TStatus } from './axiosPatch.d';
-import { patch } from './request';
 
 export const userId = Number(getCookie('userId'));
 

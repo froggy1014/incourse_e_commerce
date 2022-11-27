@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
-import { getMe } from '@apis/_axios/axiosGet';
+import { getMe } from '@apis/_axios/get/axiosGet';
 
 import MypagePage from '@components/MypagePage';
 

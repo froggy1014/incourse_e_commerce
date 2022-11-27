@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 
 import { getCookie, setCookie } from 'cookies-next';
 
-import { patchGetMe } from '@apis/_axios/axiosPatch';
-import { postRegister } from '@apis/_axios/axiosPost';
+import { patchGetMe } from '@apis/_axios/patch/axiosPatch';
+import { postRegister } from '@apis/_axios/post/axiosPost';
 
 import { ROUTES } from '@constants/routes';
 import { CompleteModal } from '@shareComponents/index';

@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 
 import { Box, ChakraProps, Divider, Stack, Text } from '@chakra-ui/react';
 
-import { getMyReviews } from '@apis/_axios/axiosGet';
+import { getMyReviews } from '@apis/_axios/get/axiosGet';
 
 import PageBar from '@components/MypageOrderhistoryPage/_fragment/PageBar';
 

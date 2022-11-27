@@ -13,7 +13,7 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 
-import { getProductDetail } from '@apis/_axios/axiosGet';
+import { getProductDetail } from '@apis/_axios/get/axiosGet';
 
 import {
   AddPhotoIcon,

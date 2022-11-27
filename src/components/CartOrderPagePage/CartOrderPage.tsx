@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { userId } from '@apis/_axios/axiosGet';
-import { postOrderId } from '@apis/_axios/request';
+import { userId } from '@apis/_axios/get/axiosGet';
+import { postOrderId } from '@apis/_axios/post/axiosPost';
 
 import OrderPageView from './CartOrderPage.view';
 import useFormValidate from './_hooks/useFormValidate';
@@ -44,7 +44,7 @@ const OrderPage = ({
       orderRequest,
     }) => {
       const data = {
-        userId: userId,
+        userId,
         price: prices.total,
         amount: prices.total + prices.delivery,
         method: 'CARD',
@@ -62,6 +62,7 @@ const OrderPage = ({
         orderMessage: orderRequest === '' ? '없음' : orderRequest,
       };
       async function apiCall() {
+        console.log(data);
         const response = await postOrderId(data);
         for (let i = 0; i < prices.count.length; i++) {
           const res = await postOrderStatus(

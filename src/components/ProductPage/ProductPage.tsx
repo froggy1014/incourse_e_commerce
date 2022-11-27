@@ -3,7 +3,7 @@ import { useInfiniteQuery } from 'react-query';
 
 import { Box, HStack, Spinner, useDisclosure } from '@chakra-ui/react';
 
-import { getProduct } from '@apis/_axios/axiosGet';
+import { getProduct } from '@apis/_axios/get/axiosGet';
 
 import ProductCard from './_fragment/ProductCard';
 import PurchaseModal from './_fragment/PurchaseModal';
