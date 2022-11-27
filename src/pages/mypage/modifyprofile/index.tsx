@@ -9,8 +9,7 @@ function MypageModifyprofile() {
   return (
     <>
       <Head>
-        {/* ex) Your App Name | Page Name */}
-        <title>modifyprofile</title>
+        <title>회원정보수정</title>
       </Head>
       <MobileLayout
         header={<MainHeader />}

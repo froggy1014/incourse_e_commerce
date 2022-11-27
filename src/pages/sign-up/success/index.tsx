@@ -1,3 +1,5 @@
+import Head from 'next/head';
+
 import SignUpSuccessPage from '@components/SignUpSuccessPage';
 
 import MobileLayout from '@layout/MobileLayout';
@@ -5,6 +7,9 @@ import MobileLayout from '@layout/MobileLayout';
 function SignUpSuccess() {
   return (
     <>
+      <Head>
+        <title>회원가입 성공</title>
+      </Head>
       <MobileLayout content={<SignUpSuccessPage />} />
     </>
   );

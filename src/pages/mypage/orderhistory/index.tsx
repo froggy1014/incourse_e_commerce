@@ -9,7 +9,6 @@ function MypageOrderhistory() {
   return (
     <>
       <Head>
-        {/* ex) Your App Name | Page Name */}
         <title>주문내역</title>
       </Head>
       <MobileLayout

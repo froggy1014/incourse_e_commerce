@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React from 'react';
 
 import LoginPage from '@components/LoginPage';
@@ -21,7 +22,14 @@ export async function getStaticProps() {
 }
 
 const Login = ({ data }: socialInfo) => {
-  return <LoginPage data={data} />;
+  return (
+    <>
+      <Head>
+        <title>로그인</title>
+      </Head>
+      <LoginPage data={data} />;
+    </>
+  );
 };
 
 export default Login;

@@ -9,7 +9,7 @@ function Product() {
   return (
     <>
       <Head>
-        <title>똑똑한 개발자 | product</title>
+        <title>상품 페이지</title>
       </Head>
       <MobileLayout
         header={<MainHeader />}

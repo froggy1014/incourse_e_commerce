@@ -12,7 +12,7 @@ function Main({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
       <Head>
-        <title>main</title>
+        <title>메인페이지</title>
       </Head>
       <MobileLayout content={<MainPage results={data} />} footer={<Footer />} />
     </>

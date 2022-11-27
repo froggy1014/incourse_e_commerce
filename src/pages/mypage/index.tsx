@@ -24,7 +24,7 @@ function Mypage() {
   return (
     <>
       <Head>
-        <title>mypage</title>
+        <title>마이페이지</title>
       </Head>
       <MobileLayout
         header={<MainHeader />}
