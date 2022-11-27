@@ -33,9 +33,6 @@
         <img src="https://img.shields.io/badge/Node.js-^16.15.1-339933?style=for-the-badge&logo=Node.js&logoColor=339933"/>
     </a>
     <a target="_blank" rel="noopener noreferrer nofollow">
-        <img src="https://img.shields.io/badge/React Hook Form-^3.39.2-EC5990?style=for-the-badge&logo=React Hook Form&logoColor=EC5990"/>
-    </a>
-    <a target="_blank" rel="noopener noreferrer nofollow">
         <img src="https://img.shields.io/badge/Next.js-^3.39.2-black?style=for-the-badge&logo=Next.js&logoColor=black"/>
     </a>
     <a target="_blank" rel="noopener noreferrer nofollow">
@@ -97,11 +94,10 @@ In-Course is an E-Commerce application that is used to help users to easily navi
 
 ### 📁 Folder Structure         [-> Wiki](https://github.com/froggy1014/Incourse_E-commerce/wiki/%F0%9F%93%81-Folder-Structure)
 
-### 🔁 User Flow                [-> Wiki]()
+### 🔁 User Flow                [-> Wiki](https://github.com/froggy1014/Incourse_E-commerce/wiki/%F0%9F%94%81-User-Flow)
 
-### ⚠️ Trial and Error          [-> Wiki]()
+### ⚠️ Trial and Error          [-> Wiki](https://github.com/froggy1014/Incourse_E-commerce/wiki/%E2%9A%A0%EF%B8%8F-Trial-and-Error)
 
-### 𝍌 Pages Feature Summary    [-> Wiki]()
 
 
 <br>
@@ -109,13 +105,13 @@ In-Course is an E-Commerce application that is used to help users to easily navi
 # 🤔 What I've learnt? 
 
 <pre>
-    * JWT Token을 이용한 인증 로직                 - Implement Authorization logic by JWT Token
-    * RESTful API를 활용한 CRUD                  - CRUD features by RESTful API
-    * 전역, 서버 상태관리 라이브러리                  - Statement Management 
-    * UI 컴포넌트 커스터마이즈                      - UI Component Customization
-    * Next.js 프레임워크                         - NextJS Framwork features
-    * 토스를 이용한 결제 로직 구성                   - Implement Payment Logic with Toss Module
-    * presigned URL를 이용한 S3 이미지 업로드       - Image Upload to S3 with presigned URL
+* JWT Token을 이용한 인증 로직                 - Implement Authorization logic by JWT Token
+* RESTful API를 활용한 CRUD                  - CRUD features by RESTful API
+* 전역, 서버 상태관리 라이브러리                  - Statement Management 
+* UI 컴포넌트 커스터마이즈                      - UI Component Customization
+* Next.js 프레임워크                         - NextJS Framwork features
+* 토스를 이용한 결제 로직 구성                   - Implement Payment Logic with Toss Module
+* presigned URL를 이용한 S3 이미지 업로드       - Image Upload to S3 with presigned URL
 </pre>
 
 <br>
