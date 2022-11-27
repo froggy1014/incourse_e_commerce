@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import MypageModifyprofilePage from '@components/MypageModifyprofilePage';
+import MypageModifyprofilePage from '@components/pages/MypageModifyprofilePage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';

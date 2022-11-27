@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import SignUpSuccessPage from '@components/SignUpSuccessPage';
+import SignUpSuccessPage from '@components/pages/SignUpSuccessPage';
 
 import MobileLayout from '@layout/MobileLayout';
 

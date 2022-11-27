@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import ProductPage from '@components/ProductPage';
+import ProductPage from '@components/pages/ProductPage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';

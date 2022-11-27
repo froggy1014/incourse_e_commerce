@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import MypageWithdrawalPage from '@components/MypageWithdrawalPage';
+import MypageWithdrawalPage from '@components/pages/MypageWithdrawalPage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';

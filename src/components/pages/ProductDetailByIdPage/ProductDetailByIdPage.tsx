@@ -14,7 +14,7 @@ import {
 
 import { storeReviews } from '@features/detailReview/detailReviewSlice';
 
-import PurchaseModal from '@components/ProductPage/_fragment/PurchaseModal';
+import PurchaseModal from '@components/pages/ProductPage/_fragment/PurchaseModal';
 import { RatingIcon } from '@icons/index';
 
 import { SubmitButton } from '@shareComponents/index';

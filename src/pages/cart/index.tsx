@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 import { getCookie, setCookie } from 'cookies-next';
 
-import CartPage from '@components/CartPage/CartPage';
+import CartPage from '@components/pages/CartPage/CartPage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';

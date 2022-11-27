@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import SocialloginPage from '@components/SocialloginPage';
+import SocialloginPage from '@components/pages/SocialloginPage';
 
 import MobileLayout from '@layout/MobileLayout';
 

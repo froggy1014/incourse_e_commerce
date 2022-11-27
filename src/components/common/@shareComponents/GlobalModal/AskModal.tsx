@@ -13,7 +13,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import { usePatchStatus } from '@components/MypageOrderhistoryPage/_Hook/usePatchStatus';
+import { usePatchStatus } from '@components/pages/MypageOrderhistoryPage/_Hook/usePatchStatus';
 
 import { SubmitButton } from '@shareComponents/index';
 

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 
-import SignupPage from '@components/SignupPage';
+import SignupPage from '@components/pages/SignupPage';
 
 import MobileLayout from '@layout/MobileLayout';
 

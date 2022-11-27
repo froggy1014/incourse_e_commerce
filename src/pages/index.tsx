@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 import axios from 'axios';
 
-import MainPage from '@components/MainPage';
+import MainPage from '@components/pages/MainPage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer } from '@layout/components';

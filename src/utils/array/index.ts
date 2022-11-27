@@ -1,4 +1,4 @@
-import { IItem } from './../../components/MypageOrderhistoryPage/OrderHistory.d';
+import { IItem } from '@components/pages/MypageOrderhistoryPage/OrderHistory.d';
 
 export const removeDuplecate = <T>(arr: T[]): T[] => Array.from(new Set(arr));
 

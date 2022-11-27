@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 
-import LoginPage from '@components/LoginPage';
+import LoginPage from '@components/pages/LoginPage';
 
 interface socialInfo {
   data: {

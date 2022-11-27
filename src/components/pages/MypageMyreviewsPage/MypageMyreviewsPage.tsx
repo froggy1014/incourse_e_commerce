@@ -5,7 +5,7 @@ import { Box, ChakraProps, Divider, Stack, Text } from '@chakra-ui/react';
 
 import { getMyReviews } from '@apis/_axios/get/axiosGet';
 
-import PageBar from '@components/MypageOrderhistoryPage/_fragment/PageBar';
+import PageBar from '@components/pages/MypageOrderhistoryPage/_fragment/PageBar';
 
 import { QUERY_KEY } from '@constants/query-keys';
 import { Loading } from '@shareComponents/index';

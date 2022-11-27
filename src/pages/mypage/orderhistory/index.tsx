@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import MypageOrderhistoryPage from '@components/MypageOrderhistoryPage';
+import MypageOrderhistoryPage from '@components/pages/MypageOrderhistoryPage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';

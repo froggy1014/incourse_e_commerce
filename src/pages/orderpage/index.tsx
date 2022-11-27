@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 
-import CartOrderPage from '@components/CartOrderPagePage/CartOrderPage';
+import CartOrderPage from '@components/pages/CartOrderPagePage/CartOrderPage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';

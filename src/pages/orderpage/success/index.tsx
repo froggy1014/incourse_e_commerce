@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 
-import CartOrderpageSuccessPage from '@components/CartOrderpageSuccessPage';
+import CartOrderpageSuccessPage from '@components/pages/CartOrderpageSuccessPage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';

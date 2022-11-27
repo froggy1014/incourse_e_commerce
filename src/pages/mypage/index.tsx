@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { getMe } from '@apis/_axios/get/axiosGet';
 
-import MypagePage from '@components/MypagePage';
+import MypagePage from '@components/pages/MypagePage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';

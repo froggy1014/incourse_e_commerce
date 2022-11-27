@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import MypageMyreviewsPage from '@components/MypageMyreviewsPage';
+import MypageMyreviewsPage from '@components/pages/MypageMyreviewsPage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';

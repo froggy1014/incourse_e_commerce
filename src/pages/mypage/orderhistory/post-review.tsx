@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import MypagePostReviewPage from '@components/MypagePostReviewPage';
+import MypagePostReviewPage from '@components/pages/MypagePostReviewPage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';

@@ -1,7 +1,7 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 
-import ProductDetailByIdPage from '@components/ProductDetailByIdPage';
+import ProductDetailByIdPage from '@components/pages/ProductDetailByIdPage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';

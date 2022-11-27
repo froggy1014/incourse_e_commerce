@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react';
 
-import { IMyReviews } from '@components/MypageMyreviewsPage/MyReviews';
+import { IMyReviews } from '@components/pages/MypageMyreviewsPage/MyReviews';
 import { EmptyRatingIcon, RatingIcon } from '@icons/index';
 
 import { formatDate } from '@utils/format';
@@ -27,7 +27,7 @@ const MyReviewCard = ({ review }: { review: IMyReviews }) => {
         {review.content}
       </Text>
       <HStack>
-        {review.reviewimageSet?.map((url, i) => {
+        {review.reviewimageSet?.map((url) => {
           return (
             <Image
               key={url.reviewId}

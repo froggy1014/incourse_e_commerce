@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import { Box, ChakraProps } from '@chakra-ui/react';
 
-import ProfileFormPage from '@components/SignupPage/_fragments/ProfileForm';
+import ProfileFormPage from '@components/pages/SignupPage/_fragments/ProfileForm';
 
 import { addHyphenPhone } from '@utils/format';
 

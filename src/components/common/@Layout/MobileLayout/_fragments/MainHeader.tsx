@@ -17,7 +17,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-import LogoutModal from '@components/MypagePage/_fragment/LogoutModal';
+import LogoutModal from '@components/pages/MypagePage/_fragment/LogoutModal';
 import { CartIcon, ExitIcon, Logo, MenuIcon } from '@icons/index';
 
 import { ROUTES } from '@constants/routes';
