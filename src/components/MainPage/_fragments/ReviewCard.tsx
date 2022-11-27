@@ -12,6 +12,7 @@ import {
 
 import { EmptyRatingIcon, RatingIcon } from '@icons/index';
 
+import { FallbackImage } from '@shareComponents/index';
 import { formatDate } from '@utils/format';
 
 import { IReviewList } from '../data';
@@ -58,9 +59,7 @@ const ReviewCard = ({
       <HStack>
         {reviewimageSet.length &&
           reviewimageSet.map((review, i) => {
-            return (
-              <Image boxSize="80px" key={i} src={review.url} alt="detail" />
-            );
+            return <FallbackImage key={i} src={review.url} alt="detail" />;
           })}
       </HStack>
     </Box>

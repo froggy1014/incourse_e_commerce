@@ -9,7 +9,7 @@
       "@utils/*": ["./utils/*"],
       "@theme/*": ["./styles/theme/*"],
       "@icons/*": ["./components/common/@Icons/*"],
-      "@image": ["./generated/path/images.ts"],
+      "@image": ["./public/images/*"],
       "@layout/*": ["./components/common/@Layout/*"],
       "@layout/components": ["./components/common/@Layout/MobileLayout/_fragments/index.ts"],
       "@shareComponents/*": ["./components/common/@shareComponents/*"],
