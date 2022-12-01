@@ -21,16 +21,13 @@ function MyApp({ Component, pageProps: { ...pageProps } }: any) {
   return (
     <>
       <Head>
-        <meta
-          property="og:image"
-          content="https://github.com/froggy1014/Incourse_E-commerce/raw/main/public/images/ReadMeLogo.png"
-        />
+        <meta property="og:image" content="/public/images/og_image.png" />
 
         <meta property="og:title" content="InCourse E-Commerce Web" />
 
         <meta
           property="og:description"
-          content="In-Course is an E-Commerce application that is used to help users to easily navigate to the retailer’s website. This application is user friendly and showcases the companies’ products in a brighter sense of light. It uses a variety of front-end frameworks and some back-end processes to help the features stand out more."
+          content="Personal E-Commerce Project by Jeongmin Lee"
         />
 
         <meta property="og:image:width" content="1200" />
