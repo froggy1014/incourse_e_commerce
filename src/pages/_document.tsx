@@ -7,16 +7,12 @@ import Document, {
   NextScript,
 } from 'next/document';
 
-import { ColorModeScript } from '@chakra-ui/color-mode';
+const SITE_NAME = 'INCOURSE_E-COMMERCE';
+const SITE_TITLE = 'INCOURSE_E-COMMERCE';
+const SITE_DESCRIPTION = '피부개선의 대명사 인코스런 E-커머스';
+const SITE_IMAGE = '/images/Logo.png';
 
-import config from '@theme/foundations/config';
-
-const SITE_NAME = 'TOKTOKHAN.DEV';
-const SITE_TITLE = 'TOKTOKHAN.DEV';
-const SITE_DESCRIPTION = '디지털프로덕트의 TOKTOK한 경험';
-const SITE_IMAGE = '/images/new_og.png';
-
-const GOOGLE_ANALYTICS_ID = 'G-입력해주세요';
+const GOOGLE_ANALYTICS_ID = '인코스런 화장품';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -84,11 +80,9 @@ class MyDocument extends Document {
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
           ></script>
-          <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
           <script dangerouslySetInnerHTML={this.setGoogleAnalytics()} />
         </Head>
         <body>
-          <ColorModeScript initialColorMode={config.initialColorMode} />
           <Main />
           <NextScript />
         </body>

@@ -11,17 +11,10 @@
     "prepare": "husky install && node_modules/.bin/ls-engines",
     "gen:theme-typings": "chakra-cli tokens src/styles/theme",
     "tokript": "tokript",
-    "gen:source": "tokript gen:source",
-    "gen:icon": "tokript gen:icon",
-    "gen:img": "tokript gen:img",
-    "gen:font": "tokript gen:font",
-    "w:start": "tokript w:start",
-    "commit": "tokript commit",
     "open:theme-typings": "code -r node_modules/@chakra-ui/styled-system/dist/declarations/src/theming.types.d.ts",
     "postinstall": "yarn run gen:theme-typings",
     "test": "jest --watch",
-    "lint": "tsc --noEmit && eslint --fix",
-    "clean-up": "node src/scripts/remove-unnecessary.js"
+    "lint": "tsc --noEmit && eslint --fix"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.1.0",
@@ -94,12 +87,10 @@
     "husky": "^6.0.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.2.4",
-    "kakao.maps.d.ts": "^0.1.33",
     "lint-staged": "^10.5.4",
     "minimist": "^1.2.6",
     "prettier": "^2.2.1",
     "react-test-renderer": "^17.0.2",
-    "tokript": "^0.9.4",
     "typescript": "^4.2.4"
   },
   "lint-staged": {
