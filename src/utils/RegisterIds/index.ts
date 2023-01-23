@@ -9,29 +9,27 @@ import { ROUTES } from '@constants/routes';
 
 interface ICartInfo {
   id: number;
-  cartitem: any;
+  cartitem: string[];
   userId: number;
 }
 
+// Cookie에 User ID를 저장합니다.
 async function registerIds() {
-  const myinfo = getMe();
-  myinfo.then((data) => {
-    setCookie('userId', data.id);
-    const cartInfo = getCartInfo(data.id);
-    registerCartId(cartInfo);
-  });
+  const myinfo = await getMe();
+  setCookie('userId', myinfo.id);
+  const cartInfo = await getCartInfo(myinfo.id);
+  registerCartId(cartInfo);
 }
 
-async function registerCartId(cartInfo: Promise<ICartInfo[]>) {
-  cartInfo.then((data: ICartInfo[]) => {
-    if (data.length !== 0) {
-      setCookie('cartId', data[0].id);
-      router.replace(ROUTES.MAIN);
-    } else {
-      const response = postCreateCart(Number(getCookie('userId')));
-      response.then((data) => setCookie('cartId', data.id));
-    }
-  });
+// 앞서 가져온 cartInfo를 이용해서 cartId를 새로 생성 혹은 Cookie에 저장합니다.
+async function registerCartId(cartInfo: ICartInfo[]) {
+  if (cartInfo.length !== 0) {
+    setCookie('cartId', cartInfo[0].id);
+    router.replace(ROUTES.MAIN);
+  } else {
+    const response = await postCreateCart(Number(getCookie('userId')));
+    setCookie('cartId', response.id);
+  }
 }
 
 export default registerIds;

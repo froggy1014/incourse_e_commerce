@@ -1,4 +1,3 @@
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -13,12 +12,13 @@ import { ROUTES } from '@constants/routes';
 import MobileLayout from '@layout/MobileLayout';
 import registerIds from '@utils/RegisterIds';
 
-function SocialloginCallback({ code, state }: { code: string; state: string }) {
+function SocialloginCallback() {
   const router = useRouter();
-  const social = { code: code, state: state };
+  const { code, state } = router.query;
 
   useEffect(() => {
-    const data = postSocialToken(social);
+    if (code === undefined) return;
+    const data = postSocialToken({ code, state });
     data.then((data) => {
       const { isRegister, access, refresh, socialToken } = data;
       setCookie('socialToken', socialToken);
@@ -29,12 +29,12 @@ function SocialloginCallback({ code, state }: { code: string; state: string }) {
       }
       if (!isRegister) router.replace(ROUTES.SIGNUP.MAIN);
     });
-  }, []);
+  }, [router, code, state]);
 
   return (
     <>
       <Head>
-        <title>callback</title>
+        <title>Social Login Callback</title>
       </Head>
       <MobileLayout
         content={
@@ -52,12 +52,5 @@ function SocialloginCallback({ code, state }: { code: string; state: string }) {
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { code, state } = query;
-  return {
-    props: { code: code, state: state },
-  };
-};
 
 export default SocialloginCallback;

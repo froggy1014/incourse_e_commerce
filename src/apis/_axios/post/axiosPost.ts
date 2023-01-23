@@ -10,6 +10,7 @@ import {
   IRegisterUser,
   IRegisterUserReturn,
   ISocialLoginBody,
+  ISocialLoginReturn,
 } from './axiosPostType';
 
 export async function postReview(body: IPostReviewBody): Promise<void> {
@@ -21,9 +22,10 @@ export async function postRequestToken(): Promise<IRefreshTokenReturn> {
   return await post('user/refresh/', { refresh: refreshToken });
 }
 
-export async function postSocialToken(body: ISocialLoginBody) {
-  const data = await post('user/social_login/', body);
-  return await data;
+export async function postSocialToken(
+  body: ISocialLoginBody,
+): Promise<ISocialLoginReturn> {
+  return await post('user/social_login/', body);
 }
 
 export async function postCart(userId: number) {
