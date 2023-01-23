@@ -3,9 +3,19 @@ import React from 'react';
 
 import { Flex, Spinner, SpinnerProps } from '@chakra-ui/react';
 
-export const Loading = ({ ...props }: SpinnerProps) => {
+interface LoadingTypes extends SpinnerProps {
+  full?: boolean;
+}
+
+export const Loading = (props: LoadingTypes) => {
   return (
-    <Flex w="100%" h="100vh" justify="center" align="center">
+    <Flex
+      w="100%"
+      h={props?.full ? '100vh' : 'auto'}
+      justify="center"
+      align="center"
+      marginY={10}
+    >
       <Spinner
         thickness="4px"
         speed="0.65s"
