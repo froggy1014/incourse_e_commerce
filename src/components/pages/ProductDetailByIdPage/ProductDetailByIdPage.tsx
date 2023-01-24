@@ -31,6 +31,7 @@ function ProductDetailByIdPage({
   const dispatch = useDispatch();
   const [imgSrc, setImgSrc] = useState(props.photo);
   const {
+    id,
     name,
     description,
     price,
@@ -71,6 +72,7 @@ function ProductDetailByIdPage({
         }}
       />
       <ProductInfo
+        id={id}
         name={name}
         description={description}
         price={price}

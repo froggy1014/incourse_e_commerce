@@ -1,6 +1,9 @@
 import { RootStateOrAny, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { Box, Flex, HStack, Text, VStack } from '@chakra-ui/react';
+
+import { focusProduct } from '@features/pg/pgSlice';
 
 import { RatingIcon } from '@components/common/@Icons';
 import { SubmitButton } from '@components/common/@shareComponents';
@@ -8,6 +11,7 @@ import { SubmitButton } from '@components/common/@shareComponents';
 import { intComma } from '@utils/format';
 
 export default function ProductInfo({
+  id,
   name,
   description,
   price,
@@ -15,6 +19,7 @@ export default function ProductInfo({
   reviewCount,
   onOpen,
 }: {
+  id: number;
   name: string;
   description: string;
   price: number;
@@ -23,7 +28,7 @@ export default function ProductInfo({
   onOpen: () => void;
 }) {
   const { sum } = useSelector((state: RootStateOrAny) => state.detailReviews);
-
+  const dispatch = useDispatch();
   return (
     <Flex
       direction="column"
@@ -56,7 +61,13 @@ export default function ProductInfo({
           <Text variant="normal16gray">{`(${reviewCount}개 리뷰)`}</Text>
         </HStack>
       </Box>
-      <VStack mb="30px" onClick={onOpen}>
+      <VStack
+        mb="30px"
+        onClick={() => {
+          dispatch(focusProduct([id, price, name]));
+          onOpen();
+        }}
+      >
         <SubmitButton
           title="장바구니"
           variant="btnwhite"
