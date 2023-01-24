@@ -1,29 +1,23 @@
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import {
   Box,
   Button,
   ChakraProps,
-  Flex,
   HStack,
-  Text,
-  VStack,
   useDisclosure,
 } from '@chakra-ui/react';
 
 import { storeReviews } from '@features/detailReview/detailReviewSlice';
 
 import PurchaseModal from '@components/pages/ProductPage/_fragment/PurchaseModal';
-import { RatingIcon } from '@icons/index';
-
-import { SubmitButton } from '@shareComponents/index';
-import { intComma } from '@utils/format';
 
 import DetailSection1 from './_fragment/DetailSection1';
 import DetailSection2 from './_fragment/DetailSection2';
 import DetailSection3 from './_fragment/DetailSection3';
+import ProductInfo from './_fragment/ProductInfo';
 import { DetailType } from './data';
 
 interface ProductDetailByIdPageProps extends ChakraProps {
@@ -45,7 +39,6 @@ function ProductDetailByIdPage({
     reviewList,
     reviewCount,
   } = props;
-  const { sum } = useSelector((state: RootStateOrAny) => state.detailReviews);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const sectionOne = useRef(null);
   const sectionTwo = useRef(null);
@@ -77,51 +70,14 @@ function ProductDetailByIdPage({
           setImgSrc(`/images/ProductDetail.png`);
         }}
       />
-      <Flex
-        direction="column"
-        w="100%"
-        h="100%"
-        justify="space-between"
-        roundedTop="20px"
-        boxShadow="0px -10px 10px -8px #1A1A1A1A"
-      >
-        <Box w="50px" h="5px" rounded="2.5px" bg="gray.200" m="10px auto"></Box>
-        <Box mx="15px" mb="15px">
-          <HStack mt="20px" spacing="1">
-            <Text variant="bold20">{name}</Text>
-            <Text variant="normal20gray">{capacity}ml</Text>
-          </HStack>
-          <VStack spacing="-1" align="start" mb="10px">
-            <HStack spacing="0">
-              <Text variant="bold20commerse">{intComma(price)}</Text>
-              <Text variant="normal20">원</Text>
-            </HStack>
-            <HStack fontWeight="bold" fontSize="12px" spacing="1">
-              <Text>3만원 이상 구매시</Text>
-              <Text color="commerse.500">무료배송</Text>
-            </HStack>
-          </VStack>
-          <Text mb="10px">{description}</Text>
-          <HStack spacing="1">
-            <RatingIcon />
-            <Text variant="bold16">{sum}</Text>
-            <Text variant="normal16gray">{`(${reviewCount}개 리뷰)`}</Text>
-          </HStack>
-        </Box>
-        <VStack mb="30px" onClick={onOpen}>
-          <SubmitButton
-            title="장바구니"
-            variant="btnwhite"
-            size="btnlg"
-            mb="0px"
-          ></SubmitButton>
-          <SubmitButton
-            title="바로구매"
-            variant="btncommerse"
-            size="btnlg"
-          ></SubmitButton>
-        </VStack>
-      </Flex>
+      <ProductInfo
+        name={name}
+        description={description}
+        price={price}
+        capacity={capacity}
+        reviewCount={reviewCount}
+        onOpen={onOpen}
+      />
       <HStack w="100%" justify="space-evenly" pb="30">
         <Button variant="btntoggle" onClick={() => scrollToSection(sectionOne)}>
           상세정보
