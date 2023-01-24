@@ -11,6 +11,8 @@ import {
   IRegisterUserReturn,
   ISocialLoginBody,
   ISocialLoginReturn,
+  TCartItem,
+  TCartItemReturn,
 } from './axiosPostType';
 
 export async function postReview(body: IPostReviewBody): Promise<void> {
@@ -44,4 +46,8 @@ export async function postCreateCart(uid: number): Promise<ICreateCartReturn> {
 
 export async function postOrderId(data: IPostOrder): Promise<IPostReturn> {
   return await post('order/', data);
+}
+
+export async function postCartItem(data: TCartItem): Promise<TCartItemReturn> {
+  return await post('cart/item/', data);
 }

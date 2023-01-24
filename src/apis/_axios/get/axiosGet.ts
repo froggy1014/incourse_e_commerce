@@ -28,8 +28,8 @@ export async function getMe() {
   return await get('user/me/');
 }
 
-export async function getCartInfo(uid: number) {
-  return await get(`cart/?user_id=${uid}`);
+export async function getCartInfo() {
+  return await get(`cart/?user_id=${userId}`);
 }
 
 export const getProduct = async ({ pageParam = null }) => {

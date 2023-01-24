@@ -88,3 +88,16 @@ export interface IPostReturn {
   shippingPrice: Number;
   userAddr: string;
 }
+
+export type TCartItem = {
+  productId: number;
+  cartId: number;
+  count: number;
+};
+
+export type TCartItemReturn = {
+  id: number;
+  productId: number;
+  cartId: number;
+  count: number;
+};

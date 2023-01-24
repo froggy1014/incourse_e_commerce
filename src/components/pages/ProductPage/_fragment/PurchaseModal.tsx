@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
 import { getCookie } from 'cookies-next';
@@ -16,12 +16,12 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
+import { postCartItem } from '@apis/_axios/post/axiosPost';
 import { decProduct, incProduct } from '@features/pg/pgSlice';
 
 import { QtyMinusIcon, QtyPlusIcon } from '@icons/index';
 
 import { SubmitButton } from '@shareComponents/index';
-import { axiosInstance } from '@utils/axios';
 import { intComma } from '@utils/format';
 
 interface DrawerExampleProps extends DrawerProps {}
@@ -35,10 +35,10 @@ function PurchaseModal(props: Omit<DrawerExampleProps, 'children'>) {
   const handleCart = async () => {
     const data = {
       productId: id,
-      cartId: getCookie('cartId'),
+      cartId: Number(getCookie('cartId')),
       count: count,
     };
-    axiosInstance.post('cart/item/', data).then((res) => console.log(res));
+    await postCartItem(data);
     props.onClose();
   };
 
