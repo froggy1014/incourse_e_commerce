@@ -18,6 +18,8 @@ function ProductPage() {
       getNextPageParam: (lastPage, pages) => lastPage.cursor,
     });
 
+  console.log(data);
+
   /** 무한 스크롤 구현 코드 feat. observer */
 
   // 타겟 엘리먼트
@@ -53,7 +55,7 @@ function ProductPage() {
     <Box w="100%">
       {data?.pages.map((page, i) => (
         <React.Fragment key={i}>
-          {page.results.map((result: dataType, i: number) => {
+          {page.results.map((result: dataType, i: number) =>
             page.results.length === i + 1 ? (
               <Box key={result.id} ref={lastElementRef}>
                 <ProductCard product={result} onOpen={onOpen} />
@@ -62,8 +64,8 @@ function ProductPage() {
               <Box key={result.id}>
                 <ProductCard product={result} onOpen={onOpen} />
               </Box>
-            );
-          })}
+            ),
+          )}
         </React.Fragment>
       ))}
       {/** Fetch 진행 시 스피너  */}

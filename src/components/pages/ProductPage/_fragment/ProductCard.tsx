@@ -24,7 +24,6 @@ const ProductCard = ({ onOpen, product, ...props }: productInfo) => {
   const router = useRouter();
   const { id, thumbnail, name, capacity, price, avgRate, reviewCount, tag } =
     product;
-
   //** 클릭 액션 */}
   const handleClick = () => {
     dispatch(focusProduct([id, price, name]));
@@ -40,7 +39,13 @@ const ProductCard = ({ onOpen, product, ...props }: productInfo) => {
       boxShadow="0px 0px 10px 0px #1A1A1A1A"
     >
       <Box onClick={() => router.push(`${ROUTES.PRODUCT}/${id}`)}>
-        <Image objectFit="cover" src={thumbnail} alt="product1" />
+        <Image
+          src={thumbnail}
+          alt="product1"
+          w="343px"
+          h="250px"
+          objectFit="fill"
+        />
         <Flex
           direction="column"
           w="100%"
