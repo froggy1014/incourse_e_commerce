@@ -24,7 +24,9 @@ import CartCard from './_fragment/CartCard';
 import EmptyCart from './_fragment/EmptyCart';
 import { useGetCart } from './_hook/useCartData';
 
-interface CartPageProps extends ChakraProps {}
+interface CartPageProps extends ChakraProps {
+  userId: string;
+}
 
 interface CartType {
   cartId: number;
@@ -32,7 +34,7 @@ interface CartType {
   id: number;
   productId: number;
 }
-function CartPage({ ...basisProps }: CartPageProps) {
+function CartPage({ ...props }: CartPageProps) {
   const router = useRouter();
   const dispatch = useDispatch();
   const [prices, setPrices] = useState({
@@ -44,12 +46,12 @@ function CartPage({ ...basisProps }: CartPageProps) {
   useEffect(() => {
     dispatch(clearUpCartState());
     setPrices({ total: 0, delivery: 0 });
-  }, []);
+  }, [dispatch]);
 
   // Redux Store
   const state = useSelector((state: RootStateOrAny) => state.CART);
   // Cart 아이템 Get Hook
-  const { isLoading, data: cart } = useGetCart();
+  const { isLoading, data: cart } = useGetCart(Number(props.userId));
 
   // 장바구니 아이템만큼의 Array를 만들어서 check 배열로 사용
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
@@ -63,7 +65,7 @@ function CartPage({ ...basisProps }: CartPageProps) {
   // 해당 인덱스에 해당되는 check배열을 toggle해줌
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    cartItem: any,
+    cartItem: CartType,
   ) => {
     dispatch(toggleCartState(cartItem.id));
     const newArr = checkedItems.map((v, idx) =>
@@ -90,11 +92,11 @@ function CartPage({ ...basisProps }: CartPageProps) {
       delivery: delivery,
     });
   }, [state, cart]);
-  if (isLoading) return <Loading />;
+  if (isLoading || cart === undefined) return <Loading />;
   if (cart[0].cartitem.length === 0) return <EmptyCart />;
 
   return (
-    <Box {...basisProps}>
+    <Box>
       <Stack divider={<Divider bg="gray.200" h="10px" />}>
         <HStack color="gray.600" justify="space-between">
           <Checkbox

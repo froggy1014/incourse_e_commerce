@@ -3,13 +3,14 @@ import Head from 'next/head';
 
 import { getCookie, setCookie } from 'cookies-next';
 
+import { postRefreshToken } from '@apis/_axios/post/axiosPost';
+
 import CartPage from '@components/pages/CartPage/CartPage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';
-import { refreshTokenFun } from '@utils/axios';
 
-const Cart = () => {
+const Cart = ({ userId }: { userId: string }) => {
   return (
     <>
       <Head>
@@ -17,7 +18,7 @@ const Cart = () => {
       </Head>
       <MobileLayout
         header={<MainHeader />}
-        content={<CartPage />}
+        content={<CartPage userId={userId} />}
         footer={<Footer />}
       />
     </>
@@ -36,16 +37,15 @@ export const getServerSideProps: GetServerSideProps = async ({ res, req }) => {
         destination: '/login',
       },
     };
-  } else if (
-    !accessToken &&
-    refreshToken &&
-    typeof refreshToken !== 'boolean'
-  ) {
-    const data = await refreshTokenFun(refreshToken);
+  } else if (!accessToken && !!refreshToken) {
+    const data = await postRefreshToken(refreshToken as string);
     setCookie('access', data.access, { res, req });
     setCookie('refresh', data.refresh, { res, req });
   }
+
+  const userId = getCookie('userId', { res, req });
+  console.log(userId);
   return {
-    props: {},
+    props: { userId },
   };
 };

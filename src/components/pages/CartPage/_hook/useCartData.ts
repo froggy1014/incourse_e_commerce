@@ -1,48 +1,35 @@
 import { useMutation, useQuery } from 'react-query';
 
 import axios from 'axios';
-import { getCookie } from 'cookies-next';
 
-axios.defaults.baseURL = 'https://api.commerce.incourse.run/v1/';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+import { delCartItem } from '@apis/_axios/delete';
+import { getCartInfo, getProductDetail } from '@apis/_axios/get/axiosGet';
 
 /* --------------------- Get All Cart Item Hook -------------------- */
 
-const fetchCartList = async () => {
-  return await axios
-    .get(`cart/?user_id=${getCookie('userId')}`)
-    .then((res) => res.data[0].cartitem);
-};
-
-export const useGetCart = () => {
-  return useQuery(['CartList'], fetchCartList);
+export const useGetCart = (uid: number) => {
+  return useQuery(['CartList'], () => getCartInfo(uid));
 };
 
 /* --------------------- Delete Selected Item Hook -------------------- */
 
-const deleteCartItem = async (pk: number) => {
-  return axios.delete(`cart/item/${pk}/`, {
-    headers: {
-      'X-CSRFTOKEN':
-        'TalC545PNF0jkgM6JdXJfqBnCctwqdQauOXjQ0f0ZdRmL14CETFOfJ0NncPcvFSG',
-    },
-  });
-};
+// const deleteCartItem = async (pk: number) => {
+//   return axios.delete(`cart/item/${pk}/`, {
+//     headers: {
+//       'X-CSRFTOKEN':
+//         'TalC545PNF0jkgM6JdXJfqBnCctwqdQauOXjQ0f0ZdRmL14CETFOfJ0NncPcvFSG',
+//     },
+//   });
+// };
 
-export const useDeleteCart = (onSuccess: () => void) => {
-  return useMutation(deleteCartItem, {
-    onSuccess,
-  });
+export const useDeleteCart = () => {
+  return useMutation(['cartItem, id'], delCartItem);
 };
 
 /* -----------------------Get Individual Product Info----------------------- */
 
-const getItemInfo = async (ItemId: number) => {
-  return axios(`product/${ItemId}/`).then((res) => res.data);
-};
-
 export const useGetItemInfo = (id: number) => {
-  return useQuery(['ItemInfo', id], () => getItemInfo(id));
+  return useQuery(['ItemInfo', id], () => getProductDetail(id));
 };
 
 /* ---------------------Get Individual Item from Cart------------------*/

@@ -18,8 +18,6 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export const reviewFetch = axios.create({});
 
-export const productFetch = axios.create({});
-
 export const refreshTokenFun = async (refresh: string) => {
   return await axios
     .post('user/refresh/', { refresh: refresh })
