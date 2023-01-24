@@ -3,6 +3,9 @@ module.exports = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  images: {
+    domains: ['54.249.65.116'],
+  },
   webpack: (config, { isServer }) => {
     if (isServer) {
       require('./src/scripts/generate-sitemap-json');

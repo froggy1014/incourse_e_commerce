@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
+import Image from 'next/image';
+import React, { useState } from 'react';
 
-import { Box, BoxProps, Button, Image, Text } from '@chakra-ui/react';
+import { Box, BoxProps, Button, Text } from '@chakra-ui/react';
 
 import { DownVerticalArrow, UpVerticalArrow } from '@icons/index';
 
@@ -10,22 +11,24 @@ interface DetailSectionOne extends BoxProps {
 
 const DetailSection1 = ({ detail, ...basisProps }: DetailSectionOne) => {
   const [viewMore, setViewMore] = useState(false);
-  const str = detail.split('"')[3];
+  const detailImage = detail.split('"')[3];
+  const [imgSrc, setImgSrc] = useState(detailImage);
   return (
     <Box position="relative">
       <Image
-        src={str}
+        src={`/images/DetailImage.png`}
         alt="DetailImage"
         objectFit="cover"
-        w="100%"
-        h={viewMore ? 'auto' : '567px'}
-        pb={viewMore ? '80px' : 'null'}
-        bg={viewMore ? 'gray.100' : 'null'}
+        width="345px"
+        height={viewMore ? '3000px' : '567px'}
+        onError={() => {
+          setImgSrc(`/images/DetailImage.png`);
+        }}
       />
       <Button
         position="absolute"
-        top={viewMore ? '' : '527px'}
-        bottom={viewMore ? '0px' : ''}
+        left={'0px'}
+        bottom={'0px'}
         w="100%"
         bg="white"
         border={'1px solid black'}

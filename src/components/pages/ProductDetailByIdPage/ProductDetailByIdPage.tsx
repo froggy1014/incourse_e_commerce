@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -34,14 +35,13 @@ function ProductDetailByIdPage({
   ...basisProps
 }: ProductDetailByIdPageProps) {
   const dispatch = useDispatch();
+  const [imgSrc, setImgSrc] = useState(props.photo);
   const {
-    id,
     name,
     description,
     price,
     capacity,
     detail,
-    photo,
     reviewList,
     reviewCount,
   } = props;
@@ -64,11 +64,19 @@ function ProductDetailByIdPage({
 
   useEffect(() => {
     if (reviewList.length) dispatch(storeReviews(reviewList));
-  }, []);
+  }, [dispatch, reviewList]);
 
   return (
     <Box {...basisProps}>
-      <Box boxSize="343px" h="300px" bgImage={photo}></Box>
+      <Image
+        width="343px"
+        height="300px"
+        objectFit="cover"
+        src={imgSrc}
+        onError={() => {
+          setImgSrc(`/images/ProductDetail.png`);
+        }}
+      />
       <Flex
         direction="column"
         w="100%"
