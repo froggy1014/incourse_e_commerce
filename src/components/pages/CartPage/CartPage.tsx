@@ -90,9 +90,8 @@ function CartPage({ ...basisProps }: CartPageProps) {
       delivery: delivery,
     });
   }, [state, cart]);
-
   if (isLoading) return <Loading />;
-  if (cart.length === 0) return <EmptyCart />;
+  if (cart[0].cartitem.length === 0) return <EmptyCart />;
 
   return (
     <Box {...basisProps}>
@@ -116,7 +115,7 @@ function CartPage({ ...basisProps }: CartPageProps) {
           </Checkbox>
           <Text>선택삭제</Text>
         </HStack>
-        {cart.map((cartItem: CartType, i: number) => {
+        {cart[0].cartitem.map((cartItem: CartType, i: number) => {
           return (
             <HStack key={cartItem.id} align="start">
               <Checkbox

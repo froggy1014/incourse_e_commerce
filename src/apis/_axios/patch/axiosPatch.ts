@@ -13,3 +13,13 @@ export async function patchShipStatus({ oid, status }: TStatus): Promise<any> {
 export async function patchGetMe(data: IProfileInfo): Promise<any> {
   return await patch('user/me/', data);
 }
+
+export async function patchCartItem({
+  id,
+  count,
+}: {
+  id: number;
+  count: number;
+}) {
+  return await patch(`cart/item/${id}/`, { id, count });
+}

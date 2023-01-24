@@ -1,14 +1,14 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useQueryClient } from 'react-query';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-
-import { cloneDeep } from 'lodash';
 
 import { Box, CloseButton, HStack, Image, Stack, Text } from '@chakra-ui/react';
 
+import { delCartItem } from '@apis/_axios/delete';
+import { patchCartItem } from '@apis/_axios/patch/axiosPatch';
 import {
+  UserStateType,
   decCartState,
-  delCartState,
   incCartState,
   initCartState,
 } from '@features/cart/cartSlice';
@@ -18,11 +18,7 @@ import { QtyMinusIcon, QtyPlusIcon } from '@icons/index';
 import { Loading } from '@shareComponents/index';
 import { intComma } from '@utils/format';
 
-import {
-  useDeleteCart,
-  useGetItemInfo,
-  usePatchCartItem,
-} from '../_hook/useCartData';
+import { useGetItemInfo } from '../_hook/useCartData';
 
 interface CartItemType {
   cartItem: {
@@ -33,7 +29,6 @@ interface CartItemType {
   };
 }
 
-// interface CartCardProps extends ChakraProps {}
 interface CartCardProps extends CartItemType {
   checkedItems: boolean[];
   setCheckedItems: Dispatch<SetStateAction<boolean[]>>;
@@ -43,48 +38,31 @@ function CartCard({ cartItem }: CartCardProps) {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const state = useSelector((state: RootStateOrAny) => state.CART);
-  const [counting, setCounting] = useState({
-    id: cartItem.id,
-    count: cartItem.count,
-  });
-  const onSuccess = () => {
-    return queryClient.invalidateQueries(['CartList']);
-  };
+  const idx = state.findIndex((item: UserStateType) => item.id === cartItem.id);
 
   const handleClick = async (name: string) => {
-    async function calculate() {
-      if (name === 'minus' && counting.count !== 1) {
-        setCounting((counting) => {
-          return { ...counting, count: counting.count - 1 };
-        });
-        dispatch(decCartState({ id: cartItem.id }));
-      } else if (name === 'plus') {
-        setCounting((counting) => {
-          return { ...counting, count: counting.count + 1 };
-        });
-        dispatch(incCartState({ id: cartItem.id }));
-      }
+    if (name === 'minus' && state[idx].count !== 1) {
+      patchItem.mutate({ id: state[idx].id, count: state[idx].count - 1 });
+      dispatch(decCartState({ id: cartItem.id }));
+    } else if (name === 'plus') {
+      patchItem.mutate({ id: state[idx].id, count: state[idx].count + 1 });
+      dispatch(incCartState({ id: cartItem.id }));
     }
-    await calculate();
-    CountingItem();
   };
-
-  const { mutate } = useDeleteCart(onSuccess);
-  const { mutate: patchItem } = usePatchCartItem(counting, onSuccess);
+  const deleteCart = useMutation((pk: number) => delCartItem(pk), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['CartList']);
+    },
+  });
+  const patchItem = useMutation(
+    (count: { id: number; count: number }) => patchCartItem(count),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['CartList']);
+      },
+    },
+  );
   const { data: product, isLoading } = useGetItemInfo(cartItem.productId);
-  const cartDelete = () => {
-    dispatch(delCartState(cartItem.id));
-    mutate(cartItem.id),
-      {
-        onSuccess,
-      };
-  };
-  const CountingItem = () => {
-    patchItem(),
-      {
-        onSuccess,
-      };
-  };
 
   useEffect(() => {
     dispatch(
@@ -93,9 +71,8 @@ function CartCard({ cartItem }: CartCardProps) {
         product: product,
       }),
     );
-  }, [product]);
-
-  if (isLoading) return <Loading />;
+  }, [product, cartItem, dispatch]);
+  if (isLoading || state[idx] === undefined) return <Loading />;
 
   return (
     <Stack w="100%" align="flex-start" justify="space-evenly">
@@ -121,7 +98,7 @@ function CartCard({ cartItem }: CartCardProps) {
               position="absolute"
               top="0"
               right="0"
-              onClick={cartDelete}
+              onClick={() => deleteCart.mutate(cartItem.id)}
             />
           </HStack>
         </Stack>
@@ -133,7 +110,11 @@ function CartCard({ cartItem }: CartCardProps) {
         <HStack w="100%" justify="space-between">
           <HStack rounded="5px" spacing="1px">
             <Box>
-              <QtyMinusIcon onClick={() => handleClick('minus')} />
+              <QtyMinusIcon
+                onClick={() => {
+                  handleClick('minus');
+                }}
+              />
             </Box>
             <Text
               w="25px"
@@ -142,35 +123,26 @@ function CartCard({ cartItem }: CartCardProps) {
               bg="white"
               color="gray.800"
             >
-              {state[state.findIndex((e: any) => e.id === cartItem.id)]?.count}
+              {state[idx].count}
             </Text>
             <Box>
-              <QtyPlusIcon onClick={() => handleClick('plus')} />
+              <QtyPlusIcon
+                onClick={() => {
+                  handleClick('plus');
+                }}
+              />
             </Box>
           </HStack>
           <Text variant="bold16gray" color="gray.600">
-            {intComma(
-              state[state.findIndex((e: any) => e.id === cartItem.id)]
-                ?.totalPrice,
-            )}
-            원
+            {intComma(state[idx].totalPrice)}원
           </Text>
         </HStack>
       </Stack>
       <HStack w="100%" justify="space-between" py="10px">
         <Text>
-          {state[state.findIndex((e: any) => e.id === cartItem.id)]
-            ?.totalPrice >= 30000
-            ? '배송비 무료'
-            : '배송비 2500원'}
+          {state[idx].totalPrice >= 30000 ? '배송비 무료' : '배송비 2500원'}
         </Text>
-        <Text variant="boldcommerse">
-          {intComma(
-            state[state.findIndex((e: any) => e.id === cartItem.id)]
-              ?.totalPrice,
-          )}
-          원
-        </Text>
+        <Text variant="boldcommerse">{intComma(state[idx].totalPrice)}원</Text>
       </HStack>
     </Stack>
   );
