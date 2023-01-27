@@ -28,7 +28,7 @@ export async function getMe() {
   return await get('user/me/');
 }
 
-export async function getCartInfo(uid: number) {
+export async function getCartInfo(uid: string) {
   return await get(`cart/?user_id=${uid}`);
 }
 
@@ -41,6 +41,6 @@ export const getProduct = async ({ pageParam = null }) => {
 
 /*************************ServerSide********************************/
 
-export async function getOrderList(userId: CookieValueTypes) {
-  return get(`order/status/?user_id=${userId}`);
+export async function getOrderList(userId: string) {
+  return get(`order/?user_id=${userId}`);
 }

@@ -15,7 +15,10 @@ export async function post(url: string, body: any) {
 }
 
 export async function patch(url: string, body: any) {
-  return await request.patch(url, body).catch((error) => console.log(error));
+  return await request
+    .patch(url, body)
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
 }
 
 export async function del(url: string) {

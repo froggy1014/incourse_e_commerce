@@ -1,7 +1,8 @@
 import { getCookie } from 'cookies-next';
+import path from 'path';
 
 import { patch } from '../request';
-import { IProfileInfo, TStatus } from './axiosPatch.d';
+import { IOrderInfo, IProfileInfo, TStatus } from './axiosPatch.d';
 
 export const userId = Number(getCookie('userId'));
 
@@ -22,4 +23,8 @@ export async function patchCartItem({
   count: number;
 }) {
   return await patch(`cart/item/${id}/`, { id, count });
+}
+
+export async function patchOrder(oid: string, body: any): Promise<IOrderInfo> {
+  return await patch(`order/${oid}/`, body);
 }

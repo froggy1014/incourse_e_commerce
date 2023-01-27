@@ -55,3 +55,11 @@ export async function postCartItem(data: TCartItem): Promise<TCartItemReturn> {
 export async function postRefreshToken(refresh: string) {
   return await post('user/refresh/', { refresh: refresh });
 }
+
+export async function postOrderStatus(
+  orderId: string,
+  productId: number,
+  count: number,
+) {
+  return await post('order/status/', { orderId, productId, count });
+}
