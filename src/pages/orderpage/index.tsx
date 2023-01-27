@@ -32,7 +32,8 @@ function CartOrder({
 export default CartOrder;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  if (!query?.items?.length) {
+  const id = query.items;
+  if (id === undefined) {
     return {
       redirect: {
         permanent: false,
@@ -40,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       },
     };
   }
-  const payingItems = String(query.items).split(',');
+  const payingItems = String(id).split(',');
   const TOSS_KEY = process.env.TOSS_CLIENT_KEY;
   return {
     props: { TOSS_KEY, payingItems },

@@ -1,33 +1,12 @@
 import { useQuery } from 'react-query';
 
-import axios from 'axios';
+import { getMe } from '@apis/_axios/get/axiosGet';
+import { postOrderStatus } from '@apis/_axios/post/axiosPost';
 
 import { loadTossPayments } from '@tosspayments/payment-sdk';
-import { axiosInstance } from '@utils/axios';
-
-const fetchMyInfo = async () => {
-  return await axiosInstance('user/me/').then((res: any) => res.data);
-};
 
 export const useGetme = () => {
-  return useQuery(['getMe'], fetchMyInfo);
-};
-
-export const postOrderStatus = async (
-  orderId: string,
-  productId: number,
-  count: number,
-) => {
-  const body = {
-    orderId: orderId,
-    productId: productId,
-    count: count,
-  };
-  try {
-    return await axios.post('order/status/', body).then((res) => res.data);
-  } catch (error) {
-    console.log(error);
-  }
+  return useQuery(['getMe'], getMe);
 };
 
 export async function TossPayment(
@@ -44,7 +23,7 @@ export async function TossPayment(
     orderId: orderId,
     orderName: '인코스런 주문',
     customerName: userName,
-    successUrl: `http://localhost:3000/orderpage/success?items=${payingItems}`,
-    failUrl: 'http://localhost:3000/fail',
+    successUrl: `${process.env.NEXT_PUBLIC_DEPLOYMENT_URL}/orderpage/success?items=${payingItems}`,
+    failUrl: `${process.env.NEXT_PUBLIC_DEPLOYMENT_URL}:3000/fail`,
   });
 }

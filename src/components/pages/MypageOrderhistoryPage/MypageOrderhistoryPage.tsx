@@ -56,7 +56,6 @@ function MypageOrderhistoryPage() {
       <Text variant="pageTitle">내 상품 리뷰</Text>
       <Stack justify="center" align="center">
         {uuidGroup.map((uuid, i) => {
-          console.log(uuid);
           return (
             <Box key={i} w="100%">
               <Text fontWeight="bold" my="20px">

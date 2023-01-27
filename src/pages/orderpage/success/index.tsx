@@ -2,16 +2,21 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useEffect } from 'react';
 
-import axios from 'axios';
 import { getCookie } from 'cookies-next';
+
+import { delCartItem } from '@apis/_axios/delete';
+import {
+  getCartInfo,
+  getOrderList,
+  getOrderStatus,
+} from '@apis/_axios/get/axiosGet';
+import { patchOrder } from '@apis/_axios/patch/axiosPatch';
+import { postOrderStatus } from '@apis/_axios/post/axiosPost';
 
 import CartOrderpageSuccessPage from '@components/pages/CartOrderpageSuccessPage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';
-
-axios.defaults.baseURL = 'https://api.commerce.incourse.run/v1/';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export interface IPaidProduct {
   id: number;
@@ -22,29 +27,34 @@ export interface IPaidProduct {
   created: string;
 }
 
+export interface ICartInfo {
+  id: number;
+  cartId: number;
+  productId: number;
+  count: number;
+}
+
 export interface IUserInfo {
   [key: string]: string | number;
 }
 
 function CartOrderpageSuccess({
   userInfo,
-  orderedProduct,
+  orderedItem,
   cartItemIds,
 }: {
   userInfo: IUserInfo;
-  orderedProduct: IPaidProduct[];
-  cartItemIds: string[];
+  orderId: string;
+  orderedItem: ICartInfo[];
+  cartItemIds: number[];
 }) {
   useEffect(() => {
-    cartItemIds.map((item) => {
-      try {
-        axios.delete(`cart/item/${item}/`).then((res) => console.log(res));
-      } catch (error) {
-        console.log(error);
-      }
-    });
-  }, []);
-
+    if (cartItemIds) {
+      cartItemIds.forEach(async (pk: number) => {
+        await delCartItem(pk);
+      });
+    }
+  }, [cartItemIds, orderedItem]);
   return (
     <>
       <Head>
@@ -55,7 +65,7 @@ function CartOrderpageSuccess({
         content={
           <CartOrderpageSuccessPage
             userInfo={userInfo}
-            orderedProduct={orderedProduct}
+            orderedItem={orderedItem}
           />
         }
         footer={<Footer />}
@@ -70,39 +80,43 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
 }) => {
   const userId = getCookie('userId', { res, req });
-  async function APICall() {
-    const cartItemIds = String(query.items).split(',');
-    const response = await axios(`order/${query.orderId}/
-    `).then((res) => res.data);
-    const body = {
-      price: query.amount,
-      paymentKey: query.paymentKey,
-      method: 'CARD',
-      userName: response.userName,
-      userPhone: response.userPhone,
-      userAddrPost: response.userAddrPost,
-      userAddrDetail: response.userAddrDetail,
-      shipName: response.shipName,
-      shipPhone: response.shipPhone,
-      shipAddrPost: response.shipAddPost,
-      shipAddrDetail: response.shipAddrDetail,
-      orderMessage: response.orderMessage,
-    };
-    const resp = await axios
-      .patch(`order/${query.orderId}/`, body)
-      .then((res) => res.data);
-    const datas = await axios(
-      `order/status/?user_id=${userId}
-      `,
-    ).then((res) => res.data.results);
-    const orderedProduct = datas.filter(
-      (data: any) => data.orderId === resp.id,
-    );
-    return { userInfo: resp, orderedProduct, cartItemIds };
-  }
-  const data = await APICall();
+  const cartItemIds = String(query.items).split(',');
+  const {
+    userName,
+    userPhone,
+    userAddrPost,
+    userAddrDetail,
+    shipName,
+    shipPhone,
+    shipAddrPost,
+    shipAddrDetail,
+    orderMessage,
+  } = await getOrderStatus(query.orderId as string);
+  const body = {
+    price: query.amount,
+    paymentKey: query.paymentKey,
+    method: 'CARD',
+    userName,
+    userPhone,
+    userAddrPost,
+    userAddrDetail,
+    shipName,
+    shipPhone,
+    shipAddrPost,
+    shipAddrDetail,
+    orderMessage,
+  };
+  const orderedInfo = await patchOrder(query.orderId as string, body);
+  const data = await getCartInfo(userId as string);
+  const orderedItem = data[0].cartitem.filter((item: ICartInfo) =>
+    cartItemIds.includes(String(item.id)),
+  );
   return {
-    props: data,
+    props: {
+      userInfo: orderedInfo,
+      orderedItem,
+      cartItemIds,
+    },
   };
 };
 

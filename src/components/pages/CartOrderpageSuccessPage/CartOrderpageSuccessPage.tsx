@@ -17,20 +17,22 @@ import { addHyphenPhone, formatDateDash, intComma } from '@utils/format';
 
 import { useProductInfoQuery } from './_hook/useProductInfoQuery';
 
-import { IPaidProduct, IUserInfo } from 'pages/orderpage/success';
+import { ICartInfo, IPaidProduct, IUserInfo } from 'pages/orderpage/success';
 
 interface CartOrderpageSuccessPageProps extends ChakraProps {
   userInfo: IUserInfo;
-  orderedProduct: IPaidProduct[];
+  orderedItem: ICartInfo[];
 }
 
 function CartOrderpageSuccessPage({
   userInfo,
-  orderedProduct,
+  orderedItem,
   ...basisProps
 }: CartOrderpageSuccessPageProps) {
-  const { data: info, isLoading } = useProductInfoQuery(orderedProduct);
+  const { data: info, isLoading } = useProductInfoQuery(orderedItem);
   if (isLoading) return <Loading />;
+
+  console.log(userInfo);
 
   return (
     <Stack {...basisProps}>
@@ -40,7 +42,7 @@ function CartOrderpageSuccessPage({
         <Box>
           <Divider variant="fullthin" />
           <Text fontWeight="bold" py="10px">
-            {formatDateDash(orderedProduct[0].created)}
+            {formatDateDash(new Date())}
           </Text>
           <Divider variant="fullthin" mb="10px" />
           {info?.map((product: any, i: number) => {
@@ -60,7 +62,7 @@ function CartOrderpageSuccessPage({
                         {product.name} | {product.capacity}ml
                       </Text>
                       <Text variant="boldcommerse">
-                        {product.price}원 / {orderedProduct[i].count}개
+                        {product.price}원 / {orderedItem[i].count}개
                       </Text>
                     </Box>
                   </HStack>
@@ -91,7 +93,9 @@ function CartOrderpageSuccessPage({
               </HStack>
               <HStack justify="flex-start">
                 <Text minW="92px">주소</Text>
-                <Text color="gray.700">{userInfo.userAddrDetail}</Text>
+                <Text color="gray.700">
+                  {userInfo.shipAddr + ' ' + userInfo.userAddrDetail}
+                </Text>
               </HStack>
               <HStack justify="flex-start">
                 <Text minW="92px">배송요청사항</Text>

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 import { userId } from '@apis/_axios/get/axiosGet';
-import { postOrderId } from '@apis/_axios/post/axiosPost';
+import { postOrderId, postOrderStatus } from '@apis/_axios/post/axiosPost';
 
 import OrderPageView from './CartOrderPage.view';
 import useFormValidate from './_hooks/useFormValidate';
-import { TossPayment, postOrderStatus } from './_hooks/useQueries';
+import { TossPayment } from './_hooks/useQueries';
 
 interface priceType {
   total: number;
@@ -62,10 +62,9 @@ const OrderPage = ({
         orderMessage: orderRequest === '' ? '없음' : orderRequest,
       };
       async function apiCall() {
-        console.log(data);
         const response = await postOrderId(data);
         for (let i = 0; i < prices.count.length; i++) {
-          const res = await postOrderStatus(
+          await postOrderStatus(
             response.id,
             prices.productId[i],
             prices.count[i],
