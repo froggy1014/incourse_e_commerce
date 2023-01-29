@@ -4,7 +4,7 @@ module.exports = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ['54.249.65.116'],
+    domains: ['54.249.65.116', 'incourse-commerce.ddns.net'],
   },
   webpack: (config, { isServer }) => {
     if (isServer) {

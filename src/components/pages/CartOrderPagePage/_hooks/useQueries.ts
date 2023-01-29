@@ -1,7 +1,6 @@
 import { useQuery } from 'react-query';
 
 import { getMe } from '@apis/_axios/get/axiosGet';
-import { postOrderStatus } from '@apis/_axios/post/axiosPost';
 
 import { loadTossPayments } from '@tosspayments/payment-sdk';
 
@@ -24,6 +23,6 @@ export async function TossPayment(
     orderName: '인코스런 주문',
     customerName: userName,
     successUrl: `${process.env.NEXT_PUBLIC_DEPLOYMENT_URL}/orderpage/success?items=${payingItems}`,
-    failUrl: `${process.env.NEXT_PUBLIC_DEPLOYMENT_URL}:3000/fail`,
+    failUrl: `${process.env.NEXT_PUBLIC_DEPLOYMENT_URL}/fail`,
   });
 }
