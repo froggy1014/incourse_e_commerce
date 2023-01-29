@@ -2,16 +2,12 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useEffect } from 'react';
 
+import { IOrderedItem, IPatchOrder } from '@types';
 import { getCookie } from 'cookies-next';
 
 import { delCartItem } from '@apis/_axios/delete';
-import {
-  getCartInfo,
-  getOrderList,
-  getOrderStatus,
-} from '@apis/_axios/get/axiosGet';
+import { getCartInfo, getOrderStatus } from '@apis/_axios/get/axiosGet';
 import { patchOrder } from '@apis/_axios/patch/axiosPatch';
-import { postOrderStatus } from '@apis/_axios/post/axiosPost';
 
 import CartOrderpageSuccessPage from '@components/pages/CartOrderpageSuccessPage';
 
@@ -27,25 +23,14 @@ export interface IPaidProduct {
   created: string;
 }
 
-export interface ICartInfo {
-  id: number;
-  cartId: number;
-  productId: number;
-  count: number;
-}
-
-export interface IUserInfo {
-  [key: string]: string | number;
-}
-
 function CartOrderpageSuccess({
-  userInfo,
+  orderedInfo,
   orderedItem,
   cartItemIds,
 }: {
-  userInfo: IUserInfo;
+  orderedInfo: IPatchOrder;
   orderId: string;
-  orderedItem: ICartInfo[];
+  orderedItem: IOrderedItem[];
   cartItemIds: number[];
 }) {
   useEffect(() => {
@@ -64,7 +49,7 @@ function CartOrderpageSuccess({
         header={<MainHeader />}
         content={
           <CartOrderpageSuccessPage
-            userInfo={userInfo}
+            orderedInfo={orderedInfo}
             orderedItem={orderedItem}
           />
         }
@@ -108,12 +93,12 @@ export const getServerSideProps: GetServerSideProps = async ({
   };
   const orderedInfo = await patchOrder(query.orderId as string, body);
   const data = await getCartInfo(userId as string);
-  const orderedItem = data[0].cartitem.filter((item: ICartInfo) =>
+  const orderedItem = data[0].cartitem.filter((item: IOrderedItem) =>
     cartItemIds.includes(String(item.id)),
   );
   return {
     props: {
-      userInfo: orderedInfo,
+      orderedInfo,
       orderedItem,
       cartItemIds,
     },
