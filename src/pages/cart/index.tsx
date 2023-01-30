@@ -28,23 +28,20 @@ const Cart = ({ userId }: { userId: string }) => {
 export default Cart;
 
 export const getServerSideProps: GetServerSideProps = async ({ res, req }) => {
-  const accessToken = getCookie('access', { res, req });
+  const userId = getCookie('userId', { res, req });
   const refreshToken = getCookie('refresh', { res, req });
-  if (!(accessToken || refreshToken)) {
+  if (!refreshToken) {
     return {
       redirect: {
         permanent: false,
         destination: '/login',
       },
     };
-  } else if (!accessToken && !!refreshToken) {
-    const data = await postRefreshToken(refreshToken as string);
-    setCookie('access', data.access, { res, req });
-    setCookie('refresh', data.refresh, { res, req });
   }
+  const data = await postRefreshToken(refreshToken as string);
+  setCookie('access', data.access, { res, req });
+  setCookie('refresh', data.refresh, { res, req });
 
-  const userId = getCookie('userId', { res, req });
-  console.log(userId);
   return {
     props: { userId },
   };
