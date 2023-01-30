@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { userId } from '@apis/_axios/get/axiosGet';
+import { getCookie } from 'cookies-next';
+
 import { postOrderId, postOrderStatus } from '@apis/_axios/post/axiosPost';
 
 import OrderPageView from './CartOrderPage.view';
@@ -21,6 +22,7 @@ const OrderPage = ({
   TOSS_KEY: string;
   payingItems: string[];
 }) => {
+  const userId = getCookie('userId');
   const [prices, setPrices] = useState<priceType>({
     total: 0,
     delivery: 0,
@@ -44,7 +46,7 @@ const OrderPage = ({
       orderRequest,
     }) => {
       const data = {
-        userId,
+        userId: String(userId),
         price: prices.total,
         amount: prices.total + prices.delivery,
         method: 'CARD',

@@ -1,13 +1,10 @@
 import { IGetOrderInfo } from '@types';
-import { getCookie } from 'cookies-next';
 
 import { get } from '../request';
 
-export const userId = getCookie('userId');
-
-export async function getMyOrders(pageParam: Number) {
+export async function getMyOrders(pageParam: Number, userId: string) {
   return await get(
-    `order/status/?page=${pageParam}&page_size=4&user_id=${String(userId)}`,
+    `order/status/?page=${pageParam}&page_size=4&user_id=${userId}`,
   );
 }
 
@@ -15,7 +12,7 @@ export async function getProductDetail(productId: number | undefined) {
   return await get(`product/${productId}/`);
 }
 
-export async function getMyReviews(page: number) {
+export async function getMyReviews(page: number, userId: string) {
   return await get(
     `review/?page=${page}&page_size=4&user_id=${String(userId)}`,
   );

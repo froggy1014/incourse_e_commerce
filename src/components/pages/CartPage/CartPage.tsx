@@ -94,80 +94,80 @@ function CartPage({ ...props }: CartPageProps) {
   }, [state, cart]);
   if (isLoading || cart === undefined) return <Loading />;
   if (cart[0].cartitem.length === 0) return <EmptyCart />;
-
-  return (
-    <Box>
-      <Stack divider={<Divider bg="gray.200" h="10px" />}>
-        <HStack color="gray.600" justify="space-between">
-          <Checkbox
-            value={0}
-            colorScheme="commerse"
-            isChecked={allChecked}
-            isIndeterminate={isIndeterminate}
-            onChange={(e) => {
-              if (checkedItems.every((b) => b === true)) {
-                setCheckedItems(cloneDeep(checkedItems.fill(false)));
-              } else {
-                setCheckedItems(cloneDeep(checkedItems.fill(true)));
-              }
-              dispatch(toggleCartState(e.target.value));
-            }}
-          >
-            모두선택
-          </Checkbox>
-          <Text>선택삭제</Text>
-        </HStack>
-        {cart[0].cartitem.map((cartItem: CartType, i: number) => {
-          return (
-            <HStack key={cartItem.id} align="start">
-              <Checkbox
-                value={i}
-                isChecked={checkedItems[i]}
-                colorScheme="commerse"
-                onChange={(e) => handleChange(e, cartItem)}
-              ></Checkbox>
-              <CartCard
-                cartItem={cartItem}
-                checkedItems={checkedItems}
-                setCheckedItems={setCheckedItems}
-              />
+  else
+    return (
+      <Box>
+        <Stack divider={<Divider bg="gray.200" h="10px" />}>
+          <HStack color="gray.600" justify="space-between">
+            <Checkbox
+              value={0}
+              colorScheme="commerse"
+              isChecked={allChecked}
+              isIndeterminate={isIndeterminate}
+              onChange={(e) => {
+                if (checkedItems.every((b) => b === true)) {
+                  setCheckedItems(cloneDeep(checkedItems.fill(false)));
+                } else {
+                  setCheckedItems(cloneDeep(checkedItems.fill(true)));
+                }
+                dispatch(toggleCartState(e.target.value));
+              }}
+            >
+              모두선택
+            </Checkbox>
+            <Text>선택삭제</Text>
+          </HStack>
+          {cart[0].cartitem.map((cartItem: CartType, i: number) => {
+            return (
+              <HStack key={cartItem.id} align="start">
+                <Checkbox
+                  value={i}
+                  isChecked={checkedItems[i]}
+                  colorScheme="commerse"
+                  onChange={(e) => handleChange(e, cartItem)}
+                ></Checkbox>
+                <CartCard
+                  cartItem={cartItem}
+                  checkedItems={checkedItems}
+                  setCheckedItems={setCheckedItems}
+                />
+              </HStack>
+            );
+          })}
+          <Stack h="auto" spacing="4" pb="70px">
+            <HStack color="gray.600" justify="space-between">
+              <Text>총 상품금액</Text>
+              <Text>{prices.total}원</Text>
             </HStack>
-          );
-        })}
-        <Stack h="auto" spacing="4" pb="70px">
-          <HStack color="gray.600" justify="space-between">
-            <Text>총 상품금액</Text>
-            <Text>{prices.total}원</Text>
-          </HStack>
-          <HStack color="gray.600" justify="space-between">
-            <Text>총 배송비</Text>
-            <Text>{prices.delivery}원</Text>
-          </HStack>
-          <Divider />
-          <HStack justify="space-between">
-            <Text>결제금액</Text>
-            <Text variant="boldcommerse">
-              {intComma(prices.total + prices.delivery)}원
-            </Text>
-          </HStack>
-          <SubmitButton
-            disabled={checkedItems.every((b) => b === false)}
-            title="결제하기"
-            size="btnlg"
-            variant="btncommerse"
-            onClick={() => {
-              const cartItems = state
-                .map((item: any, i: number) => {
-                  if (item.isChecked === true) return state[i].id;
-                })
-                .filter((v: boolean | undefined) => v !== undefined);
-              router.push(ROUTES.PURCHASE.MAIN + `/?items=${cartItems}`);
-            }}
-          />
+            <HStack color="gray.600" justify="space-between">
+              <Text>총 배송비</Text>
+              <Text>{prices.delivery}원</Text>
+            </HStack>
+            <Divider />
+            <HStack justify="space-between">
+              <Text>결제금액</Text>
+              <Text variant="boldcommerse">
+                {intComma(prices.total + prices.delivery)}원
+              </Text>
+            </HStack>
+            <SubmitButton
+              disabled={checkedItems.every((b) => b === false)}
+              title="결제하기"
+              size="btnlg"
+              variant="btncommerse"
+              onClick={() => {
+                const cartItems = state
+                  .map((item: any, i: number) => {
+                    if (item.isChecked === true) return state[i].id;
+                  })
+                  .filter((v: boolean | undefined) => v !== undefined);
+                router.push(ROUTES.PURCHASE.MAIN + `/?items=${cartItems}`);
+              }}
+            />
+          </Stack>
         </Stack>
-      </Stack>
-    </Box>
-  );
+      </Box>
+    );
 }
 
 export default CartPage;

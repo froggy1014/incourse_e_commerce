@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useQueries, useQuery } from 'react-query';
 
+import { getCookie } from 'cookies-next';
+
 import { Box, Stack, Text } from '@chakra-ui/react';
 
 import { getMyOrders, getOrderStatus } from '@apis/_axios/get/axiosGet';
@@ -19,6 +21,7 @@ import PageBar from './_fragment/PageBar';
 import StatusMenu from './_fragment/StatusMenu';
 
 function MypageOrderhistoryPage() {
+  const userId = getCookie('userId');
   const [open, setOpen] = useState(false);
   const [canceled, setCanceled] = useState(false);
   const [orderId, setOrderId] = useState<string>('');
@@ -28,7 +31,7 @@ function MypageOrderhistoryPage() {
 
   const { data: PageInfo } = useQuery(
     [QUERY_KEY.MYORDERS, page],
-    () => getMyOrders(page),
+    () => getMyOrders(page, String(userId)),
     { keepPreviousData: true },
   );
 

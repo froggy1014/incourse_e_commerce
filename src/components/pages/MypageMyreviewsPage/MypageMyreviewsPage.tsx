@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
+import { getCookie } from 'cookies-next';
+
 import { Box, ChakraProps, Divider, Stack, Text } from '@chakra-ui/react';
 
 import { getMyReviews } from '@apis/_axios/get/axiosGet';
@@ -17,12 +19,13 @@ import MyReviewCard from './_fragments/MyReviewCard';
 interface MypageMyreviewsPageProps extends ChakraProps {}
 
 function MypageMyreviewsPage({ ...basisProps }: MypageMyreviewsPageProps) {
+  const userId = getCookie('userId');
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState<number>(0);
 
   const { data: pageInfo, isLoading } = useQuery(
     [QUERY_KEY.MYREVIEWS, page],
-    () => getMyReviews(page),
+    () => getMyReviews(page, String(userId)),
     { keepPreviousData: true },
   );
 
