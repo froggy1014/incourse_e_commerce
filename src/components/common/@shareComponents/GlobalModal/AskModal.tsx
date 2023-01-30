@@ -36,8 +36,7 @@ export const AskModal = ({
 
   const handleClick = () => {
     if (router.pathname.includes('orderhistory') && orderId !== undefined) {
-      const body = { oid: orderId, status: 'CANCELED' };
-      patchStatus(body);
+      patchStatus({ id: orderId, shippingStatus: 'CANCELED' });
       setOpen(false);
       setCanceled(true);
     }

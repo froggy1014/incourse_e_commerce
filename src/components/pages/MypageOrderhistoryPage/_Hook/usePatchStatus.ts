@@ -1,5 +1,7 @@
 import { UseMutateFunction, useMutation, useQueryClient } from 'react-query';
 
+import { IPatchStatus } from '@types';
+
 import { patchShipStatus } from '@apis/_axios/patch/axiosPatch';
 
 import { QUERY_KEY } from '@constants/query-keys';
@@ -10,17 +12,20 @@ type TStatus = {
 };
 
 export function usePatchStatus(): UseMutateFunction<
-  void,
+  IPatchStatus,
   unknown,
-  TStatus,
+  IPatchStatus,
   unknown
 > {
   const QueryClient = useQueryClient();
-  const { mutate } = useMutation((data: TStatus) => patchShipStatus(data), {
-    onSuccess: () => {
-      QueryClient.invalidateQueries([QUERY_KEY.MYORDERSSTATUS]);
+  const { mutate } = useMutation(
+    (data: IPatchStatus) => patchShipStatus(data),
+    {
+      onSuccess: () => {
+        QueryClient.invalidateQueries([QUERY_KEY.MYORDERSSTATUS]);
+      },
     },
-  });
+  );
 
   return mutate;
 }

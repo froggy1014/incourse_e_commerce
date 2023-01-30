@@ -17,7 +17,7 @@ export async function patchShipStatus({
 }
 
 export async function patchGetMe(
-  data: Omit<IPatchGetme, 'id'>,
+  data: Omit<IPatchGetme, 'id' | 'profile'>,
 ): Promise<IPatchGetme> {
   return await patch('user/me/', data);
 }

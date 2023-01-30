@@ -1,13 +1,6 @@
 import React from 'react';
 
-import {
-  Button,
-  Collapse,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-} from '@chakra-ui/react';
+import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 
 import { DownVerticalArrow } from '@icons/index';
 
@@ -17,8 +10,7 @@ const StatusMenu = ({ orderId }: { orderId: string }) => {
   const patchStatus = usePatchStatus();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const body = { oid: orderId, status: e.currentTarget.innerText };
-    patchStatus(body);
+    patchStatus({ id: orderId, shippingStatus: e.currentTarget.innerText });
   };
   return (
     <Menu autoSelect={false}>

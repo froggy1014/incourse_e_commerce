@@ -43,9 +43,7 @@ const ProfileFormPage = ({ userInfo }: { userInfo?: UserInfo }) => {
           gender: gender,
           age: ages,
         };
-        patchGetMe(data).then((response) => {
-          if (response.status === 200) setOpen(!open);
-        });
+        patchGetMe(data).then(() => setOpen(!open));
       }
       if (router.pathname === ROUTES.SIGNUP.MAIN) {
         const data = {

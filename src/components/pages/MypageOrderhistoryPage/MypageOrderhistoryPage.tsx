@@ -45,7 +45,7 @@ function MypageOrderhistoryPage() {
   useEffect(() => {
     if (PageInfo && total === 0) setTotal(Math.ceil(PageInfo.count / 4));
     if (PageInfo) setUuidGroup(divideArraybyuuid(PageInfo.results));
-  }, [PageInfo]);
+  }, [PageInfo, total]);
 
   if (data.some((d) => d.isLoading === true)) return <Loading />;
 
@@ -62,10 +62,10 @@ function MypageOrderhistoryPage() {
                 [{formatDateDash(uuid[0]?.created)}]
               </Text>
               <StatusMenu orderId={uuid[0].orderId} />
-              <HistoryCard items={uuid} status={data[i].data.shippingStatus} />
-              {STATUS.NOTARRIVCE.includes(data[i].data.shippingStatus) && (
+              <HistoryCard items={uuid} status={data[i].data!.shippingStatus} />
+              {STATUS.NOTARRIVCE.includes(data[i].data!.shippingStatus) && (
                 <CancelButton
-                  status={data[i].data.shippingStatus}
+                  status={data[i].data!.shippingStatus}
                   setOpen={setOpen}
                   open={open}
                   float="right"

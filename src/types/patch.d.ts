@@ -10,6 +10,7 @@ export interface IPatchGetme {
   phone: string;
   email: string;
   profile: string;
+  profilePath?: string;
   gender: string;
   age: number;
 }
