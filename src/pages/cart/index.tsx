@@ -1,16 +1,25 @@
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 
-import { getCookie, setCookie } from 'cookies-next';
+import { getMe } from '@apis/_axios/get/axiosGet';
 
-import { postRefreshToken } from '@apis/_axios/post/axiosPost';
-
+import { Loading } from '@components/common/@shareComponents';
 import CartPage from '@components/pages/CartPage/CartPage';
 
 import MobileLayout from '@layout/MobileLayout';
 import { Footer, MainHeader } from '@layout/components';
 
-const Cart = ({ userId }: { userId: string }) => {
+const Cart = () => {
+  const [userId, setUserId] = useState<string>();
+  useEffect(() => {
+    async function mypageFunc() {
+      const data = await getMe();
+      setUserId(data.id);
+    }
+    mypageFunc();
+  }, []);
+  if (!userId) return <Loading full />;
+
   return (
     <>
       <Head>
@@ -26,23 +35,3 @@ const Cart = ({ userId }: { userId: string }) => {
 };
 
 export default Cart;
-
-export const getServerSideProps: GetServerSideProps = async ({ res, req }) => {
-  const userId = getCookie('userId', { res, req });
-  const refreshToken = getCookie('refresh', { res, req });
-  if (!refreshToken) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/login',
-      },
-    };
-  }
-  const data = await postRefreshToken(refreshToken as string);
-  setCookie('access', data.access, { res, req });
-  setCookie('refresh', data.refresh, { res, req });
-
-  return {
-    props: { userId },
-  };
-};

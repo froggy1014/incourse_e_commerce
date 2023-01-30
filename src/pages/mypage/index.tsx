@@ -19,7 +19,7 @@ function Mypage() {
     mypageFunc();
   }, []);
 
-  if (!meinfo) return <Loading />;
+  if (!meinfo) return <Loading full />;
 
   return (
     <>
