@@ -9,7 +9,6 @@ function MypageMyreviews() {
   return (
     <>
       <Head>
-        {/* ex) Your App Name | Page Name */}
         <title>내 상품 리뷰</title>
       </Head>
       <MobileLayout

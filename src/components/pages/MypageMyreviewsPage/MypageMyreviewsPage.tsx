@@ -35,28 +35,26 @@ function MypageMyreviewsPage({ ...basisProps }: MypageMyreviewsPageProps) {
 
   if (isLoading) return <Loading />;
 
-  console.log(pageInfo);
-
   if (pageInfo.count === 0) return <EmptyReview />;
-
-  return (
-    <Box {...basisProps}>
-      <Text variant="pageTitle">내 상품 리뷰</Text>
-      <Text variant="bold16" mb="30px">
-        총{' '}
-        <Box as="span" color="commerse.500">
-          {pageInfo?.count}
-        </Box>
-        건
-      </Text>
-      <Stack divider={<Divider />}>
-        {pageInfo?.results.map((review: IMyReviews) => {
-          return <MyReviewCard key={review.id} review={review} />;
-        })}
+  else
+    return (
+      <Box {...basisProps}>
+        <Text variant="pageTitle">내 상품 리뷰</Text>
+        <Text variant="bold16" mb="30px">
+          총{' '}
+          <Box as="span" color="commerse.500">
+            {pageInfo?.count}
+          </Box>
+          건
+        </Text>
+        <Stack divider={<Divider />}>
+          {pageInfo?.results.map((review: IMyReviews) => {
+            return <MyReviewCard key={review.id} review={review} />;
+          })}
+        </Stack>
         <PageBar page={page} setPage={setPage} total={total} />
-      </Stack>
-    </Box>
-  );
+      </Box>
+    );
 }
 
 export default MypageMyreviewsPage;

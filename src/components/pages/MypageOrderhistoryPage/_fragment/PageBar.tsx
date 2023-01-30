@@ -37,10 +37,10 @@ const PageBar = ({ page, setPage, total, ...basisProps }: PageBarInterface) => {
   useEffect(() => {
     if (total > 5) setPageNum(pagenation(total));
     else setPageNum(Array.from({ length: total }, (_, i) => i + 1));
-  }, [page, total]);
+  }, [page, total, pagenation]);
 
   return (
-    <Flex px="30px" py="50px" align="center" {...basisProps}>
+    <Flex w="100%" px="10%" py="50px" justifyContent="center" {...basisProps}>
       <Button
         bg="white"
         disabled={page === 1}
