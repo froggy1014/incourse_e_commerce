@@ -1,4 +1,5 @@
-import { CookieValueTypes, getCookie } from 'cookies-next';
+import { IGetOrderInfo } from '@types';
+import { getCookie } from 'cookies-next';
 
 import { get } from '../request';
 
@@ -20,7 +21,7 @@ export async function getMyReviews(page: number) {
   );
 }
 
-export async function getOrderStatus(oid: string) {
+export async function getOrderStatus(oid: string): Promise<IGetOrderInfo> {
   return await get(`order/${oid}/`);
 }
 
@@ -28,7 +29,7 @@ export async function getMe() {
   return await get('user/me/');
 }
 
-export async function getCartInfo(uid: string) {
+export async function getCartInfo(uid: string | number) {
   return await get(`cart/?user_id=${uid}`);
 }
 
@@ -38,8 +39,6 @@ export const getProduct = async ({ pageParam = null }) => {
   else response = await get(`/product/?cursor=${pageParam}`);
   return response;
 };
-
-/*************************ServerSide********************************/
 
 export async function getOrderList(userId: string) {
   return get(`order/?user_id=${userId}`);

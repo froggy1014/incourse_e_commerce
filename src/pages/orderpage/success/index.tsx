@@ -78,8 +78,8 @@ export const getServerSideProps: GetServerSideProps = async ({
     orderMessage,
   } = await getOrderStatus(query.orderId as string);
   const body = {
-    price: query.amount,
-    paymentKey: query.paymentKey,
+    price: query.amount as string,
+    paymentKey: query.paymentKey as string,
     method: 'CARD',
     userName,
     userPhone,

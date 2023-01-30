@@ -22,8 +22,5 @@ export async function patch(url: string, body: any) {
 }
 
 export async function del(url: string) {
-  return await request
-    .delete(url)
-    // .then((res) => res.data)
-    .catch((error) => console.log(error));
+  return await request.delete(url).catch((error) => console.log(error));
 }

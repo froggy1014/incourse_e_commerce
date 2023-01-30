@@ -1,3 +1,4 @@
+import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -14,14 +15,14 @@ import { withGlobalModalHandlerContext } from 'contexts/modal/useGlobalModalHand
 
 const queryClient = new QueryClient();
 
-function MyApp({ Component, pageProps: { ...pageProps } }: any) {
+function MyApp({ Component, pageProps: { ...pageProps } }: AppProps) {
   const theme = useTheme();
   const { colorMode } = useColorMode();
 
   return (
     <>
       <Head>
-        <meta property="og:image" content="/public/images/og_image.png" />
+        <meta property="og:image" content="/images/og_image.png" />
 
         <meta property="og:title" content="InCourse E-Commerce Web" />
 
@@ -36,10 +37,7 @@ function MyApp({ Component, pageProps: { ...pageProps } }: any) {
 
         <meta property="og:type" content="website" />
 
-        <meta
-          property="og:url"
-          content="fastcampas-5-commerce-lk6lpq0e5-froggy1014.vercel.app"
-        />
+        <meta property="og:url" content="https://incourse.vercel.app/" />
       </Head>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider
