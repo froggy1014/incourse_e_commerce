@@ -8,10 +8,9 @@ interface IProps {
 }
 
 export const FallbackImage: NextPage<IProps> = (props) => {
-  const [imgSrc, setImgSrc] = useState(props.src);
-
+  const [imgSrc, setImgSrc] = useState('');
   useEffect(() => {
-    setImgSrc(props.src);
+    setImgSrc(props.src.split('media/')[2]);
   }, [props.src]);
 
   return (
@@ -20,7 +19,11 @@ export const FallbackImage: NextPage<IProps> = (props) => {
       unoptimized={true}
       width="80px"
       height="80px"
-      src={imgSrc ? imgSrc : '/images/fallback.png'}
+      src={
+        imgSrc
+          ? process.env.NEXT_PUBLIC_AWS_S3_URL + imgSrc
+          : '/images/fallback.png'
+      }
       onError={() => {
         setImgSrc('/images/fallback.png');
       }}

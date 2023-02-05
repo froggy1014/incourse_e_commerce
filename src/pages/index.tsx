@@ -21,7 +21,7 @@ function Main({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
 
 export async function getStaticProps() {
   const response = await axios(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}product/tag/?tag_id=1`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}product/tag/`,
   );
   const data = await response.data;
   return {
