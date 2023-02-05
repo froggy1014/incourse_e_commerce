@@ -13,7 +13,7 @@ const Section3 = ({ results }: AllReviewTypes) => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
@@ -24,7 +24,7 @@ const Section3 = ({ results }: AllReviewTypes) => {
         <br />
         고객님의 솔직한 리뷰
       </Text>
-      <ButtonCarousel setValue={setValue} value={value} />
+      <ButtonCarousel data={results} setValue={setValue} value={value} />
       {/* <SingleCarousel /> */}
       <Box overflowX="hidden" maxW="375px" h="auto" mb="80px">
         <Slider {...settings}>
