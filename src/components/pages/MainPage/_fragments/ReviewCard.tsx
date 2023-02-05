@@ -1,31 +1,15 @@
 import React from 'react';
 
-import {
-  Box,
-  ChakraProps,
-  Divider,
-  Flex,
-  HStack,
-  Image,
-  Text,
-} from '@chakra-ui/react';
+import { IReviewList } from '@types';
+
+import { Box, Divider, Flex, HStack, Text } from '@chakra-ui/react';
 
 import { EmptyRatingIcon, RatingIcon } from '@icons/index';
 
 import { FallbackImage } from '@shareComponents/index';
 import { formatDate } from '@utils/format';
 
-import { IReviewList } from '../data';
-
-interface ReviewCardType extends ChakraProps {}
-
-const ReviewCard = ({
-  data,
-  ...Props
-}: {
-  data: IReviewList;
-  Props?: ReviewCardType;
-}) => {
+const ReviewCard = ({ data }: { data: IReviewList }) => {
   const { created, rate, content, reviewimageSet } = data;
   return (
     <Box

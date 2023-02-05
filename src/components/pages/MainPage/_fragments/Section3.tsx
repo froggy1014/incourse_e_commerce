@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Slider from 'react-slick';
 
+import { AllReviewTypes } from '@types';
+
 import { Box, Text } from '@chakra-ui/react';
 
-import { AllReviewTypes } from '../data';
 import ButtonCarousel from './ButtonCarousel';
 import ReviewCard from './ReviewCard';
 
