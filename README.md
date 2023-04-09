@@ -1,4 +1,5 @@
 # 🧴 [Incourse E-commerce Service](https://incourse.vercel.app/) 
+// Server has been shutdown.
 
 <div align="center" width="300px">
     
